@@ -3,3 +3,4 @@ node_modules
 yarn-error.log
 
 /src/generated/prisma
+package-lock.json
