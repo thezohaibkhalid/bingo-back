@@ -123,6 +123,7 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
+  passwordHash: 'passwordHash',
   name: 'name',
   displayName: 'displayName',
   image: 'image',
@@ -131,22 +132,6 @@ exports.Prisma.UserScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   lastOnlineAt: 'lastOnlineAt'
-};
-
-exports.Prisma.AccountScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  providerId: 'providerId',
-  accountId: 'accountId',
-  accessToken: 'accessToken',
-  refreshToken: 'refreshToken',
-  idToken: 'idToken',
-  accessTokenExpiresAt: 'accessTokenExpiresAt',
-  refreshTokenExpiresAt: 'refreshTokenExpiresAt',
-  scope: 'scope',
-  password: 'password',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SessionScalarFieldEnum = {
@@ -160,13 +145,14 @@ exports.Prisma.SessionScalarFieldEnum = {
   userAgent: 'userAgent'
 };
 
-exports.Prisma.VerificationScalarFieldEnum = {
+exports.Prisma.EmailOtpScalarFieldEnum = {
   id: 'id',
-  identifier: 'identifier',
-  value: 'value',
+  userId: 'userId',
+  codeHash: 'codeHash',
+  purpose: 'purpose',
   expiresAt: 'expiresAt',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  consumedAt: 'consumedAt',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.FriendshipScalarFieldEnum = {
@@ -236,9 +222,8 @@ exports.MatchStatus = exports.$Enums.MatchStatus = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Account: 'Account',
   Session: 'Session',
-  Verification: 'Verification',
+  EmailOtp: 'EmailOtp',
   Friendship: 'Friendship',
   Match: 'Match',
   Board: 'Board',

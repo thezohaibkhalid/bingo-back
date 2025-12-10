@@ -21,11 +21,12 @@ enum MatchStatus {
   CANCELLED
 }
 
-// ── AUTH MODELS (better-auth compatible) ───────────────────────────────
+// ── AUTH MODELS (email + password + 2FA) ───────────────────────────────
 
 model User {
   id            String    @id @default(cuid())
-  email         String?   @unique
+  email         String    @unique
+  passwordHash  String    // hashed password (bcrypt)
   name          String?
   displayName   String?
   image         String?
@@ -35,8 +36,11 @@ model User {
   updatedAt     DateTime  @updatedAt
   lastOnlineAt  DateTime?
 
-  accounts            Account[]
-  sessions            Session[]
+  // Auth relations
+  sessions  Session[]
+  otpCodes  EmailOtp[]
+
+  // App relations
   requestedFriendships Friendship[] @relation("FriendshipRequester")
   receivedFriendships  Friendship[] @relation("FriendshipAddressee")
   matchesAsPlayer1     Match[]      @relation("Player1Matches")
@@ -47,28 +51,6 @@ model User {
   moves                Move[]       @relation("UserMoves")
 
   @@map("users")
-}
-
-model Account {
-  id                    String  @id @default(cuid())
-  userId                String
-  providerId            String
-  accountId             String
-  accessToken           String? @db.Text
-  refreshToken          String? @db.Text
-  idToken               String? @db.Text
-  accessTokenExpiresAt  DateTime?
-  refreshTokenExpiresAt DateTime?
-  scope                 String?
-  password              String? @db.Text
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([providerId, accountId])
-  @@index([userId])
-  @@map("accounts")
 }
 
 model Session {
@@ -87,17 +69,20 @@ model Session {
   @@map("sessions")
 }
 
-model Verification {
+model EmailOtp {
   id         String   @id @default(cuid())
-  identifier String
-  value      String
+  userId     String
+  codeHash   String   // sha256 of the OTP code
+  purpose    String   // e.g. "login_2fa"
   expiresAt  DateTime
+  consumedAt DateTime?
   createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
 
-  @@index([identifier])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, purpose])
   @@index([expiresAt])
-  @@map("verification")
+  @@map("email_otps")
 }
 
 // ── APP MODELS ─────────────────────────────────────────────────────────
@@ -119,20 +104,20 @@ model Friendship {
 }
 
 model Match {
-  id                String       @id @default(cuid())
+  id                String      @id @default(cuid())
   player1Id         String
   player2Id         String
-  status            MatchStatus  @default(INVITED)
+  status            MatchStatus @default(INVITED)
   currentTurnUserId String?
   winnerUserId      String?
-  createdAt         DateTime     @default(now())
+  createdAt         DateTime    @default(now())
   startedAt         DateTime?
   endedAt           DateTime?
 
-  player1        User @relation("Player1Matches", fields: [player1Id], references: [id], onDelete: Restrict)
-  player2        User @relation("Player2Matches", fields: [player2Id], references: [id], onDelete: Restrict)
+  player1         User  @relation("Player1Matches", fields: [player1Id], references: [id], onDelete: Restrict)
+  player2         User  @relation("Player2Matches", fields: [player2Id], references: [id], onDelete: Restrict)
   currentTurnUser User? @relation("CurrentTurnMatches", fields: [currentTurnUserId], references: [id], onDelete: SetNull)
-  winnerUser     User? @relation("WonMatches", fields: [winnerUserId], references: [id], onDelete: SetNull)
+  winnerUser      User? @relation("WonMatches", fields: [winnerUserId], references: [id], onDelete: SetNull)
 
   boards Board[]
   moves  Move[]
@@ -144,10 +129,10 @@ model Match {
 }
 
 model Board {
-  id      String @id @default(cuid())
-  matchId String
-  userId  String
-  numbers Int[]
+  id        String   @id @default(cuid())
+  matchId   String
+  userId    String
+  numbers   Int[]
   createdAt DateTime @default(now())
 
   match Match @relation(fields: [matchId], references: [id], onDelete: Cascade)
@@ -159,7 +144,7 @@ model Board {
 }
 
 model Move {
-  id             String  @id @default(cuid())
+  id             String   @id @default(cuid())
   matchId        String
   moveNumber     Int
   chosenByUserId String

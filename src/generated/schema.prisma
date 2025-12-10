@@ -21,11 +21,12 @@ enum MatchStatus {
   CANCELLED
 }
 
-// ── AUTH MODELS (better-auth compatible) ───────────────────────────────
+// ── AUTH MODELS (email + password + 2FA) ───────────────────────────────
 
 model User {
   id            String    @id @default(cuid())
-  email         String?   @unique
+  email         String    @unique
+  passwordHash  String // hashed password (bcrypt)
   name          String?
   displayName   String?
   image         String?
@@ -35,8 +36,11 @@ model User {
   updatedAt     DateTime  @updatedAt
   lastOnlineAt  DateTime?
 
-  accounts             Account[]
-  sessions             Session[]
+  // Auth relations
+  sessions Session[]
+  otpCodes EmailOtp[]
+
+  // App relations
   requestedFriendships Friendship[] @relation("FriendshipRequester")
   receivedFriendships  Friendship[] @relation("FriendshipAddressee")
   matchesAsPlayer1     Match[]      @relation("Player1Matches")
@@ -47,28 +51,6 @@ model User {
   moves                Move[]       @relation("UserMoves")
 
   @@map("users")
-}
-
-model Account {
-  id                    String    @id @default(cuid())
-  userId                String
-  providerId            String
-  accountId             String
-  accessToken           String?   @db.Text
-  refreshToken          String?   @db.Text
-  idToken               String?   @db.Text
-  accessTokenExpiresAt  DateTime?
-  refreshTokenExpiresAt DateTime?
-  scope                 String?
-  password              String?   @db.Text
-  createdAt             DateTime  @default(now())
-  updatedAt             DateTime  @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([providerId, accountId])
-  @@index([userId])
-  @@map("accounts")
 }
 
 model Session {
@@ -87,17 +69,20 @@ model Session {
   @@map("sessions")
 }
 
-model Verification {
-  id         String   @id @default(cuid())
-  identifier String
-  value      String
+model EmailOtp {
+  id         String    @id @default(cuid())
+  userId     String
+  codeHash   String // sha256 of the OTP code
+  purpose    String // e.g. "login_2fa"
   expiresAt  DateTime
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  consumedAt DateTime?
+  createdAt  DateTime  @default(now())
 
-  @@index([identifier])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, purpose])
   @@index([expiresAt])
-  @@map("verification")
+  @@map("email_otps")
 }
 
 // ── APP MODELS ─────────────────────────────────────────────────────────

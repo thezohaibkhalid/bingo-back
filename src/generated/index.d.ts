@@ -19,20 +19,15 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
- * Model Account
- * 
- */
-export type Account = $Result.DefaultSelection<Prisma.$AccountPayload>
-/**
  * Model Session
  * 
  */
 export type Session = $Result.DefaultSelection<Prisma.$SessionPayload>
 /**
- * Model Verification
+ * Model EmailOtp
  * 
  */
-export type Verification = $Result.DefaultSelection<Prisma.$VerificationPayload>
+export type EmailOtp = $Result.DefaultSelection<Prisma.$EmailOtpPayload>
 /**
  * Model Friendship
  * 
@@ -215,16 +210,6 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.account`: Exposes CRUD operations for the **Account** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Accounts
-    * const accounts = await prisma.account.findMany()
-    * ```
-    */
-  get account(): Prisma.AccountDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.session`: Exposes CRUD operations for the **Session** model.
     * Example usage:
     * ```ts
@@ -235,14 +220,14 @@ export class PrismaClient<
   get session(): Prisma.SessionDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.verification`: Exposes CRUD operations for the **Verification** model.
+   * `prisma.emailOtp`: Exposes CRUD operations for the **EmailOtp** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Verifications
-    * const verifications = await prisma.verification.findMany()
+    * // Fetch zero or more EmailOtps
+    * const emailOtps = await prisma.emailOtp.findMany()
     * ```
     */
-  get verification(): Prisma.VerificationDelegate<ExtArgs, ClientOptions>;
+  get emailOtp(): Prisma.EmailOtpDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.friendship`: Exposes CRUD operations for the **Friendship** model.
@@ -718,9 +703,8 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
-    Account: 'Account',
     Session: 'Session',
-    Verification: 'Verification',
+    EmailOtp: 'EmailOtp',
     Friendship: 'Friendship',
     Match: 'Match',
     Board: 'Board',
@@ -740,7 +724,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "account" | "session" | "verification" | "friendship" | "match" | "board" | "move"
+      modelProps: "user" | "session" | "emailOtp" | "friendship" | "match" | "board" | "move"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -818,80 +802,6 @@ export namespace Prisma {
           }
         }
       }
-      Account: {
-        payload: Prisma.$AccountPayload<ExtArgs>
-        fields: Prisma.AccountFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.AccountFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AccountPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.AccountFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AccountPayload>
-          }
-          findFirst: {
-            args: Prisma.AccountFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AccountPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.AccountFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AccountPayload>
-          }
-          findMany: {
-            args: Prisma.AccountFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AccountPayload>[]
-          }
-          create: {
-            args: Prisma.AccountCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AccountPayload>
-          }
-          createMany: {
-            args: Prisma.AccountCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.AccountCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AccountPayload>[]
-          }
-          delete: {
-            args: Prisma.AccountDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AccountPayload>
-          }
-          update: {
-            args: Prisma.AccountUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AccountPayload>
-          }
-          deleteMany: {
-            args: Prisma.AccountDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.AccountUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.AccountUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AccountPayload>[]
-          }
-          upsert: {
-            args: Prisma.AccountUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AccountPayload>
-          }
-          aggregate: {
-            args: Prisma.AccountAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateAccount>
-          }
-          groupBy: {
-            args: Prisma.AccountGroupByArgs<ExtArgs>
-            result: $Utils.Optional<AccountGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.AccountCountArgs<ExtArgs>
-            result: $Utils.Optional<AccountCountAggregateOutputType> | number
-          }
-        }
-      }
       Session: {
         payload: Prisma.$SessionPayload<ExtArgs>
         fields: Prisma.SessionFieldRefs
@@ -966,77 +876,77 @@ export namespace Prisma {
           }
         }
       }
-      Verification: {
-        payload: Prisma.$VerificationPayload<ExtArgs>
-        fields: Prisma.VerificationFieldRefs
+      EmailOtp: {
+        payload: Prisma.$EmailOtpPayload<ExtArgs>
+        fields: Prisma.EmailOtpFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.VerificationFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VerificationPayload> | null
+            args: Prisma.EmailOtpFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailOtpPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.VerificationFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VerificationPayload>
+            args: Prisma.EmailOtpFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailOtpPayload>
           }
           findFirst: {
-            args: Prisma.VerificationFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VerificationPayload> | null
+            args: Prisma.EmailOtpFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailOtpPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.VerificationFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VerificationPayload>
+            args: Prisma.EmailOtpFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailOtpPayload>
           }
           findMany: {
-            args: Prisma.VerificationFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VerificationPayload>[]
+            args: Prisma.EmailOtpFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailOtpPayload>[]
           }
           create: {
-            args: Prisma.VerificationCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VerificationPayload>
+            args: Prisma.EmailOtpCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailOtpPayload>
           }
           createMany: {
-            args: Prisma.VerificationCreateManyArgs<ExtArgs>
+            args: Prisma.EmailOtpCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.VerificationCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VerificationPayload>[]
+            args: Prisma.EmailOtpCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailOtpPayload>[]
           }
           delete: {
-            args: Prisma.VerificationDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VerificationPayload>
+            args: Prisma.EmailOtpDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailOtpPayload>
           }
           update: {
-            args: Prisma.VerificationUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VerificationPayload>
+            args: Prisma.EmailOtpUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailOtpPayload>
           }
           deleteMany: {
-            args: Prisma.VerificationDeleteManyArgs<ExtArgs>
+            args: Prisma.EmailOtpDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.VerificationUpdateManyArgs<ExtArgs>
+            args: Prisma.EmailOtpUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.VerificationUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VerificationPayload>[]
+            args: Prisma.EmailOtpUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailOtpPayload>[]
           }
           upsert: {
-            args: Prisma.VerificationUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VerificationPayload>
+            args: Prisma.EmailOtpUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailOtpPayload>
           }
           aggregate: {
-            args: Prisma.VerificationAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateVerification>
+            args: Prisma.EmailOtpAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEmailOtp>
           }
           groupBy: {
-            args: Prisma.VerificationGroupByArgs<ExtArgs>
-            result: $Utils.Optional<VerificationGroupByOutputType>[]
+            args: Prisma.EmailOtpGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EmailOtpGroupByOutputType>[]
           }
           count: {
-            args: Prisma.VerificationCountArgs<ExtArgs>
-            result: $Utils.Optional<VerificationCountAggregateOutputType> | number
+            args: Prisma.EmailOtpCountArgs<ExtArgs>
+            result: $Utils.Optional<EmailOtpCountAggregateOutputType> | number
           }
         }
       }
@@ -1445,9 +1355,8 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
-    account?: AccountOmit
     session?: SessionOmit
-    verification?: VerificationOmit
+    emailOtp?: EmailOtpOmit
     friendship?: FriendshipOmit
     match?: MatchOmit
     board?: BoardOmit
@@ -1532,8 +1441,8 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    accounts: number
     sessions: number
+    otpCodes: number
     requestedFriendships: number
     receivedFriendships: number
     matchesAsPlayer1: number
@@ -1545,8 +1454,8 @@ export namespace Prisma {
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    accounts?: boolean | UserCountOutputTypeCountAccountsArgs
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
+    otpCodes?: boolean | UserCountOutputTypeCountOtpCodesArgs
     requestedFriendships?: boolean | UserCountOutputTypeCountRequestedFriendshipsArgs
     receivedFriendships?: boolean | UserCountOutputTypeCountReceivedFriendshipsArgs
     matchesAsPlayer1?: boolean | UserCountOutputTypeCountMatchesAsPlayer1Args
@@ -1571,15 +1480,15 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountAccountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AccountWhereInput
+  export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SessionWhereInput
   }
 
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SessionWhereInput
+  export type UserCountOutputTypeCountOtpCodesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EmailOtpWhereInput
   }
 
   /**
@@ -1696,6 +1605,7 @@ export namespace Prisma {
   export type UserMinAggregateOutputType = {
     id: string | null
     email: string | null
+    passwordHash: string | null
     name: string | null
     displayName: string | null
     image: string | null
@@ -1709,6 +1619,7 @@ export namespace Prisma {
   export type UserMaxAggregateOutputType = {
     id: string | null
     email: string | null
+    passwordHash: string | null
     name: string | null
     displayName: string | null
     image: string | null
@@ -1722,6 +1633,7 @@ export namespace Prisma {
   export type UserCountAggregateOutputType = {
     id: number
     email: number
+    passwordHash: number
     name: number
     displayName: number
     image: number
@@ -1737,6 +1649,7 @@ export namespace Prisma {
   export type UserMinAggregateInputType = {
     id?: true
     email?: true
+    passwordHash?: true
     name?: true
     displayName?: true
     image?: true
@@ -1750,6 +1663,7 @@ export namespace Prisma {
   export type UserMaxAggregateInputType = {
     id?: true
     email?: true
+    passwordHash?: true
     name?: true
     displayName?: true
     image?: true
@@ -1763,6 +1677,7 @@ export namespace Prisma {
   export type UserCountAggregateInputType = {
     id?: true
     email?: true
+    passwordHash?: true
     name?: true
     displayName?: true
     image?: true
@@ -1848,7 +1763,8 @@ export namespace Prisma {
 
   export type UserGroupByOutputType = {
     id: string
-    email: string | null
+    email: string
+    passwordHash: string
     name: string | null
     displayName: string | null
     image: string | null
@@ -1879,6 +1795,7 @@ export namespace Prisma {
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     email?: boolean
+    passwordHash?: boolean
     name?: boolean
     displayName?: boolean
     image?: boolean
@@ -1887,8 +1804,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     lastOnlineAt?: boolean
-    accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
+    otpCodes?: boolean | User$otpCodesArgs<ExtArgs>
     requestedFriendships?: boolean | User$requestedFriendshipsArgs<ExtArgs>
     receivedFriendships?: boolean | User$receivedFriendshipsArgs<ExtArgs>
     matchesAsPlayer1?: boolean | User$matchesAsPlayer1Args<ExtArgs>
@@ -1903,6 +1820,7 @@ export namespace Prisma {
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     email?: boolean
+    passwordHash?: boolean
     name?: boolean
     displayName?: boolean
     image?: boolean
@@ -1916,6 +1834,7 @@ export namespace Prisma {
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     email?: boolean
+    passwordHash?: boolean
     name?: boolean
     displayName?: boolean
     image?: boolean
@@ -1929,6 +1848,7 @@ export namespace Prisma {
   export type UserSelectScalar = {
     id?: boolean
     email?: boolean
+    passwordHash?: boolean
     name?: boolean
     displayName?: boolean
     image?: boolean
@@ -1939,10 +1859,10 @@ export namespace Prisma {
     lastOnlineAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "displayName" | "image" | "avatarUrl" | "emailVerified" | "createdAt" | "updatedAt" | "lastOnlineAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "passwordHash" | "name" | "displayName" | "image" | "avatarUrl" | "emailVerified" | "createdAt" | "updatedAt" | "lastOnlineAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
+    otpCodes?: boolean | User$otpCodesArgs<ExtArgs>
     requestedFriendships?: boolean | User$requestedFriendshipsArgs<ExtArgs>
     receivedFriendships?: boolean | User$receivedFriendshipsArgs<ExtArgs>
     matchesAsPlayer1?: boolean | User$matchesAsPlayer1Args<ExtArgs>
@@ -1959,8 +1879,8 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      accounts: Prisma.$AccountPayload<ExtArgs>[]
       sessions: Prisma.$SessionPayload<ExtArgs>[]
+      otpCodes: Prisma.$EmailOtpPayload<ExtArgs>[]
       requestedFriendships: Prisma.$FriendshipPayload<ExtArgs>[]
       receivedFriendships: Prisma.$FriendshipPayload<ExtArgs>[]
       matchesAsPlayer1: Prisma.$MatchPayload<ExtArgs>[]
@@ -1972,7 +1892,8 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      email: string | null
+      email: string
+      passwordHash: string
       name: string | null
       displayName: string | null
       image: string | null
@@ -2375,8 +2296,8 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    accounts<T extends User$accountsArgs<ExtArgs> = {}>(args?: Subset<T, User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    otpCodes<T extends User$otpCodesArgs<ExtArgs> = {}>(args?: Subset<T, User$otpCodesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmailOtpPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     requestedFriendships<T extends User$requestedFriendshipsArgs<ExtArgs> = {}>(args?: Subset<T, User$requestedFriendshipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FriendshipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     receivedFriendships<T extends User$receivedFriendshipsArgs<ExtArgs> = {}>(args?: Subset<T, User$receivedFriendshipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FriendshipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     matchesAsPlayer1<T extends User$matchesAsPlayer1Args<ExtArgs> = {}>(args?: Subset<T, User$matchesAsPlayer1Args<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MatchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2416,6 +2337,7 @@ export namespace Prisma {
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
+    readonly passwordHash: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
     readonly displayName: FieldRef<"User", 'String'>
     readonly image: FieldRef<"User", 'String'>
@@ -2812,30 +2734,6 @@ export namespace Prisma {
   }
 
   /**
-   * User.accounts
-   */
-  export type User$accountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Account
-     */
-    select?: AccountSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Account
-     */
-    omit?: AccountOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AccountInclude<ExtArgs> | null
-    where?: AccountWhereInput
-    orderBy?: AccountOrderByWithRelationInput | AccountOrderByWithRelationInput[]
-    cursor?: AccountWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: AccountScalarFieldEnum | AccountScalarFieldEnum[]
-  }
-
-  /**
    * User.sessions
    */
   export type User$sessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2857,6 +2755,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[]
+  }
+
+  /**
+   * User.otpCodes
+   */
+  export type User$otpCodesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailOtp
+     */
+    select?: EmailOtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailOtp
+     */
+    omit?: EmailOtpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailOtpInclude<ExtArgs> | null
+    where?: EmailOtpWhereInput
+    orderBy?: EmailOtpOrderByWithRelationInput | EmailOtpOrderByWithRelationInput[]
+    cursor?: EmailOtpWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EmailOtpScalarFieldEnum | EmailOtpScalarFieldEnum[]
   }
 
   /**
@@ -3067,1168 +2989,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model Account
-   */
-
-  export type AggregateAccount = {
-    _count: AccountCountAggregateOutputType | null
-    _min: AccountMinAggregateOutputType | null
-    _max: AccountMaxAggregateOutputType | null
-  }
-
-  export type AccountMinAggregateOutputType = {
-    id: string | null
-    userId: string | null
-    providerId: string | null
-    accountId: string | null
-    accessToken: string | null
-    refreshToken: string | null
-    idToken: string | null
-    accessTokenExpiresAt: Date | null
-    refreshTokenExpiresAt: Date | null
-    scope: string | null
-    password: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type AccountMaxAggregateOutputType = {
-    id: string | null
-    userId: string | null
-    providerId: string | null
-    accountId: string | null
-    accessToken: string | null
-    refreshToken: string | null
-    idToken: string | null
-    accessTokenExpiresAt: Date | null
-    refreshTokenExpiresAt: Date | null
-    scope: string | null
-    password: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type AccountCountAggregateOutputType = {
-    id: number
-    userId: number
-    providerId: number
-    accountId: number
-    accessToken: number
-    refreshToken: number
-    idToken: number
-    accessTokenExpiresAt: number
-    refreshTokenExpiresAt: number
-    scope: number
-    password: number
-    createdAt: number
-    updatedAt: number
-    _all: number
-  }
-
-
-  export type AccountMinAggregateInputType = {
-    id?: true
-    userId?: true
-    providerId?: true
-    accountId?: true
-    accessToken?: true
-    refreshToken?: true
-    idToken?: true
-    accessTokenExpiresAt?: true
-    refreshTokenExpiresAt?: true
-    scope?: true
-    password?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type AccountMaxAggregateInputType = {
-    id?: true
-    userId?: true
-    providerId?: true
-    accountId?: true
-    accessToken?: true
-    refreshToken?: true
-    idToken?: true
-    accessTokenExpiresAt?: true
-    refreshTokenExpiresAt?: true
-    scope?: true
-    password?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type AccountCountAggregateInputType = {
-    id?: true
-    userId?: true
-    providerId?: true
-    accountId?: true
-    accessToken?: true
-    refreshToken?: true
-    idToken?: true
-    accessTokenExpiresAt?: true
-    refreshTokenExpiresAt?: true
-    scope?: true
-    password?: true
-    createdAt?: true
-    updatedAt?: true
-    _all?: true
-  }
-
-  export type AccountAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Account to aggregate.
-     */
-    where?: AccountWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Accounts to fetch.
-     */
-    orderBy?: AccountOrderByWithRelationInput | AccountOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: AccountWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Accounts from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Accounts.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Accounts
-    **/
-    _count?: true | AccountCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: AccountMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: AccountMaxAggregateInputType
-  }
-
-  export type GetAccountAggregateType<T extends AccountAggregateArgs> = {
-        [P in keyof T & keyof AggregateAccount]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateAccount[P]>
-      : GetScalarType<T[P], AggregateAccount[P]>
-  }
-
-
-
-
-  export type AccountGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AccountWhereInput
-    orderBy?: AccountOrderByWithAggregationInput | AccountOrderByWithAggregationInput[]
-    by: AccountScalarFieldEnum[] | AccountScalarFieldEnum
-    having?: AccountScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: AccountCountAggregateInputType | true
-    _min?: AccountMinAggregateInputType
-    _max?: AccountMaxAggregateInputType
-  }
-
-  export type AccountGroupByOutputType = {
-    id: string
-    userId: string
-    providerId: string
-    accountId: string
-    accessToken: string | null
-    refreshToken: string | null
-    idToken: string | null
-    accessTokenExpiresAt: Date | null
-    refreshTokenExpiresAt: Date | null
-    scope: string | null
-    password: string | null
-    createdAt: Date
-    updatedAt: Date
-    _count: AccountCountAggregateOutputType | null
-    _min: AccountMinAggregateOutputType | null
-    _max: AccountMaxAggregateOutputType | null
-  }
-
-  type GetAccountGroupByPayload<T extends AccountGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<AccountGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof AccountGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], AccountGroupByOutputType[P]>
-            : GetScalarType<T[P], AccountGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type AccountSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    userId?: boolean
-    providerId?: boolean
-    accountId?: boolean
-    accessToken?: boolean
-    refreshToken?: boolean
-    idToken?: boolean
-    accessTokenExpiresAt?: boolean
-    refreshTokenExpiresAt?: boolean
-    scope?: boolean
-    password?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["account"]>
-
-  export type AccountSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    userId?: boolean
-    providerId?: boolean
-    accountId?: boolean
-    accessToken?: boolean
-    refreshToken?: boolean
-    idToken?: boolean
-    accessTokenExpiresAt?: boolean
-    refreshTokenExpiresAt?: boolean
-    scope?: boolean
-    password?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["account"]>
-
-  export type AccountSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    userId?: boolean
-    providerId?: boolean
-    accountId?: boolean
-    accessToken?: boolean
-    refreshToken?: boolean
-    idToken?: boolean
-    accessTokenExpiresAt?: boolean
-    refreshTokenExpiresAt?: boolean
-    scope?: boolean
-    password?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["account"]>
-
-  export type AccountSelectScalar = {
-    id?: boolean
-    userId?: boolean
-    providerId?: boolean
-    accountId?: boolean
-    accessToken?: boolean
-    refreshToken?: boolean
-    idToken?: boolean
-    accessTokenExpiresAt?: boolean
-    refreshTokenExpiresAt?: boolean
-    scope?: boolean
-    password?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }
-
-  export type AccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "providerId" | "accountId" | "accessToken" | "refreshToken" | "idToken" | "accessTokenExpiresAt" | "refreshTokenExpiresAt" | "scope" | "password" | "createdAt" | "updatedAt", ExtArgs["result"]["account"]>
-  export type AccountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type AccountIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type AccountIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-
-  export type $AccountPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Account"
-    objects: {
-      user: Prisma.$UserPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      userId: string
-      providerId: string
-      accountId: string
-      accessToken: string | null
-      refreshToken: string | null
-      idToken: string | null
-      accessTokenExpiresAt: Date | null
-      refreshTokenExpiresAt: Date | null
-      scope: string | null
-      password: string | null
-      createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["account"]>
-    composites: {}
-  }
-
-  type AccountGetPayload<S extends boolean | null | undefined | AccountDefaultArgs> = $Result.GetResult<Prisma.$AccountPayload, S>
-
-  type AccountCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<AccountFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: AccountCountAggregateInputType | true
-    }
-
-  export interface AccountDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Account'], meta: { name: 'Account' } }
-    /**
-     * Find zero or one Account that matches the filter.
-     * @param {AccountFindUniqueArgs} args - Arguments to find a Account
-     * @example
-     * // Get one Account
-     * const account = await prisma.account.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends AccountFindUniqueArgs>(args: SelectSubset<T, AccountFindUniqueArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Account that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {AccountFindUniqueOrThrowArgs} args - Arguments to find a Account
-     * @example
-     * // Get one Account
-     * const account = await prisma.account.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends AccountFindUniqueOrThrowArgs>(args: SelectSubset<T, AccountFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Account that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AccountFindFirstArgs} args - Arguments to find a Account
-     * @example
-     * // Get one Account
-     * const account = await prisma.account.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends AccountFindFirstArgs>(args?: SelectSubset<T, AccountFindFirstArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Account that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AccountFindFirstOrThrowArgs} args - Arguments to find a Account
-     * @example
-     * // Get one Account
-     * const account = await prisma.account.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends AccountFindFirstOrThrowArgs>(args?: SelectSubset<T, AccountFindFirstOrThrowArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Accounts that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AccountFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Accounts
-     * const accounts = await prisma.account.findMany()
-     * 
-     * // Get first 10 Accounts
-     * const accounts = await prisma.account.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const accountWithIdOnly = await prisma.account.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends AccountFindManyArgs>(args?: SelectSubset<T, AccountFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Account.
-     * @param {AccountCreateArgs} args - Arguments to create a Account.
-     * @example
-     * // Create one Account
-     * const Account = await prisma.account.create({
-     *   data: {
-     *     // ... data to create a Account
-     *   }
-     * })
-     * 
-     */
-    create<T extends AccountCreateArgs>(args: SelectSubset<T, AccountCreateArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Accounts.
-     * @param {AccountCreateManyArgs} args - Arguments to create many Accounts.
-     * @example
-     * // Create many Accounts
-     * const account = await prisma.account.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends AccountCreateManyArgs>(args?: SelectSubset<T, AccountCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Accounts and returns the data saved in the database.
-     * @param {AccountCreateManyAndReturnArgs} args - Arguments to create many Accounts.
-     * @example
-     * // Create many Accounts
-     * const account = await prisma.account.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Accounts and only return the `id`
-     * const accountWithIdOnly = await prisma.account.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends AccountCreateManyAndReturnArgs>(args?: SelectSubset<T, AccountCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Account.
-     * @param {AccountDeleteArgs} args - Arguments to delete one Account.
-     * @example
-     * // Delete one Account
-     * const Account = await prisma.account.delete({
-     *   where: {
-     *     // ... filter to delete one Account
-     *   }
-     * })
-     * 
-     */
-    delete<T extends AccountDeleteArgs>(args: SelectSubset<T, AccountDeleteArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Account.
-     * @param {AccountUpdateArgs} args - Arguments to update one Account.
-     * @example
-     * // Update one Account
-     * const account = await prisma.account.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends AccountUpdateArgs>(args: SelectSubset<T, AccountUpdateArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Accounts.
-     * @param {AccountDeleteManyArgs} args - Arguments to filter Accounts to delete.
-     * @example
-     * // Delete a few Accounts
-     * const { count } = await prisma.account.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends AccountDeleteManyArgs>(args?: SelectSubset<T, AccountDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Accounts.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AccountUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Accounts
-     * const account = await prisma.account.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends AccountUpdateManyArgs>(args: SelectSubset<T, AccountUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Accounts and returns the data updated in the database.
-     * @param {AccountUpdateManyAndReturnArgs} args - Arguments to update many Accounts.
-     * @example
-     * // Update many Accounts
-     * const account = await prisma.account.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Accounts and only return the `id`
-     * const accountWithIdOnly = await prisma.account.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends AccountUpdateManyAndReturnArgs>(args: SelectSubset<T, AccountUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Account.
-     * @param {AccountUpsertArgs} args - Arguments to update or create a Account.
-     * @example
-     * // Update or create a Account
-     * const account = await prisma.account.upsert({
-     *   create: {
-     *     // ... data to create a Account
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Account we want to update
-     *   }
-     * })
-     */
-    upsert<T extends AccountUpsertArgs>(args: SelectSubset<T, AccountUpsertArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Accounts.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AccountCountArgs} args - Arguments to filter Accounts to count.
-     * @example
-     * // Count the number of Accounts
-     * const count = await prisma.account.count({
-     *   where: {
-     *     // ... the filter for the Accounts we want to count
-     *   }
-     * })
-    **/
-    count<T extends AccountCountArgs>(
-      args?: Subset<T, AccountCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], AccountCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Account.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AccountAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends AccountAggregateArgs>(args: Subset<T, AccountAggregateArgs>): Prisma.PrismaPromise<GetAccountAggregateType<T>>
-
-    /**
-     * Group by Account.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AccountGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends AccountGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: AccountGroupByArgs['orderBy'] }
-        : { orderBy?: AccountGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, AccountGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAccountGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Account model
-   */
-  readonly fields: AccountFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Account.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__AccountClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the Account model
-   */
-  interface AccountFieldRefs {
-    readonly id: FieldRef<"Account", 'String'>
-    readonly userId: FieldRef<"Account", 'String'>
-    readonly providerId: FieldRef<"Account", 'String'>
-    readonly accountId: FieldRef<"Account", 'String'>
-    readonly accessToken: FieldRef<"Account", 'String'>
-    readonly refreshToken: FieldRef<"Account", 'String'>
-    readonly idToken: FieldRef<"Account", 'String'>
-    readonly accessTokenExpiresAt: FieldRef<"Account", 'DateTime'>
-    readonly refreshTokenExpiresAt: FieldRef<"Account", 'DateTime'>
-    readonly scope: FieldRef<"Account", 'String'>
-    readonly password: FieldRef<"Account", 'String'>
-    readonly createdAt: FieldRef<"Account", 'DateTime'>
-    readonly updatedAt: FieldRef<"Account", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * Account findUnique
-   */
-  export type AccountFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Account
-     */
-    select?: AccountSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Account
-     */
-    omit?: AccountOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AccountInclude<ExtArgs> | null
-    /**
-     * Filter, which Account to fetch.
-     */
-    where: AccountWhereUniqueInput
-  }
-
-  /**
-   * Account findUniqueOrThrow
-   */
-  export type AccountFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Account
-     */
-    select?: AccountSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Account
-     */
-    omit?: AccountOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AccountInclude<ExtArgs> | null
-    /**
-     * Filter, which Account to fetch.
-     */
-    where: AccountWhereUniqueInput
-  }
-
-  /**
-   * Account findFirst
-   */
-  export type AccountFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Account
-     */
-    select?: AccountSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Account
-     */
-    omit?: AccountOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AccountInclude<ExtArgs> | null
-    /**
-     * Filter, which Account to fetch.
-     */
-    where?: AccountWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Accounts to fetch.
-     */
-    orderBy?: AccountOrderByWithRelationInput | AccountOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Accounts.
-     */
-    cursor?: AccountWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Accounts from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Accounts.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Accounts.
-     */
-    distinct?: AccountScalarFieldEnum | AccountScalarFieldEnum[]
-  }
-
-  /**
-   * Account findFirstOrThrow
-   */
-  export type AccountFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Account
-     */
-    select?: AccountSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Account
-     */
-    omit?: AccountOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AccountInclude<ExtArgs> | null
-    /**
-     * Filter, which Account to fetch.
-     */
-    where?: AccountWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Accounts to fetch.
-     */
-    orderBy?: AccountOrderByWithRelationInput | AccountOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Accounts.
-     */
-    cursor?: AccountWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Accounts from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Accounts.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Accounts.
-     */
-    distinct?: AccountScalarFieldEnum | AccountScalarFieldEnum[]
-  }
-
-  /**
-   * Account findMany
-   */
-  export type AccountFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Account
-     */
-    select?: AccountSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Account
-     */
-    omit?: AccountOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AccountInclude<ExtArgs> | null
-    /**
-     * Filter, which Accounts to fetch.
-     */
-    where?: AccountWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Accounts to fetch.
-     */
-    orderBy?: AccountOrderByWithRelationInput | AccountOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Accounts.
-     */
-    cursor?: AccountWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Accounts from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Accounts.
-     */
-    skip?: number
-    distinct?: AccountScalarFieldEnum | AccountScalarFieldEnum[]
-  }
-
-  /**
-   * Account create
-   */
-  export type AccountCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Account
-     */
-    select?: AccountSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Account
-     */
-    omit?: AccountOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AccountInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Account.
-     */
-    data: XOR<AccountCreateInput, AccountUncheckedCreateInput>
-  }
-
-  /**
-   * Account createMany
-   */
-  export type AccountCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Accounts.
-     */
-    data: AccountCreateManyInput | AccountCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Account createManyAndReturn
-   */
-  export type AccountCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Account
-     */
-    select?: AccountSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Account
-     */
-    omit?: AccountOmit<ExtArgs> | null
-    /**
-     * The data used to create many Accounts.
-     */
-    data: AccountCreateManyInput | AccountCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AccountIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * Account update
-   */
-  export type AccountUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Account
-     */
-    select?: AccountSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Account
-     */
-    omit?: AccountOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AccountInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Account.
-     */
-    data: XOR<AccountUpdateInput, AccountUncheckedUpdateInput>
-    /**
-     * Choose, which Account to update.
-     */
-    where: AccountWhereUniqueInput
-  }
-
-  /**
-   * Account updateMany
-   */
-  export type AccountUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Accounts.
-     */
-    data: XOR<AccountUpdateManyMutationInput, AccountUncheckedUpdateManyInput>
-    /**
-     * Filter which Accounts to update
-     */
-    where?: AccountWhereInput
-    /**
-     * Limit how many Accounts to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Account updateManyAndReturn
-   */
-  export type AccountUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Account
-     */
-    select?: AccountSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Account
-     */
-    omit?: AccountOmit<ExtArgs> | null
-    /**
-     * The data used to update Accounts.
-     */
-    data: XOR<AccountUpdateManyMutationInput, AccountUncheckedUpdateManyInput>
-    /**
-     * Filter which Accounts to update
-     */
-    where?: AccountWhereInput
-    /**
-     * Limit how many Accounts to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AccountIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * Account upsert
-   */
-  export type AccountUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Account
-     */
-    select?: AccountSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Account
-     */
-    omit?: AccountOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AccountInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Account to update in case it exists.
-     */
-    where: AccountWhereUniqueInput
-    /**
-     * In case the Account found by the `where` argument doesn't exist, create a new Account with this data.
-     */
-    create: XOR<AccountCreateInput, AccountUncheckedCreateInput>
-    /**
-     * In case the Account was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<AccountUpdateInput, AccountUncheckedUpdateInput>
-  }
-
-  /**
-   * Account delete
-   */
-  export type AccountDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Account
-     */
-    select?: AccountSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Account
-     */
-    omit?: AccountOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AccountInclude<ExtArgs> | null
-    /**
-     * Filter which Account to delete.
-     */
-    where: AccountWhereUniqueInput
-  }
-
-  /**
-   * Account deleteMany
-   */
-  export type AccountDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Accounts to delete
-     */
-    where?: AccountWhereInput
-    /**
-     * Limit how many Accounts to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * Account without action
-   */
-  export type AccountDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Account
-     */
-    select?: AccountSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Account
-     */
-    omit?: AccountOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AccountInclude<ExtArgs> | null
   }
 
 
@@ -5330,348 +4090,374 @@ export namespace Prisma {
 
 
   /**
-   * Model Verification
+   * Model EmailOtp
    */
 
-  export type AggregateVerification = {
-    _count: VerificationCountAggregateOutputType | null
-    _min: VerificationMinAggregateOutputType | null
-    _max: VerificationMaxAggregateOutputType | null
+  export type AggregateEmailOtp = {
+    _count: EmailOtpCountAggregateOutputType | null
+    _min: EmailOtpMinAggregateOutputType | null
+    _max: EmailOtpMaxAggregateOutputType | null
   }
 
-  export type VerificationMinAggregateOutputType = {
+  export type EmailOtpMinAggregateOutputType = {
     id: string | null
-    identifier: string | null
-    value: string | null
+    userId: string | null
+    codeHash: string | null
+    purpose: string | null
     expiresAt: Date | null
+    consumedAt: Date | null
     createdAt: Date | null
-    updatedAt: Date | null
   }
 
-  export type VerificationMaxAggregateOutputType = {
+  export type EmailOtpMaxAggregateOutputType = {
     id: string | null
-    identifier: string | null
-    value: string | null
+    userId: string | null
+    codeHash: string | null
+    purpose: string | null
     expiresAt: Date | null
+    consumedAt: Date | null
     createdAt: Date | null
-    updatedAt: Date | null
   }
 
-  export type VerificationCountAggregateOutputType = {
+  export type EmailOtpCountAggregateOutputType = {
     id: number
-    identifier: number
-    value: number
+    userId: number
+    codeHash: number
+    purpose: number
     expiresAt: number
+    consumedAt: number
     createdAt: number
-    updatedAt: number
     _all: number
   }
 
 
-  export type VerificationMinAggregateInputType = {
+  export type EmailOtpMinAggregateInputType = {
     id?: true
-    identifier?: true
-    value?: true
+    userId?: true
+    codeHash?: true
+    purpose?: true
     expiresAt?: true
+    consumedAt?: true
     createdAt?: true
-    updatedAt?: true
   }
 
-  export type VerificationMaxAggregateInputType = {
+  export type EmailOtpMaxAggregateInputType = {
     id?: true
-    identifier?: true
-    value?: true
+    userId?: true
+    codeHash?: true
+    purpose?: true
     expiresAt?: true
+    consumedAt?: true
     createdAt?: true
-    updatedAt?: true
   }
 
-  export type VerificationCountAggregateInputType = {
+  export type EmailOtpCountAggregateInputType = {
     id?: true
-    identifier?: true
-    value?: true
+    userId?: true
+    codeHash?: true
+    purpose?: true
     expiresAt?: true
+    consumedAt?: true
     createdAt?: true
-    updatedAt?: true
     _all?: true
   }
 
-  export type VerificationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type EmailOtpAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Verification to aggregate.
+     * Filter which EmailOtp to aggregate.
      */
-    where?: VerificationWhereInput
+    where?: EmailOtpWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Verifications to fetch.
+     * Determine the order of EmailOtps to fetch.
      */
-    orderBy?: VerificationOrderByWithRelationInput | VerificationOrderByWithRelationInput[]
+    orderBy?: EmailOtpOrderByWithRelationInput | EmailOtpOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: VerificationWhereUniqueInput
+    cursor?: EmailOtpWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Verifications from the position of the cursor.
+     * Take `±n` EmailOtps from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Verifications.
+     * Skip the first `n` EmailOtps.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Verifications
+     * Count returned EmailOtps
     **/
-    _count?: true | VerificationCountAggregateInputType
+    _count?: true | EmailOtpCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: VerificationMinAggregateInputType
+    _min?: EmailOtpMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: VerificationMaxAggregateInputType
+    _max?: EmailOtpMaxAggregateInputType
   }
 
-  export type GetVerificationAggregateType<T extends VerificationAggregateArgs> = {
-        [P in keyof T & keyof AggregateVerification]: P extends '_count' | 'count'
+  export type GetEmailOtpAggregateType<T extends EmailOtpAggregateArgs> = {
+        [P in keyof T & keyof AggregateEmailOtp]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateVerification[P]>
-      : GetScalarType<T[P], AggregateVerification[P]>
+        : GetScalarType<T[P], AggregateEmailOtp[P]>
+      : GetScalarType<T[P], AggregateEmailOtp[P]>
   }
 
 
 
 
-  export type VerificationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: VerificationWhereInput
-    orderBy?: VerificationOrderByWithAggregationInput | VerificationOrderByWithAggregationInput[]
-    by: VerificationScalarFieldEnum[] | VerificationScalarFieldEnum
-    having?: VerificationScalarWhereWithAggregatesInput
+  export type EmailOtpGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EmailOtpWhereInput
+    orderBy?: EmailOtpOrderByWithAggregationInput | EmailOtpOrderByWithAggregationInput[]
+    by: EmailOtpScalarFieldEnum[] | EmailOtpScalarFieldEnum
+    having?: EmailOtpScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: VerificationCountAggregateInputType | true
-    _min?: VerificationMinAggregateInputType
-    _max?: VerificationMaxAggregateInputType
+    _count?: EmailOtpCountAggregateInputType | true
+    _min?: EmailOtpMinAggregateInputType
+    _max?: EmailOtpMaxAggregateInputType
   }
 
-  export type VerificationGroupByOutputType = {
+  export type EmailOtpGroupByOutputType = {
     id: string
-    identifier: string
-    value: string
+    userId: string
+    codeHash: string
+    purpose: string
     expiresAt: Date
+    consumedAt: Date | null
     createdAt: Date
-    updatedAt: Date
-    _count: VerificationCountAggregateOutputType | null
-    _min: VerificationMinAggregateOutputType | null
-    _max: VerificationMaxAggregateOutputType | null
+    _count: EmailOtpCountAggregateOutputType | null
+    _min: EmailOtpMinAggregateOutputType | null
+    _max: EmailOtpMaxAggregateOutputType | null
   }
 
-  type GetVerificationGroupByPayload<T extends VerificationGroupByArgs> = Prisma.PrismaPromise<
+  type GetEmailOtpGroupByPayload<T extends EmailOtpGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<VerificationGroupByOutputType, T['by']> &
+      PickEnumerable<EmailOtpGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof VerificationGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof EmailOtpGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], VerificationGroupByOutputType[P]>
-            : GetScalarType<T[P], VerificationGroupByOutputType[P]>
+              : GetScalarType<T[P], EmailOtpGroupByOutputType[P]>
+            : GetScalarType<T[P], EmailOtpGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type VerificationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type EmailOtpSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    identifier?: boolean
-    value?: boolean
+    userId?: boolean
+    codeHash?: boolean
+    purpose?: boolean
     expiresAt?: boolean
+    consumedAt?: boolean
     createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["verification"]>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["emailOtp"]>
 
-  export type VerificationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type EmailOtpSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    identifier?: boolean
-    value?: boolean
+    userId?: boolean
+    codeHash?: boolean
+    purpose?: boolean
     expiresAt?: boolean
+    consumedAt?: boolean
     createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["verification"]>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["emailOtp"]>
 
-  export type VerificationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type EmailOtpSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    identifier?: boolean
-    value?: boolean
+    userId?: boolean
+    codeHash?: boolean
+    purpose?: boolean
     expiresAt?: boolean
+    consumedAt?: boolean
     createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["verification"]>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["emailOtp"]>
 
-  export type VerificationSelectScalar = {
+  export type EmailOtpSelectScalar = {
     id?: boolean
-    identifier?: boolean
-    value?: boolean
+    userId?: boolean
+    codeHash?: boolean
+    purpose?: boolean
     expiresAt?: boolean
+    consumedAt?: boolean
     createdAt?: boolean
-    updatedAt?: boolean
   }
 
-  export type VerificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "identifier" | "value" | "expiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["verification"]>
+  export type EmailOtpOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "codeHash" | "purpose" | "expiresAt" | "consumedAt" | "createdAt", ExtArgs["result"]["emailOtp"]>
+  export type EmailOtpInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type EmailOtpIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type EmailOtpIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
 
-  export type $VerificationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Verification"
-    objects: {}
+  export type $EmailOtpPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EmailOtp"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      identifier: string
-      value: string
+      userId: string
+      codeHash: string
+      purpose: string
       expiresAt: Date
+      consumedAt: Date | null
       createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["verification"]>
+    }, ExtArgs["result"]["emailOtp"]>
     composites: {}
   }
 
-  type VerificationGetPayload<S extends boolean | null | undefined | VerificationDefaultArgs> = $Result.GetResult<Prisma.$VerificationPayload, S>
+  type EmailOtpGetPayload<S extends boolean | null | undefined | EmailOtpDefaultArgs> = $Result.GetResult<Prisma.$EmailOtpPayload, S>
 
-  type VerificationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<VerificationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: VerificationCountAggregateInputType | true
+  type EmailOtpCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EmailOtpFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EmailOtpCountAggregateInputType | true
     }
 
-  export interface VerificationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Verification'], meta: { name: 'Verification' } }
+  export interface EmailOtpDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EmailOtp'], meta: { name: 'EmailOtp' } }
     /**
-     * Find zero or one Verification that matches the filter.
-     * @param {VerificationFindUniqueArgs} args - Arguments to find a Verification
+     * Find zero or one EmailOtp that matches the filter.
+     * @param {EmailOtpFindUniqueArgs} args - Arguments to find a EmailOtp
      * @example
-     * // Get one Verification
-     * const verification = await prisma.verification.findUnique({
+     * // Get one EmailOtp
+     * const emailOtp = await prisma.emailOtp.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends VerificationFindUniqueArgs>(args: SelectSubset<T, VerificationFindUniqueArgs<ExtArgs>>): Prisma__VerificationClient<$Result.GetResult<Prisma.$VerificationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends EmailOtpFindUniqueArgs>(args: SelectSubset<T, EmailOtpFindUniqueArgs<ExtArgs>>): Prisma__EmailOtpClient<$Result.GetResult<Prisma.$EmailOtpPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one Verification that matches the filter or throw an error with `error.code='P2025'`
+     * Find one EmailOtp that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {VerificationFindUniqueOrThrowArgs} args - Arguments to find a Verification
+     * @param {EmailOtpFindUniqueOrThrowArgs} args - Arguments to find a EmailOtp
      * @example
-     * // Get one Verification
-     * const verification = await prisma.verification.findUniqueOrThrow({
+     * // Get one EmailOtp
+     * const emailOtp = await prisma.emailOtp.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends VerificationFindUniqueOrThrowArgs>(args: SelectSubset<T, VerificationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__VerificationClient<$Result.GetResult<Prisma.$VerificationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends EmailOtpFindUniqueOrThrowArgs>(args: SelectSubset<T, EmailOtpFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EmailOtpClient<$Result.GetResult<Prisma.$EmailOtpPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Verification that matches the filter.
+     * Find the first EmailOtp that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {VerificationFindFirstArgs} args - Arguments to find a Verification
+     * @param {EmailOtpFindFirstArgs} args - Arguments to find a EmailOtp
      * @example
-     * // Get one Verification
-     * const verification = await prisma.verification.findFirst({
+     * // Get one EmailOtp
+     * const emailOtp = await prisma.emailOtp.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends VerificationFindFirstArgs>(args?: SelectSubset<T, VerificationFindFirstArgs<ExtArgs>>): Prisma__VerificationClient<$Result.GetResult<Prisma.$VerificationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends EmailOtpFindFirstArgs>(args?: SelectSubset<T, EmailOtpFindFirstArgs<ExtArgs>>): Prisma__EmailOtpClient<$Result.GetResult<Prisma.$EmailOtpPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Verification that matches the filter or
+     * Find the first EmailOtp that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {VerificationFindFirstOrThrowArgs} args - Arguments to find a Verification
+     * @param {EmailOtpFindFirstOrThrowArgs} args - Arguments to find a EmailOtp
      * @example
-     * // Get one Verification
-     * const verification = await prisma.verification.findFirstOrThrow({
+     * // Get one EmailOtp
+     * const emailOtp = await prisma.emailOtp.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends VerificationFindFirstOrThrowArgs>(args?: SelectSubset<T, VerificationFindFirstOrThrowArgs<ExtArgs>>): Prisma__VerificationClient<$Result.GetResult<Prisma.$VerificationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends EmailOtpFindFirstOrThrowArgs>(args?: SelectSubset<T, EmailOtpFindFirstOrThrowArgs<ExtArgs>>): Prisma__EmailOtpClient<$Result.GetResult<Prisma.$EmailOtpPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more Verifications that matches the filter.
+     * Find zero or more EmailOtps that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {VerificationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {EmailOtpFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Verifications
-     * const verifications = await prisma.verification.findMany()
+     * // Get all EmailOtps
+     * const emailOtps = await prisma.emailOtp.findMany()
      * 
-     * // Get first 10 Verifications
-     * const verifications = await prisma.verification.findMany({ take: 10 })
+     * // Get first 10 EmailOtps
+     * const emailOtps = await prisma.emailOtp.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const verificationWithIdOnly = await prisma.verification.findMany({ select: { id: true } })
+     * const emailOtpWithIdOnly = await prisma.emailOtp.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends VerificationFindManyArgs>(args?: SelectSubset<T, VerificationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VerificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends EmailOtpFindManyArgs>(args?: SelectSubset<T, EmailOtpFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmailOtpPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a Verification.
-     * @param {VerificationCreateArgs} args - Arguments to create a Verification.
+     * Create a EmailOtp.
+     * @param {EmailOtpCreateArgs} args - Arguments to create a EmailOtp.
      * @example
-     * // Create one Verification
-     * const Verification = await prisma.verification.create({
+     * // Create one EmailOtp
+     * const EmailOtp = await prisma.emailOtp.create({
      *   data: {
-     *     // ... data to create a Verification
+     *     // ... data to create a EmailOtp
      *   }
      * })
      * 
      */
-    create<T extends VerificationCreateArgs>(args: SelectSubset<T, VerificationCreateArgs<ExtArgs>>): Prisma__VerificationClient<$Result.GetResult<Prisma.$VerificationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends EmailOtpCreateArgs>(args: SelectSubset<T, EmailOtpCreateArgs<ExtArgs>>): Prisma__EmailOtpClient<$Result.GetResult<Prisma.$EmailOtpPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many Verifications.
-     * @param {VerificationCreateManyArgs} args - Arguments to create many Verifications.
+     * Create many EmailOtps.
+     * @param {EmailOtpCreateManyArgs} args - Arguments to create many EmailOtps.
      * @example
-     * // Create many Verifications
-     * const verification = await prisma.verification.createMany({
+     * // Create many EmailOtps
+     * const emailOtp = await prisma.emailOtp.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends VerificationCreateManyArgs>(args?: SelectSubset<T, VerificationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends EmailOtpCreateManyArgs>(args?: SelectSubset<T, EmailOtpCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Verifications and returns the data saved in the database.
-     * @param {VerificationCreateManyAndReturnArgs} args - Arguments to create many Verifications.
+     * Create many EmailOtps and returns the data saved in the database.
+     * @param {EmailOtpCreateManyAndReturnArgs} args - Arguments to create many EmailOtps.
      * @example
-     * // Create many Verifications
-     * const verification = await prisma.verification.createManyAndReturn({
+     * // Create many EmailOtps
+     * const emailOtp = await prisma.emailOtp.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many Verifications and only return the `id`
-     * const verificationWithIdOnly = await prisma.verification.createManyAndReturn({
+     * // Create many EmailOtps and only return the `id`
+     * const emailOtpWithIdOnly = await prisma.emailOtp.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -5681,28 +4467,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends VerificationCreateManyAndReturnArgs>(args?: SelectSubset<T, VerificationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VerificationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends EmailOtpCreateManyAndReturnArgs>(args?: SelectSubset<T, EmailOtpCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmailOtpPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a Verification.
-     * @param {VerificationDeleteArgs} args - Arguments to delete one Verification.
+     * Delete a EmailOtp.
+     * @param {EmailOtpDeleteArgs} args - Arguments to delete one EmailOtp.
      * @example
-     * // Delete one Verification
-     * const Verification = await prisma.verification.delete({
+     * // Delete one EmailOtp
+     * const EmailOtp = await prisma.emailOtp.delete({
      *   where: {
-     *     // ... filter to delete one Verification
+     *     // ... filter to delete one EmailOtp
      *   }
      * })
      * 
      */
-    delete<T extends VerificationDeleteArgs>(args: SelectSubset<T, VerificationDeleteArgs<ExtArgs>>): Prisma__VerificationClient<$Result.GetResult<Prisma.$VerificationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends EmailOtpDeleteArgs>(args: SelectSubset<T, EmailOtpDeleteArgs<ExtArgs>>): Prisma__EmailOtpClient<$Result.GetResult<Prisma.$EmailOtpPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one Verification.
-     * @param {VerificationUpdateArgs} args - Arguments to update one Verification.
+     * Update one EmailOtp.
+     * @param {EmailOtpUpdateArgs} args - Arguments to update one EmailOtp.
      * @example
-     * // Update one Verification
-     * const verification = await prisma.verification.update({
+     * // Update one EmailOtp
+     * const emailOtp = await prisma.emailOtp.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -5712,30 +4498,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends VerificationUpdateArgs>(args: SelectSubset<T, VerificationUpdateArgs<ExtArgs>>): Prisma__VerificationClient<$Result.GetResult<Prisma.$VerificationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends EmailOtpUpdateArgs>(args: SelectSubset<T, EmailOtpUpdateArgs<ExtArgs>>): Prisma__EmailOtpClient<$Result.GetResult<Prisma.$EmailOtpPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more Verifications.
-     * @param {VerificationDeleteManyArgs} args - Arguments to filter Verifications to delete.
+     * Delete zero or more EmailOtps.
+     * @param {EmailOtpDeleteManyArgs} args - Arguments to filter EmailOtps to delete.
      * @example
-     * // Delete a few Verifications
-     * const { count } = await prisma.verification.deleteMany({
+     * // Delete a few EmailOtps
+     * const { count } = await prisma.emailOtp.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends VerificationDeleteManyArgs>(args?: SelectSubset<T, VerificationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends EmailOtpDeleteManyArgs>(args?: SelectSubset<T, EmailOtpDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Verifications.
+     * Update zero or more EmailOtps.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {VerificationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {EmailOtpUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Verifications
-     * const verification = await prisma.verification.updateMany({
+     * // Update many EmailOtps
+     * const emailOtp = await prisma.emailOtp.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -5745,14 +4531,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends VerificationUpdateManyArgs>(args: SelectSubset<T, VerificationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends EmailOtpUpdateManyArgs>(args: SelectSubset<T, EmailOtpUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Verifications and returns the data updated in the database.
-     * @param {VerificationUpdateManyAndReturnArgs} args - Arguments to update many Verifications.
+     * Update zero or more EmailOtps and returns the data updated in the database.
+     * @param {EmailOtpUpdateManyAndReturnArgs} args - Arguments to update many EmailOtps.
      * @example
-     * // Update many Verifications
-     * const verification = await prisma.verification.updateManyAndReturn({
+     * // Update many EmailOtps
+     * const emailOtp = await prisma.emailOtp.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -5761,8 +4547,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Verifications and only return the `id`
-     * const verificationWithIdOnly = await prisma.verification.updateManyAndReturn({
+     * // Update zero or more EmailOtps and only return the `id`
+     * const emailOtpWithIdOnly = await prisma.emailOtp.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -5775,56 +4561,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends VerificationUpdateManyAndReturnArgs>(args: SelectSubset<T, VerificationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VerificationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends EmailOtpUpdateManyAndReturnArgs>(args: SelectSubset<T, EmailOtpUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmailOtpPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one Verification.
-     * @param {VerificationUpsertArgs} args - Arguments to update or create a Verification.
+     * Create or update one EmailOtp.
+     * @param {EmailOtpUpsertArgs} args - Arguments to update or create a EmailOtp.
      * @example
-     * // Update or create a Verification
-     * const verification = await prisma.verification.upsert({
+     * // Update or create a EmailOtp
+     * const emailOtp = await prisma.emailOtp.upsert({
      *   create: {
-     *     // ... data to create a Verification
+     *     // ... data to create a EmailOtp
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Verification we want to update
+     *     // ... the filter for the EmailOtp we want to update
      *   }
      * })
      */
-    upsert<T extends VerificationUpsertArgs>(args: SelectSubset<T, VerificationUpsertArgs<ExtArgs>>): Prisma__VerificationClient<$Result.GetResult<Prisma.$VerificationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends EmailOtpUpsertArgs>(args: SelectSubset<T, EmailOtpUpsertArgs<ExtArgs>>): Prisma__EmailOtpClient<$Result.GetResult<Prisma.$EmailOtpPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of Verifications.
+     * Count the number of EmailOtps.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {VerificationCountArgs} args - Arguments to filter Verifications to count.
+     * @param {EmailOtpCountArgs} args - Arguments to filter EmailOtps to count.
      * @example
-     * // Count the number of Verifications
-     * const count = await prisma.verification.count({
+     * // Count the number of EmailOtps
+     * const count = await prisma.emailOtp.count({
      *   where: {
-     *     // ... the filter for the Verifications we want to count
+     *     // ... the filter for the EmailOtps we want to count
      *   }
      * })
     **/
-    count<T extends VerificationCountArgs>(
-      args?: Subset<T, VerificationCountArgs>,
+    count<T extends EmailOtpCountArgs>(
+      args?: Subset<T, EmailOtpCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], VerificationCountAggregateOutputType>
+          : GetScalarType<T['select'], EmailOtpCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Verification.
+     * Allows you to perform aggregations operations on a EmailOtp.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {VerificationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {EmailOtpAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -5844,13 +4630,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends VerificationAggregateArgs>(args: Subset<T, VerificationAggregateArgs>): Prisma.PrismaPromise<GetVerificationAggregateType<T>>
+    aggregate<T extends EmailOtpAggregateArgs>(args: Subset<T, EmailOtpAggregateArgs>): Prisma.PrismaPromise<GetEmailOtpAggregateType<T>>
 
     /**
-     * Group by Verification.
+     * Group by EmailOtp.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {VerificationGroupByArgs} args - Group by arguments.
+     * @param {EmailOtpGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -5865,14 +4651,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends VerificationGroupByArgs,
+      T extends EmailOtpGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: VerificationGroupByArgs['orderBy'] }
-        : { orderBy?: VerificationGroupByArgs['orderBy'] },
+        ? { orderBy: EmailOtpGroupByArgs['orderBy'] }
+        : { orderBy?: EmailOtpGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -5921,21 +4707,22 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, VerificationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVerificationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, EmailOtpGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEmailOtpGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the Verification model
+   * Fields of the EmailOtp model
    */
-  readonly fields: VerificationFieldRefs;
+  readonly fields: EmailOtpFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Verification.
+   * The delegate class that acts as a "Promise-like" for EmailOtp.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__VerificationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__EmailOtpClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5962,378 +4749,427 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the Verification model
+   * Fields of the EmailOtp model
    */
-  interface VerificationFieldRefs {
-    readonly id: FieldRef<"Verification", 'String'>
-    readonly identifier: FieldRef<"Verification", 'String'>
-    readonly value: FieldRef<"Verification", 'String'>
-    readonly expiresAt: FieldRef<"Verification", 'DateTime'>
-    readonly createdAt: FieldRef<"Verification", 'DateTime'>
-    readonly updatedAt: FieldRef<"Verification", 'DateTime'>
+  interface EmailOtpFieldRefs {
+    readonly id: FieldRef<"EmailOtp", 'String'>
+    readonly userId: FieldRef<"EmailOtp", 'String'>
+    readonly codeHash: FieldRef<"EmailOtp", 'String'>
+    readonly purpose: FieldRef<"EmailOtp", 'String'>
+    readonly expiresAt: FieldRef<"EmailOtp", 'DateTime'>
+    readonly consumedAt: FieldRef<"EmailOtp", 'DateTime'>
+    readonly createdAt: FieldRef<"EmailOtp", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * Verification findUnique
+   * EmailOtp findUnique
    */
-  export type VerificationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type EmailOtpFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Verification
+     * Select specific fields to fetch from the EmailOtp
      */
-    select?: VerificationSelect<ExtArgs> | null
+    select?: EmailOtpSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Verification
+     * Omit specific fields from the EmailOtp
      */
-    omit?: VerificationOmit<ExtArgs> | null
+    omit?: EmailOtpOmit<ExtArgs> | null
     /**
-     * Filter, which Verification to fetch.
+     * Choose, which related nodes to fetch as well
      */
-    where: VerificationWhereUniqueInput
+    include?: EmailOtpInclude<ExtArgs> | null
+    /**
+     * Filter, which EmailOtp to fetch.
+     */
+    where: EmailOtpWhereUniqueInput
   }
 
   /**
-   * Verification findUniqueOrThrow
+   * EmailOtp findUniqueOrThrow
    */
-  export type VerificationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type EmailOtpFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Verification
+     * Select specific fields to fetch from the EmailOtp
      */
-    select?: VerificationSelect<ExtArgs> | null
+    select?: EmailOtpSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Verification
+     * Omit specific fields from the EmailOtp
      */
-    omit?: VerificationOmit<ExtArgs> | null
+    omit?: EmailOtpOmit<ExtArgs> | null
     /**
-     * Filter, which Verification to fetch.
+     * Choose, which related nodes to fetch as well
      */
-    where: VerificationWhereUniqueInput
+    include?: EmailOtpInclude<ExtArgs> | null
+    /**
+     * Filter, which EmailOtp to fetch.
+     */
+    where: EmailOtpWhereUniqueInput
   }
 
   /**
-   * Verification findFirst
+   * EmailOtp findFirst
    */
-  export type VerificationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type EmailOtpFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Verification
+     * Select specific fields to fetch from the EmailOtp
      */
-    select?: VerificationSelect<ExtArgs> | null
+    select?: EmailOtpSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Verification
+     * Omit specific fields from the EmailOtp
      */
-    omit?: VerificationOmit<ExtArgs> | null
+    omit?: EmailOtpOmit<ExtArgs> | null
     /**
-     * Filter, which Verification to fetch.
+     * Choose, which related nodes to fetch as well
      */
-    where?: VerificationWhereInput
+    include?: EmailOtpInclude<ExtArgs> | null
+    /**
+     * Filter, which EmailOtp to fetch.
+     */
+    where?: EmailOtpWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Verifications to fetch.
+     * Determine the order of EmailOtps to fetch.
      */
-    orderBy?: VerificationOrderByWithRelationInput | VerificationOrderByWithRelationInput[]
+    orderBy?: EmailOtpOrderByWithRelationInput | EmailOtpOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Verifications.
+     * Sets the position for searching for EmailOtps.
      */
-    cursor?: VerificationWhereUniqueInput
+    cursor?: EmailOtpWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Verifications from the position of the cursor.
+     * Take `±n` EmailOtps from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Verifications.
+     * Skip the first `n` EmailOtps.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Verifications.
+     * Filter by unique combinations of EmailOtps.
      */
-    distinct?: VerificationScalarFieldEnum | VerificationScalarFieldEnum[]
+    distinct?: EmailOtpScalarFieldEnum | EmailOtpScalarFieldEnum[]
   }
 
   /**
-   * Verification findFirstOrThrow
+   * EmailOtp findFirstOrThrow
    */
-  export type VerificationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type EmailOtpFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Verification
+     * Select specific fields to fetch from the EmailOtp
      */
-    select?: VerificationSelect<ExtArgs> | null
+    select?: EmailOtpSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Verification
+     * Omit specific fields from the EmailOtp
      */
-    omit?: VerificationOmit<ExtArgs> | null
+    omit?: EmailOtpOmit<ExtArgs> | null
     /**
-     * Filter, which Verification to fetch.
+     * Choose, which related nodes to fetch as well
      */
-    where?: VerificationWhereInput
+    include?: EmailOtpInclude<ExtArgs> | null
+    /**
+     * Filter, which EmailOtp to fetch.
+     */
+    where?: EmailOtpWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Verifications to fetch.
+     * Determine the order of EmailOtps to fetch.
      */
-    orderBy?: VerificationOrderByWithRelationInput | VerificationOrderByWithRelationInput[]
+    orderBy?: EmailOtpOrderByWithRelationInput | EmailOtpOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Verifications.
+     * Sets the position for searching for EmailOtps.
      */
-    cursor?: VerificationWhereUniqueInput
+    cursor?: EmailOtpWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Verifications from the position of the cursor.
+     * Take `±n` EmailOtps from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Verifications.
+     * Skip the first `n` EmailOtps.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Verifications.
+     * Filter by unique combinations of EmailOtps.
      */
-    distinct?: VerificationScalarFieldEnum | VerificationScalarFieldEnum[]
+    distinct?: EmailOtpScalarFieldEnum | EmailOtpScalarFieldEnum[]
   }
 
   /**
-   * Verification findMany
+   * EmailOtp findMany
    */
-  export type VerificationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type EmailOtpFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Verification
+     * Select specific fields to fetch from the EmailOtp
      */
-    select?: VerificationSelect<ExtArgs> | null
+    select?: EmailOtpSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Verification
+     * Omit specific fields from the EmailOtp
      */
-    omit?: VerificationOmit<ExtArgs> | null
+    omit?: EmailOtpOmit<ExtArgs> | null
     /**
-     * Filter, which Verifications to fetch.
+     * Choose, which related nodes to fetch as well
      */
-    where?: VerificationWhereInput
+    include?: EmailOtpInclude<ExtArgs> | null
+    /**
+     * Filter, which EmailOtps to fetch.
+     */
+    where?: EmailOtpWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Verifications to fetch.
+     * Determine the order of EmailOtps to fetch.
      */
-    orderBy?: VerificationOrderByWithRelationInput | VerificationOrderByWithRelationInput[]
+    orderBy?: EmailOtpOrderByWithRelationInput | EmailOtpOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Verifications.
+     * Sets the position for listing EmailOtps.
      */
-    cursor?: VerificationWhereUniqueInput
+    cursor?: EmailOtpWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Verifications from the position of the cursor.
+     * Take `±n` EmailOtps from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Verifications.
+     * Skip the first `n` EmailOtps.
      */
     skip?: number
-    distinct?: VerificationScalarFieldEnum | VerificationScalarFieldEnum[]
+    distinct?: EmailOtpScalarFieldEnum | EmailOtpScalarFieldEnum[]
   }
 
   /**
-   * Verification create
+   * EmailOtp create
    */
-  export type VerificationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type EmailOtpCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Verification
+     * Select specific fields to fetch from the EmailOtp
      */
-    select?: VerificationSelect<ExtArgs> | null
+    select?: EmailOtpSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Verification
+     * Omit specific fields from the EmailOtp
      */
-    omit?: VerificationOmit<ExtArgs> | null
+    omit?: EmailOtpOmit<ExtArgs> | null
     /**
-     * The data needed to create a Verification.
+     * Choose, which related nodes to fetch as well
      */
-    data: XOR<VerificationCreateInput, VerificationUncheckedCreateInput>
+    include?: EmailOtpInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EmailOtp.
+     */
+    data: XOR<EmailOtpCreateInput, EmailOtpUncheckedCreateInput>
   }
 
   /**
-   * Verification createMany
+   * EmailOtp createMany
    */
-  export type VerificationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type EmailOtpCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many Verifications.
+     * The data used to create many EmailOtps.
      */
-    data: VerificationCreateManyInput | VerificationCreateManyInput[]
+    data: EmailOtpCreateManyInput | EmailOtpCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * Verification createManyAndReturn
+   * EmailOtp createManyAndReturn
    */
-  export type VerificationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type EmailOtpCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Verification
+     * Select specific fields to fetch from the EmailOtp
      */
-    select?: VerificationSelectCreateManyAndReturn<ExtArgs> | null
+    select?: EmailOtpSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Verification
+     * Omit specific fields from the EmailOtp
      */
-    omit?: VerificationOmit<ExtArgs> | null
+    omit?: EmailOtpOmit<ExtArgs> | null
     /**
-     * The data used to create many Verifications.
+     * The data used to create many EmailOtps.
      */
-    data: VerificationCreateManyInput | VerificationCreateManyInput[]
+    data: EmailOtpCreateManyInput | EmailOtpCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailOtpIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Verification update
+   * EmailOtp update
    */
-  export type VerificationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type EmailOtpUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Verification
+     * Select specific fields to fetch from the EmailOtp
      */
-    select?: VerificationSelect<ExtArgs> | null
+    select?: EmailOtpSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Verification
+     * Omit specific fields from the EmailOtp
      */
-    omit?: VerificationOmit<ExtArgs> | null
+    omit?: EmailOtpOmit<ExtArgs> | null
     /**
-     * The data needed to update a Verification.
+     * Choose, which related nodes to fetch as well
      */
-    data: XOR<VerificationUpdateInput, VerificationUncheckedUpdateInput>
+    include?: EmailOtpInclude<ExtArgs> | null
     /**
-     * Choose, which Verification to update.
+     * The data needed to update a EmailOtp.
      */
-    where: VerificationWhereUniqueInput
+    data: XOR<EmailOtpUpdateInput, EmailOtpUncheckedUpdateInput>
+    /**
+     * Choose, which EmailOtp to update.
+     */
+    where: EmailOtpWhereUniqueInput
   }
 
   /**
-   * Verification updateMany
+   * EmailOtp updateMany
    */
-  export type VerificationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type EmailOtpUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update Verifications.
+     * The data used to update EmailOtps.
      */
-    data: XOR<VerificationUpdateManyMutationInput, VerificationUncheckedUpdateManyInput>
+    data: XOR<EmailOtpUpdateManyMutationInput, EmailOtpUncheckedUpdateManyInput>
     /**
-     * Filter which Verifications to update
+     * Filter which EmailOtps to update
      */
-    where?: VerificationWhereInput
+    where?: EmailOtpWhereInput
     /**
-     * Limit how many Verifications to update.
+     * Limit how many EmailOtps to update.
      */
     limit?: number
   }
 
   /**
-   * Verification updateManyAndReturn
+   * EmailOtp updateManyAndReturn
    */
-  export type VerificationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type EmailOtpUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Verification
+     * Select specific fields to fetch from the EmailOtp
      */
-    select?: VerificationSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: EmailOtpSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Verification
+     * Omit specific fields from the EmailOtp
      */
-    omit?: VerificationOmit<ExtArgs> | null
+    omit?: EmailOtpOmit<ExtArgs> | null
     /**
-     * The data used to update Verifications.
+     * The data used to update EmailOtps.
      */
-    data: XOR<VerificationUpdateManyMutationInput, VerificationUncheckedUpdateManyInput>
+    data: XOR<EmailOtpUpdateManyMutationInput, EmailOtpUncheckedUpdateManyInput>
     /**
-     * Filter which Verifications to update
+     * Filter which EmailOtps to update
      */
-    where?: VerificationWhereInput
+    where?: EmailOtpWhereInput
     /**
-     * Limit how many Verifications to update.
+     * Limit how many EmailOtps to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailOtpIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EmailOtp upsert
+   */
+  export type EmailOtpUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailOtp
+     */
+    select?: EmailOtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailOtp
+     */
+    omit?: EmailOtpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailOtpInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EmailOtp to update in case it exists.
+     */
+    where: EmailOtpWhereUniqueInput
+    /**
+     * In case the EmailOtp found by the `where` argument doesn't exist, create a new EmailOtp with this data.
+     */
+    create: XOR<EmailOtpCreateInput, EmailOtpUncheckedCreateInput>
+    /**
+     * In case the EmailOtp was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EmailOtpUpdateInput, EmailOtpUncheckedUpdateInput>
+  }
+
+  /**
+   * EmailOtp delete
+   */
+  export type EmailOtpDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailOtp
+     */
+    select?: EmailOtpSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailOtp
+     */
+    omit?: EmailOtpOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmailOtpInclude<ExtArgs> | null
+    /**
+     * Filter which EmailOtp to delete.
+     */
+    where: EmailOtpWhereUniqueInput
+  }
+
+  /**
+   * EmailOtp deleteMany
+   */
+  export type EmailOtpDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EmailOtps to delete
+     */
+    where?: EmailOtpWhereInput
+    /**
+     * Limit how many EmailOtps to delete.
      */
     limit?: number
   }
 
   /**
-   * Verification upsert
+   * EmailOtp without action
    */
-  export type VerificationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type EmailOtpDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Verification
+     * Select specific fields to fetch from the EmailOtp
      */
-    select?: VerificationSelect<ExtArgs> | null
+    select?: EmailOtpSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Verification
+     * Omit specific fields from the EmailOtp
      */
-    omit?: VerificationOmit<ExtArgs> | null
+    omit?: EmailOtpOmit<ExtArgs> | null
     /**
-     * The filter to search for the Verification to update in case it exists.
+     * Choose, which related nodes to fetch as well
      */
-    where: VerificationWhereUniqueInput
-    /**
-     * In case the Verification found by the `where` argument doesn't exist, create a new Verification with this data.
-     */
-    create: XOR<VerificationCreateInput, VerificationUncheckedCreateInput>
-    /**
-     * In case the Verification was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<VerificationUpdateInput, VerificationUncheckedUpdateInput>
-  }
-
-  /**
-   * Verification delete
-   */
-  export type VerificationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Verification
-     */
-    select?: VerificationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Verification
-     */
-    omit?: VerificationOmit<ExtArgs> | null
-    /**
-     * Filter which Verification to delete.
-     */
-    where: VerificationWhereUniqueInput
-  }
-
-  /**
-   * Verification deleteMany
-   */
-  export type VerificationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Verifications to delete
-     */
-    where?: VerificationWhereInput
-    /**
-     * Limit how many Verifications to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * Verification without action
-   */
-  export type VerificationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Verification
-     */
-    select?: VerificationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Verification
-     */
-    omit?: VerificationOmit<ExtArgs> | null
+    include?: EmailOtpInclude<ExtArgs> | null
   }
 
 
@@ -10863,6 +9699,7 @@ export namespace Prisma {
   export const UserScalarFieldEnum: {
     id: 'id',
     email: 'email',
+    passwordHash: 'passwordHash',
     name: 'name',
     displayName: 'displayName',
     image: 'image',
@@ -10874,25 +9711,6 @@ export namespace Prisma {
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
-
-
-  export const AccountScalarFieldEnum: {
-    id: 'id',
-    userId: 'userId',
-    providerId: 'providerId',
-    accountId: 'accountId',
-    accessToken: 'accessToken',
-    refreshToken: 'refreshToken',
-    idToken: 'idToken',
-    accessTokenExpiresAt: 'accessTokenExpiresAt',
-    refreshTokenExpiresAt: 'refreshTokenExpiresAt',
-    scope: 'scope',
-    password: 'password',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
-  };
-
-  export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
 
 
   export const SessionScalarFieldEnum: {
@@ -10909,16 +9727,17 @@ export namespace Prisma {
   export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
 
 
-  export const VerificationScalarFieldEnum: {
+  export const EmailOtpScalarFieldEnum: {
     id: 'id',
-    identifier: 'identifier',
-    value: 'value',
+    userId: 'userId',
+    codeHash: 'codeHash',
+    purpose: 'purpose',
     expiresAt: 'expiresAt',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    consumedAt: 'consumedAt',
+    createdAt: 'createdAt'
   };
 
-  export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
+  export type EmailOtpScalarFieldEnum = (typeof EmailOtpScalarFieldEnum)[keyof typeof EmailOtpScalarFieldEnum]
 
 
   export const FriendshipScalarFieldEnum: {
@@ -11098,7 +9917,8 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     id?: StringFilter<"User"> | string
-    email?: StringNullableFilter<"User"> | string | null
+    email?: StringFilter<"User"> | string
+    passwordHash?: StringFilter<"User"> | string
     name?: StringNullableFilter<"User"> | string | null
     displayName?: StringNullableFilter<"User"> | string | null
     image?: StringNullableFilter<"User"> | string | null
@@ -11107,8 +9927,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     lastOnlineAt?: DateTimeNullableFilter<"User"> | Date | string | null
-    accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
+    otpCodes?: EmailOtpListRelationFilter
     requestedFriendships?: FriendshipListRelationFilter
     receivedFriendships?: FriendshipListRelationFilter
     matchesAsPlayer1?: MatchListRelationFilter
@@ -11121,7 +9941,8 @@ export namespace Prisma {
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
-    email?: SortOrderInput | SortOrder
+    email?: SortOrder
+    passwordHash?: SortOrder
     name?: SortOrderInput | SortOrder
     displayName?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
@@ -11130,8 +9951,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     lastOnlineAt?: SortOrderInput | SortOrder
-    accounts?: AccountOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
+    otpCodes?: EmailOtpOrderByRelationAggregateInput
     requestedFriendships?: FriendshipOrderByRelationAggregateInput
     receivedFriendships?: FriendshipOrderByRelationAggregateInput
     matchesAsPlayer1?: MatchOrderByRelationAggregateInput
@@ -11148,6 +9969,7 @@ export namespace Prisma {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
+    passwordHash?: StringFilter<"User"> | string
     name?: StringNullableFilter<"User"> | string | null
     displayName?: StringNullableFilter<"User"> | string | null
     image?: StringNullableFilter<"User"> | string | null
@@ -11156,8 +9978,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     lastOnlineAt?: DateTimeNullableFilter<"User"> | Date | string | null
-    accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
+    otpCodes?: EmailOtpListRelationFilter
     requestedFriendships?: FriendshipListRelationFilter
     receivedFriendships?: FriendshipListRelationFilter
     matchesAsPlayer1?: MatchListRelationFilter
@@ -11170,7 +9992,8 @@ export namespace Prisma {
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
-    email?: SortOrderInput | SortOrder
+    email?: SortOrder
+    passwordHash?: SortOrder
     name?: SortOrderInput | SortOrder
     displayName?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
@@ -11189,7 +10012,8 @@ export namespace Prisma {
     OR?: UserScalarWhereWithAggregatesInput[]
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"User"> | string
-    email?: StringNullableWithAggregatesFilter<"User"> | string | null
+    email?: StringWithAggregatesFilter<"User"> | string
+    passwordHash?: StringWithAggregatesFilter<"User"> | string
     name?: StringNullableWithAggregatesFilter<"User"> | string | null
     displayName?: StringNullableWithAggregatesFilter<"User"> | string | null
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -11198,102 +10022,6 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     lastOnlineAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
-  }
-
-  export type AccountWhereInput = {
-    AND?: AccountWhereInput | AccountWhereInput[]
-    OR?: AccountWhereInput[]
-    NOT?: AccountWhereInput | AccountWhereInput[]
-    id?: StringFilter<"Account"> | string
-    userId?: StringFilter<"Account"> | string
-    providerId?: StringFilter<"Account"> | string
-    accountId?: StringFilter<"Account"> | string
-    accessToken?: StringNullableFilter<"Account"> | string | null
-    refreshToken?: StringNullableFilter<"Account"> | string | null
-    idToken?: StringNullableFilter<"Account"> | string | null
-    accessTokenExpiresAt?: DateTimeNullableFilter<"Account"> | Date | string | null
-    refreshTokenExpiresAt?: DateTimeNullableFilter<"Account"> | Date | string | null
-    scope?: StringNullableFilter<"Account"> | string | null
-    password?: StringNullableFilter<"Account"> | string | null
-    createdAt?: DateTimeFilter<"Account"> | Date | string
-    updatedAt?: DateTimeFilter<"Account"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }
-
-  export type AccountOrderByWithRelationInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    providerId?: SortOrder
-    accountId?: SortOrder
-    accessToken?: SortOrderInput | SortOrder
-    refreshToken?: SortOrderInput | SortOrder
-    idToken?: SortOrderInput | SortOrder
-    accessTokenExpiresAt?: SortOrderInput | SortOrder
-    refreshTokenExpiresAt?: SortOrderInput | SortOrder
-    scope?: SortOrderInput | SortOrder
-    password?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    user?: UserOrderByWithRelationInput
-  }
-
-  export type AccountWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    providerId_accountId?: AccountProviderIdAccountIdCompoundUniqueInput
-    AND?: AccountWhereInput | AccountWhereInput[]
-    OR?: AccountWhereInput[]
-    NOT?: AccountWhereInput | AccountWhereInput[]
-    userId?: StringFilter<"Account"> | string
-    providerId?: StringFilter<"Account"> | string
-    accountId?: StringFilter<"Account"> | string
-    accessToken?: StringNullableFilter<"Account"> | string | null
-    refreshToken?: StringNullableFilter<"Account"> | string | null
-    idToken?: StringNullableFilter<"Account"> | string | null
-    accessTokenExpiresAt?: DateTimeNullableFilter<"Account"> | Date | string | null
-    refreshTokenExpiresAt?: DateTimeNullableFilter<"Account"> | Date | string | null
-    scope?: StringNullableFilter<"Account"> | string | null
-    password?: StringNullableFilter<"Account"> | string | null
-    createdAt?: DateTimeFilter<"Account"> | Date | string
-    updatedAt?: DateTimeFilter<"Account"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id" | "providerId_accountId">
-
-  export type AccountOrderByWithAggregationInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    providerId?: SortOrder
-    accountId?: SortOrder
-    accessToken?: SortOrderInput | SortOrder
-    refreshToken?: SortOrderInput | SortOrder
-    idToken?: SortOrderInput | SortOrder
-    accessTokenExpiresAt?: SortOrderInput | SortOrder
-    refreshTokenExpiresAt?: SortOrderInput | SortOrder
-    scope?: SortOrderInput | SortOrder
-    password?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    _count?: AccountCountOrderByAggregateInput
-    _max?: AccountMaxOrderByAggregateInput
-    _min?: AccountMinOrderByAggregateInput
-  }
-
-  export type AccountScalarWhereWithAggregatesInput = {
-    AND?: AccountScalarWhereWithAggregatesInput | AccountScalarWhereWithAggregatesInput[]
-    OR?: AccountScalarWhereWithAggregatesInput[]
-    NOT?: AccountScalarWhereWithAggregatesInput | AccountScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Account"> | string
-    userId?: StringWithAggregatesFilter<"Account"> | string
-    providerId?: StringWithAggregatesFilter<"Account"> | string
-    accountId?: StringWithAggregatesFilter<"Account"> | string
-    accessToken?: StringNullableWithAggregatesFilter<"Account"> | string | null
-    refreshToken?: StringNullableWithAggregatesFilter<"Account"> | string | null
-    idToken?: StringNullableWithAggregatesFilter<"Account"> | string | null
-    accessTokenExpiresAt?: DateTimeNullableWithAggregatesFilter<"Account"> | Date | string | null
-    refreshTokenExpiresAt?: DateTimeNullableWithAggregatesFilter<"Account"> | Date | string | null
-    scope?: StringNullableWithAggregatesFilter<"Account"> | string | null
-    password?: StringNullableWithAggregatesFilter<"Account"> | string | null
-    createdAt?: DateTimeWithAggregatesFilter<"Account"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Account"> | Date | string
   }
 
   export type SessionWhereInput = {
@@ -11366,61 +10094,69 @@ export namespace Prisma {
     userAgent?: StringNullableWithAggregatesFilter<"Session"> | string | null
   }
 
-  export type VerificationWhereInput = {
-    AND?: VerificationWhereInput | VerificationWhereInput[]
-    OR?: VerificationWhereInput[]
-    NOT?: VerificationWhereInput | VerificationWhereInput[]
-    id?: StringFilter<"Verification"> | string
-    identifier?: StringFilter<"Verification"> | string
-    value?: StringFilter<"Verification"> | string
-    expiresAt?: DateTimeFilter<"Verification"> | Date | string
-    createdAt?: DateTimeFilter<"Verification"> | Date | string
-    updatedAt?: DateTimeFilter<"Verification"> | Date | string
+  export type EmailOtpWhereInput = {
+    AND?: EmailOtpWhereInput | EmailOtpWhereInput[]
+    OR?: EmailOtpWhereInput[]
+    NOT?: EmailOtpWhereInput | EmailOtpWhereInput[]
+    id?: StringFilter<"EmailOtp"> | string
+    userId?: StringFilter<"EmailOtp"> | string
+    codeHash?: StringFilter<"EmailOtp"> | string
+    purpose?: StringFilter<"EmailOtp"> | string
+    expiresAt?: DateTimeFilter<"EmailOtp"> | Date | string
+    consumedAt?: DateTimeNullableFilter<"EmailOtp"> | Date | string | null
+    createdAt?: DateTimeFilter<"EmailOtp"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
-  export type VerificationOrderByWithRelationInput = {
+  export type EmailOtpOrderByWithRelationInput = {
     id?: SortOrder
-    identifier?: SortOrder
-    value?: SortOrder
+    userId?: SortOrder
+    codeHash?: SortOrder
+    purpose?: SortOrder
     expiresAt?: SortOrder
+    consumedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
   }
 
-  export type VerificationWhereUniqueInput = Prisma.AtLeast<{
+  export type EmailOtpWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: VerificationWhereInput | VerificationWhereInput[]
-    OR?: VerificationWhereInput[]
-    NOT?: VerificationWhereInput | VerificationWhereInput[]
-    identifier?: StringFilter<"Verification"> | string
-    value?: StringFilter<"Verification"> | string
-    expiresAt?: DateTimeFilter<"Verification"> | Date | string
-    createdAt?: DateTimeFilter<"Verification"> | Date | string
-    updatedAt?: DateTimeFilter<"Verification"> | Date | string
+    AND?: EmailOtpWhereInput | EmailOtpWhereInput[]
+    OR?: EmailOtpWhereInput[]
+    NOT?: EmailOtpWhereInput | EmailOtpWhereInput[]
+    userId?: StringFilter<"EmailOtp"> | string
+    codeHash?: StringFilter<"EmailOtp"> | string
+    purpose?: StringFilter<"EmailOtp"> | string
+    expiresAt?: DateTimeFilter<"EmailOtp"> | Date | string
+    consumedAt?: DateTimeNullableFilter<"EmailOtp"> | Date | string | null
+    createdAt?: DateTimeFilter<"EmailOtp"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
-  export type VerificationOrderByWithAggregationInput = {
+  export type EmailOtpOrderByWithAggregationInput = {
     id?: SortOrder
-    identifier?: SortOrder
-    value?: SortOrder
+    userId?: SortOrder
+    codeHash?: SortOrder
+    purpose?: SortOrder
     expiresAt?: SortOrder
+    consumedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
-    _count?: VerificationCountOrderByAggregateInput
-    _max?: VerificationMaxOrderByAggregateInput
-    _min?: VerificationMinOrderByAggregateInput
+    _count?: EmailOtpCountOrderByAggregateInput
+    _max?: EmailOtpMaxOrderByAggregateInput
+    _min?: EmailOtpMinOrderByAggregateInput
   }
 
-  export type VerificationScalarWhereWithAggregatesInput = {
-    AND?: VerificationScalarWhereWithAggregatesInput | VerificationScalarWhereWithAggregatesInput[]
-    OR?: VerificationScalarWhereWithAggregatesInput[]
-    NOT?: VerificationScalarWhereWithAggregatesInput | VerificationScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Verification"> | string
-    identifier?: StringWithAggregatesFilter<"Verification"> | string
-    value?: StringWithAggregatesFilter<"Verification"> | string
-    expiresAt?: DateTimeWithAggregatesFilter<"Verification"> | Date | string
-    createdAt?: DateTimeWithAggregatesFilter<"Verification"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Verification"> | Date | string
+  export type EmailOtpScalarWhereWithAggregatesInput = {
+    AND?: EmailOtpScalarWhereWithAggregatesInput | EmailOtpScalarWhereWithAggregatesInput[]
+    OR?: EmailOtpScalarWhereWithAggregatesInput[]
+    NOT?: EmailOtpScalarWhereWithAggregatesInput | EmailOtpScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"EmailOtp"> | string
+    userId?: StringWithAggregatesFilter<"EmailOtp"> | string
+    codeHash?: StringWithAggregatesFilter<"EmailOtp"> | string
+    purpose?: StringWithAggregatesFilter<"EmailOtp"> | string
+    expiresAt?: DateTimeWithAggregatesFilter<"EmailOtp"> | Date | string
+    consumedAt?: DateTimeNullableWithAggregatesFilter<"EmailOtp"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"EmailOtp"> | Date | string
   }
 
   export type FriendshipWhereInput = {
@@ -11702,7 +10438,8 @@ export namespace Prisma {
 
   export type UserCreateInput = {
     id?: string
-    email?: string | null
+    email: string
+    passwordHash: string
     name?: string | null
     displayName?: string | null
     image?: string | null
@@ -11711,8 +10448,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastOnlineAt?: Date | string | null
-    accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    otpCodes?: EmailOtpCreateNestedManyWithoutUserInput
     requestedFriendships?: FriendshipCreateNestedManyWithoutRequesterInput
     receivedFriendships?: FriendshipCreateNestedManyWithoutAddresseeInput
     matchesAsPlayer1?: MatchCreateNestedManyWithoutPlayer1Input
@@ -11725,7 +10462,8 @@ export namespace Prisma {
 
   export type UserUncheckedCreateInput = {
     id?: string
-    email?: string | null
+    email: string
+    passwordHash: string
     name?: string | null
     displayName?: string | null
     image?: string | null
@@ -11734,8 +10472,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastOnlineAt?: Date | string | null
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    otpCodes?: EmailOtpUncheckedCreateNestedManyWithoutUserInput
     requestedFriendships?: FriendshipUncheckedCreateNestedManyWithoutRequesterInput
     receivedFriendships?: FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
     matchesAsPlayer1?: MatchUncheckedCreateNestedManyWithoutPlayer1Input
@@ -11748,7 +10486,8 @@ export namespace Prisma {
 
   export type UserUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11757,8 +10496,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastOnlineAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    otpCodes?: EmailOtpUpdateManyWithoutUserNestedInput
     requestedFriendships?: FriendshipUpdateManyWithoutRequesterNestedInput
     receivedFriendships?: FriendshipUpdateManyWithoutAddresseeNestedInput
     matchesAsPlayer1?: MatchUpdateManyWithoutPlayer1NestedInput
@@ -11771,7 +10510,8 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11780,8 +10520,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastOnlineAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    otpCodes?: EmailOtpUncheckedUpdateManyWithoutUserNestedInput
     requestedFriendships?: FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
     receivedFriendships?: FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
     matchesAsPlayer1?: MatchUncheckedUpdateManyWithoutPlayer1NestedInput
@@ -11794,7 +10534,8 @@ export namespace Prisma {
 
   export type UserCreateManyInput = {
     id?: string
-    email?: string | null
+    email: string
+    passwordHash: string
     name?: string | null
     displayName?: string | null
     image?: string | null
@@ -11807,7 +10548,8 @@ export namespace Prisma {
 
   export type UserUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11820,7 +10562,8 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11829,117 +10572,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastOnlineAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type AccountCreateInput = {
-    id?: string
-    providerId: string
-    accountId: string
-    accessToken?: string | null
-    refreshToken?: string | null
-    idToken?: string | null
-    accessTokenExpiresAt?: Date | string | null
-    refreshTokenExpiresAt?: Date | string | null
-    scope?: string | null
-    password?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutAccountsInput
-  }
-
-  export type AccountUncheckedCreateInput = {
-    id?: string
-    userId: string
-    providerId: string
-    accountId: string
-    accessToken?: string | null
-    refreshToken?: string | null
-    idToken?: string | null
-    accessTokenExpiresAt?: Date | string | null
-    refreshTokenExpiresAt?: Date | string | null
-    scope?: string | null
-    password?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type AccountUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    providerId?: StringFieldUpdateOperationsInput | string
-    accountId?: StringFieldUpdateOperationsInput | string
-    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
-    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    idToken?: NullableStringFieldUpdateOperationsInput | string | null
-    accessTokenExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    refreshTokenExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    scope?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutAccountsNestedInput
-  }
-
-  export type AccountUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    providerId?: StringFieldUpdateOperationsInput | string
-    accountId?: StringFieldUpdateOperationsInput | string
-    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
-    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    idToken?: NullableStringFieldUpdateOperationsInput | string | null
-    accessTokenExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    refreshTokenExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    scope?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AccountCreateManyInput = {
-    id?: string
-    userId: string
-    providerId: string
-    accountId: string
-    accessToken?: string | null
-    refreshToken?: string | null
-    idToken?: string | null
-    accessTokenExpiresAt?: Date | string | null
-    refreshTokenExpiresAt?: Date | string | null
-    scope?: string | null
-    password?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type AccountUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    providerId?: StringFieldUpdateOperationsInput | string
-    accountId?: StringFieldUpdateOperationsInput | string
-    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
-    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    idToken?: NullableStringFieldUpdateOperationsInput | string | null
-    accessTokenExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    refreshTokenExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    scope?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AccountUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    providerId?: StringFieldUpdateOperationsInput | string
-    accountId?: StringFieldUpdateOperationsInput | string
-    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
-    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    idToken?: NullableStringFieldUpdateOperationsInput | string | null
-    accessTokenExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    refreshTokenExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    scope?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SessionCreateInput = {
@@ -12018,67 +10650,73 @@ export namespace Prisma {
     userAgent?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type VerificationCreateInput = {
+  export type EmailOtpCreateInput = {
     id?: string
-    identifier: string
-    value: string
+    codeHash: string
+    purpose: string
     expiresAt: Date | string
+    consumedAt?: Date | string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutOtpCodesInput
   }
 
-  export type VerificationUncheckedCreateInput = {
+  export type EmailOtpUncheckedCreateInput = {
     id?: string
-    identifier: string
-    value: string
+    userId: string
+    codeHash: string
+    purpose: string
     expiresAt: Date | string
+    consumedAt?: Date | string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
-  export type VerificationUpdateInput = {
+  export type EmailOtpUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    identifier?: StringFieldUpdateOperationsInput | string
-    value?: StringFieldUpdateOperationsInput | string
+    codeHash?: StringFieldUpdateOperationsInput | string
+    purpose?: StringFieldUpdateOperationsInput | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutOtpCodesNestedInput
   }
 
-  export type VerificationUncheckedUpdateInput = {
+  export type EmailOtpUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    identifier?: StringFieldUpdateOperationsInput | string
-    value?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    codeHash?: StringFieldUpdateOperationsInput | string
+    purpose?: StringFieldUpdateOperationsInput | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type VerificationCreateManyInput = {
+  export type EmailOtpCreateManyInput = {
     id?: string
-    identifier: string
-    value: string
+    userId: string
+    codeHash: string
+    purpose: string
     expiresAt: Date | string
+    consumedAt?: Date | string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
-  export type VerificationUpdateManyMutationInput = {
+  export type EmailOtpUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    identifier?: StringFieldUpdateOperationsInput | string
-    value?: StringFieldUpdateOperationsInput | string
+    codeHash?: StringFieldUpdateOperationsInput | string
+    purpose?: StringFieldUpdateOperationsInput | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type VerificationUncheckedUpdateManyInput = {
+  export type EmailOtpUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    identifier?: StringFieldUpdateOperationsInput | string
-    value?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    codeHash?: StringFieldUpdateOperationsInput | string
+    purpose?: StringFieldUpdateOperationsInput | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FriendshipCreateInput = {
@@ -12395,16 +11033,16 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
-  export type AccountListRelationFilter = {
-    every?: AccountWhereInput
-    some?: AccountWhereInput
-    none?: AccountWhereInput
-  }
-
   export type SessionListRelationFilter = {
     every?: SessionWhereInput
     some?: SessionWhereInput
     none?: SessionWhereInput
+  }
+
+  export type EmailOtpListRelationFilter = {
+    every?: EmailOtpWhereInput
+    some?: EmailOtpWhereInput
+    none?: EmailOtpWhereInput
   }
 
   export type FriendshipListRelationFilter = {
@@ -12436,11 +11074,11 @@ export namespace Prisma {
     nulls?: NullsOrder
   }
 
-  export type AccountOrderByRelationAggregateInput = {
+  export type SessionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type SessionOrderByRelationAggregateInput = {
+  export type EmailOtpOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -12463,6 +11101,7 @@ export namespace Prisma {
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
+    passwordHash?: SortOrder
     name?: SortOrder
     displayName?: SortOrder
     image?: SortOrder
@@ -12476,6 +11115,7 @@ export namespace Prisma {
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
+    passwordHash?: SortOrder
     name?: SortOrder
     displayName?: SortOrder
     image?: SortOrder
@@ -12489,6 +11129,7 @@ export namespace Prisma {
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
+    passwordHash?: SortOrder
     name?: SortOrder
     displayName?: SortOrder
     image?: SortOrder
@@ -12576,59 +11217,6 @@ export namespace Prisma {
     isNot?: UserWhereInput
   }
 
-  export type AccountProviderIdAccountIdCompoundUniqueInput = {
-    providerId: string
-    accountId: string
-  }
-
-  export type AccountCountOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    providerId?: SortOrder
-    accountId?: SortOrder
-    accessToken?: SortOrder
-    refreshToken?: SortOrder
-    idToken?: SortOrder
-    accessTokenExpiresAt?: SortOrder
-    refreshTokenExpiresAt?: SortOrder
-    scope?: SortOrder
-    password?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type AccountMaxOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    providerId?: SortOrder
-    accountId?: SortOrder
-    accessToken?: SortOrder
-    refreshToken?: SortOrder
-    idToken?: SortOrder
-    accessTokenExpiresAt?: SortOrder
-    refreshTokenExpiresAt?: SortOrder
-    scope?: SortOrder
-    password?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type AccountMinOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    providerId?: SortOrder
-    accountId?: SortOrder
-    accessToken?: SortOrder
-    refreshToken?: SortOrder
-    idToken?: SortOrder
-    accessTokenExpiresAt?: SortOrder
-    refreshTokenExpiresAt?: SortOrder
-    scope?: SortOrder
-    password?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
   export type SessionCountOrderByAggregateInput = {
     id?: SortOrder
     token?: SortOrder
@@ -12662,31 +11250,34 @@ export namespace Prisma {
     userAgent?: SortOrder
   }
 
-  export type VerificationCountOrderByAggregateInput = {
+  export type EmailOtpCountOrderByAggregateInput = {
     id?: SortOrder
-    identifier?: SortOrder
-    value?: SortOrder
+    userId?: SortOrder
+    codeHash?: SortOrder
+    purpose?: SortOrder
     expiresAt?: SortOrder
+    consumedAt?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
-  export type VerificationMaxOrderByAggregateInput = {
+  export type EmailOtpMaxOrderByAggregateInput = {
     id?: SortOrder
-    identifier?: SortOrder
-    value?: SortOrder
+    userId?: SortOrder
+    codeHash?: SortOrder
+    purpose?: SortOrder
     expiresAt?: SortOrder
+    consumedAt?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
-  export type VerificationMinOrderByAggregateInput = {
+  export type EmailOtpMinOrderByAggregateInput = {
     id?: SortOrder
-    identifier?: SortOrder
-    value?: SortOrder
+    userId?: SortOrder
+    codeHash?: SortOrder
+    purpose?: SortOrder
     expiresAt?: SortOrder
+    consumedAt?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
   export type EnumFriendshipStatusFilter<$PrismaModel = never> = {
@@ -12915,18 +11506,18 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type AccountCreateNestedManyWithoutUserInput = {
-    create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
-    createMany?: AccountCreateManyUserInputEnvelope
-    connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
-  }
-
   export type SessionCreateNestedManyWithoutUserInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
     createMany?: SessionCreateManyUserInputEnvelope
     connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+  }
+
+  export type EmailOtpCreateNestedManyWithoutUserInput = {
+    create?: XOR<EmailOtpCreateWithoutUserInput, EmailOtpUncheckedCreateWithoutUserInput> | EmailOtpCreateWithoutUserInput[] | EmailOtpUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: EmailOtpCreateOrConnectWithoutUserInput | EmailOtpCreateOrConnectWithoutUserInput[]
+    createMany?: EmailOtpCreateManyUserInputEnvelope
+    connect?: EmailOtpWhereUniqueInput | EmailOtpWhereUniqueInput[]
   }
 
   export type FriendshipCreateNestedManyWithoutRequesterInput = {
@@ -12985,18 +11576,18 @@ export namespace Prisma {
     connect?: MoveWhereUniqueInput | MoveWhereUniqueInput[]
   }
 
-  export type AccountUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
-    createMany?: AccountCreateManyUserInputEnvelope
-    connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
-  }
-
   export type SessionUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
     createMany?: SessionCreateManyUserInputEnvelope
     connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+  }
+
+  export type EmailOtpUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<EmailOtpCreateWithoutUserInput, EmailOtpUncheckedCreateWithoutUserInput> | EmailOtpCreateWithoutUserInput[] | EmailOtpUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: EmailOtpCreateOrConnectWithoutUserInput | EmailOtpCreateOrConnectWithoutUserInput[]
+    createMany?: EmailOtpCreateManyUserInputEnvelope
+    connect?: EmailOtpWhereUniqueInput | EmailOtpWhereUniqueInput[]
   }
 
   export type FriendshipUncheckedCreateNestedManyWithoutRequesterInput = {
@@ -13075,20 +11666,6 @@ export namespace Prisma {
     set?: Date | string | null
   }
 
-  export type AccountUpdateManyWithoutUserNestedInput = {
-    create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
-    upsert?: AccountUpsertWithWhereUniqueWithoutUserInput | AccountUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: AccountCreateManyUserInputEnvelope
-    set?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
-    disconnect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
-    delete?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
-    connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
-    update?: AccountUpdateWithWhereUniqueWithoutUserInput | AccountUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: AccountUpdateManyWithWhereWithoutUserInput | AccountUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: AccountScalarWhereInput | AccountScalarWhereInput[]
-  }
-
   export type SessionUpdateManyWithoutUserNestedInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
@@ -13101,6 +11678,20 @@ export namespace Prisma {
     update?: SessionUpdateWithWhereUniqueWithoutUserInput | SessionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: SessionUpdateManyWithWhereWithoutUserInput | SessionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  }
+
+  export type EmailOtpUpdateManyWithoutUserNestedInput = {
+    create?: XOR<EmailOtpCreateWithoutUserInput, EmailOtpUncheckedCreateWithoutUserInput> | EmailOtpCreateWithoutUserInput[] | EmailOtpUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: EmailOtpCreateOrConnectWithoutUserInput | EmailOtpCreateOrConnectWithoutUserInput[]
+    upsert?: EmailOtpUpsertWithWhereUniqueWithoutUserInput | EmailOtpUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: EmailOtpCreateManyUserInputEnvelope
+    set?: EmailOtpWhereUniqueInput | EmailOtpWhereUniqueInput[]
+    disconnect?: EmailOtpWhereUniqueInput | EmailOtpWhereUniqueInput[]
+    delete?: EmailOtpWhereUniqueInput | EmailOtpWhereUniqueInput[]
+    connect?: EmailOtpWhereUniqueInput | EmailOtpWhereUniqueInput[]
+    update?: EmailOtpUpdateWithWhereUniqueWithoutUserInput | EmailOtpUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: EmailOtpUpdateManyWithWhereWithoutUserInput | EmailOtpUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: EmailOtpScalarWhereInput | EmailOtpScalarWhereInput[]
   }
 
   export type FriendshipUpdateManyWithoutRequesterNestedInput = {
@@ -13215,20 +11806,6 @@ export namespace Prisma {
     deleteMany?: MoveScalarWhereInput | MoveScalarWhereInput[]
   }
 
-  export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
-    upsert?: AccountUpsertWithWhereUniqueWithoutUserInput | AccountUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: AccountCreateManyUserInputEnvelope
-    set?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
-    disconnect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
-    delete?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
-    connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
-    update?: AccountUpdateWithWhereUniqueWithoutUserInput | AccountUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: AccountUpdateManyWithWhereWithoutUserInput | AccountUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: AccountScalarWhereInput | AccountScalarWhereInput[]
-  }
-
   export type SessionUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
@@ -13241,6 +11818,20 @@ export namespace Prisma {
     update?: SessionUpdateWithWhereUniqueWithoutUserInput | SessionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: SessionUpdateManyWithWhereWithoutUserInput | SessionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  }
+
+  export type EmailOtpUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<EmailOtpCreateWithoutUserInput, EmailOtpUncheckedCreateWithoutUserInput> | EmailOtpCreateWithoutUserInput[] | EmailOtpUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: EmailOtpCreateOrConnectWithoutUserInput | EmailOtpCreateOrConnectWithoutUserInput[]
+    upsert?: EmailOtpUpsertWithWhereUniqueWithoutUserInput | EmailOtpUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: EmailOtpCreateManyUserInputEnvelope
+    set?: EmailOtpWhereUniqueInput | EmailOtpWhereUniqueInput[]
+    disconnect?: EmailOtpWhereUniqueInput | EmailOtpWhereUniqueInput[]
+    delete?: EmailOtpWhereUniqueInput | EmailOtpWhereUniqueInput[]
+    connect?: EmailOtpWhereUniqueInput | EmailOtpWhereUniqueInput[]
+    update?: EmailOtpUpdateWithWhereUniqueWithoutUserInput | EmailOtpUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: EmailOtpUpdateManyWithWhereWithoutUserInput | EmailOtpUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: EmailOtpScalarWhereInput | EmailOtpScalarWhereInput[]
   }
 
   export type FriendshipUncheckedUpdateManyWithoutRequesterNestedInput = {
@@ -13355,20 +11946,6 @@ export namespace Prisma {
     deleteMany?: MoveScalarWhereInput | MoveScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutAccountsInput = {
-    create?: XOR<UserCreateWithoutAccountsInput, UserUncheckedCreateWithoutAccountsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutAccountsInput
-    connect?: UserWhereUniqueInput
-  }
-
-  export type UserUpdateOneRequiredWithoutAccountsNestedInput = {
-    create?: XOR<UserCreateWithoutAccountsInput, UserUncheckedCreateWithoutAccountsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutAccountsInput
-    upsert?: UserUpsertWithoutAccountsInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAccountsInput, UserUpdateWithoutAccountsInput>, UserUncheckedUpdateWithoutAccountsInput>
-  }
-
   export type UserCreateNestedOneWithoutSessionsInput = {
     create?: XOR<UserCreateWithoutSessionsInput, UserUncheckedCreateWithoutSessionsInput>
     connectOrCreate?: UserCreateOrConnectWithoutSessionsInput
@@ -13381,6 +11958,20 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutSessionsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSessionsInput, UserUpdateWithoutSessionsInput>, UserUncheckedUpdateWithoutSessionsInput>
+  }
+
+  export type UserCreateNestedOneWithoutOtpCodesInput = {
+    create?: XOR<UserCreateWithoutOtpCodesInput, UserUncheckedCreateWithoutOtpCodesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOtpCodesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutOtpCodesNestedInput = {
+    create?: XOR<UserCreateWithoutOtpCodesInput, UserUncheckedCreateWithoutOtpCodesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOtpCodesInput
+    upsert?: UserUpsertWithoutOtpCodesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutOtpCodesInput, UserUpdateWithoutOtpCodesInput>, UserUncheckedUpdateWithoutOtpCodesInput>
   }
 
   export type UserCreateNestedOneWithoutRequestedFriendshipsInput = {
@@ -13844,46 +12435,6 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type AccountCreateWithoutUserInput = {
-    id?: string
-    providerId: string
-    accountId: string
-    accessToken?: string | null
-    refreshToken?: string | null
-    idToken?: string | null
-    accessTokenExpiresAt?: Date | string | null
-    refreshTokenExpiresAt?: Date | string | null
-    scope?: string | null
-    password?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type AccountUncheckedCreateWithoutUserInput = {
-    id?: string
-    providerId: string
-    accountId: string
-    accessToken?: string | null
-    refreshToken?: string | null
-    idToken?: string | null
-    accessTokenExpiresAt?: Date | string | null
-    refreshTokenExpiresAt?: Date | string | null
-    scope?: string | null
-    password?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type AccountCreateOrConnectWithoutUserInput = {
-    where: AccountWhereUniqueInput
-    create: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput>
-  }
-
-  export type AccountCreateManyUserInputEnvelope = {
-    data: AccountCreateManyUserInput | AccountCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
   export type SessionCreateWithoutUserInput = {
     id?: string
     token: string
@@ -13911,6 +12462,34 @@ export namespace Prisma {
 
   export type SessionCreateManyUserInputEnvelope = {
     data: SessionCreateManyUserInput | SessionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EmailOtpCreateWithoutUserInput = {
+    id?: string
+    codeHash: string
+    purpose: string
+    expiresAt: Date | string
+    consumedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type EmailOtpUncheckedCreateWithoutUserInput = {
+    id?: string
+    codeHash: string
+    purpose: string
+    expiresAt: Date | string
+    consumedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type EmailOtpCreateOrConnectWithoutUserInput = {
+    where: EmailOtpWhereUniqueInput
+    create: XOR<EmailOtpCreateWithoutUserInput, EmailOtpUncheckedCreateWithoutUserInput>
+  }
+
+  export type EmailOtpCreateManyUserInputEnvelope = {
+    data: EmailOtpCreateManyUserInput | EmailOtpCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -14156,41 +12735,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type AccountUpsertWithWhereUniqueWithoutUserInput = {
-    where: AccountWhereUniqueInput
-    update: XOR<AccountUpdateWithoutUserInput, AccountUncheckedUpdateWithoutUserInput>
-    create: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput>
-  }
-
-  export type AccountUpdateWithWhereUniqueWithoutUserInput = {
-    where: AccountWhereUniqueInput
-    data: XOR<AccountUpdateWithoutUserInput, AccountUncheckedUpdateWithoutUserInput>
-  }
-
-  export type AccountUpdateManyWithWhereWithoutUserInput = {
-    where: AccountScalarWhereInput
-    data: XOR<AccountUpdateManyMutationInput, AccountUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type AccountScalarWhereInput = {
-    AND?: AccountScalarWhereInput | AccountScalarWhereInput[]
-    OR?: AccountScalarWhereInput[]
-    NOT?: AccountScalarWhereInput | AccountScalarWhereInput[]
-    id?: StringFilter<"Account"> | string
-    userId?: StringFilter<"Account"> | string
-    providerId?: StringFilter<"Account"> | string
-    accountId?: StringFilter<"Account"> | string
-    accessToken?: StringNullableFilter<"Account"> | string | null
-    refreshToken?: StringNullableFilter<"Account"> | string | null
-    idToken?: StringNullableFilter<"Account"> | string | null
-    accessTokenExpiresAt?: DateTimeNullableFilter<"Account"> | Date | string | null
-    refreshTokenExpiresAt?: DateTimeNullableFilter<"Account"> | Date | string | null
-    scope?: StringNullableFilter<"Account"> | string | null
-    password?: StringNullableFilter<"Account"> | string | null
-    createdAt?: DateTimeFilter<"Account"> | Date | string
-    updatedAt?: DateTimeFilter<"Account"> | Date | string
-  }
-
   export type SessionUpsertWithWhereUniqueWithoutUserInput = {
     where: SessionWhereUniqueInput
     update: XOR<SessionUpdateWithoutUserInput, SessionUncheckedUpdateWithoutUserInput>
@@ -14219,6 +12763,35 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Session"> | Date | string
     ipAddress?: StringNullableFilter<"Session"> | string | null
     userAgent?: StringNullableFilter<"Session"> | string | null
+  }
+
+  export type EmailOtpUpsertWithWhereUniqueWithoutUserInput = {
+    where: EmailOtpWhereUniqueInput
+    update: XOR<EmailOtpUpdateWithoutUserInput, EmailOtpUncheckedUpdateWithoutUserInput>
+    create: XOR<EmailOtpCreateWithoutUserInput, EmailOtpUncheckedCreateWithoutUserInput>
+  }
+
+  export type EmailOtpUpdateWithWhereUniqueWithoutUserInput = {
+    where: EmailOtpWhereUniqueInput
+    data: XOR<EmailOtpUpdateWithoutUserInput, EmailOtpUncheckedUpdateWithoutUserInput>
+  }
+
+  export type EmailOtpUpdateManyWithWhereWithoutUserInput = {
+    where: EmailOtpScalarWhereInput
+    data: XOR<EmailOtpUpdateManyMutationInput, EmailOtpUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type EmailOtpScalarWhereInput = {
+    AND?: EmailOtpScalarWhereInput | EmailOtpScalarWhereInput[]
+    OR?: EmailOtpScalarWhereInput[]
+    NOT?: EmailOtpScalarWhereInput | EmailOtpScalarWhereInput[]
+    id?: StringFilter<"EmailOtp"> | string
+    userId?: StringFilter<"EmailOtp"> | string
+    codeHash?: StringFilter<"EmailOtp"> | string
+    purpose?: StringFilter<"EmailOtp"> | string
+    expiresAt?: DateTimeFilter<"EmailOtp"> | Date | string
+    consumedAt?: DateTimeNullableFilter<"EmailOtp"> | Date | string | null
+    createdAt?: DateTimeFilter<"EmailOtp"> | Date | string
   }
 
   export type FriendshipUpsertWithWhereUniqueWithoutRequesterInput = {
@@ -14398,113 +12971,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Move"> | Date | string
   }
 
-  export type UserCreateWithoutAccountsInput = {
-    id?: string
-    email?: string | null
-    name?: string | null
-    displayName?: string | null
-    image?: string | null
-    avatarUrl?: string | null
-    emailVerified?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    lastOnlineAt?: Date | string | null
-    sessions?: SessionCreateNestedManyWithoutUserInput
-    requestedFriendships?: FriendshipCreateNestedManyWithoutRequesterInput
-    receivedFriendships?: FriendshipCreateNestedManyWithoutAddresseeInput
-    matchesAsPlayer1?: MatchCreateNestedManyWithoutPlayer1Input
-    matchesAsPlayer2?: MatchCreateNestedManyWithoutPlayer2Input
-    matchesAsCurrentTurn?: MatchCreateNestedManyWithoutCurrentTurnUserInput
-    matchesWon?: MatchCreateNestedManyWithoutWinnerUserInput
-    boards?: BoardCreateNestedManyWithoutUserInput
-    moves?: MoveCreateNestedManyWithoutChosenByInput
-  }
-
-  export type UserUncheckedCreateWithoutAccountsInput = {
-    id?: string
-    email?: string | null
-    name?: string | null
-    displayName?: string | null
-    image?: string | null
-    avatarUrl?: string | null
-    emailVerified?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    lastOnlineAt?: Date | string | null
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
-    requestedFriendships?: FriendshipUncheckedCreateNestedManyWithoutRequesterInput
-    receivedFriendships?: FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
-    matchesAsPlayer1?: MatchUncheckedCreateNestedManyWithoutPlayer1Input
-    matchesAsPlayer2?: MatchUncheckedCreateNestedManyWithoutPlayer2Input
-    matchesAsCurrentTurn?: MatchUncheckedCreateNestedManyWithoutCurrentTurnUserInput
-    matchesWon?: MatchUncheckedCreateNestedManyWithoutWinnerUserInput
-    boards?: BoardUncheckedCreateNestedManyWithoutUserInput
-    moves?: MoveUncheckedCreateNestedManyWithoutChosenByInput
-  }
-
-  export type UserCreateOrConnectWithoutAccountsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutAccountsInput, UserUncheckedCreateWithoutAccountsInput>
-  }
-
-  export type UserUpsertWithoutAccountsInput = {
-    update: XOR<UserUpdateWithoutAccountsInput, UserUncheckedUpdateWithoutAccountsInput>
-    create: XOR<UserCreateWithoutAccountsInput, UserUncheckedCreateWithoutAccountsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutAccountsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutAccountsInput, UserUncheckedUpdateWithoutAccountsInput>
-  }
-
-  export type UserUpdateWithoutAccountsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    displayName?: NullableStringFieldUpdateOperationsInput | string | null
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    lastOnlineAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    sessions?: SessionUpdateManyWithoutUserNestedInput
-    requestedFriendships?: FriendshipUpdateManyWithoutRequesterNestedInput
-    receivedFriendships?: FriendshipUpdateManyWithoutAddresseeNestedInput
-    matchesAsPlayer1?: MatchUpdateManyWithoutPlayer1NestedInput
-    matchesAsPlayer2?: MatchUpdateManyWithoutPlayer2NestedInput
-    matchesAsCurrentTurn?: MatchUpdateManyWithoutCurrentTurnUserNestedInput
-    matchesWon?: MatchUpdateManyWithoutWinnerUserNestedInput
-    boards?: BoardUpdateManyWithoutUserNestedInput
-    moves?: MoveUpdateManyWithoutChosenByNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutAccountsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    displayName?: NullableStringFieldUpdateOperationsInput | string | null
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    lastOnlineAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
-    requestedFriendships?: FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
-    receivedFriendships?: FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
-    matchesAsPlayer1?: MatchUncheckedUpdateManyWithoutPlayer1NestedInput
-    matchesAsPlayer2?: MatchUncheckedUpdateManyWithoutPlayer2NestedInput
-    matchesAsCurrentTurn?: MatchUncheckedUpdateManyWithoutCurrentTurnUserNestedInput
-    matchesWon?: MatchUncheckedUpdateManyWithoutWinnerUserNestedInput
-    boards?: BoardUncheckedUpdateManyWithoutUserNestedInput
-    moves?: MoveUncheckedUpdateManyWithoutChosenByNestedInput
-  }
-
   export type UserCreateWithoutSessionsInput = {
     id?: string
-    email?: string | null
+    email: string
+    passwordHash: string
     name?: string | null
     displayName?: string | null
     image?: string | null
@@ -14513,7 +12983,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastOnlineAt?: Date | string | null
-    accounts?: AccountCreateNestedManyWithoutUserInput
+    otpCodes?: EmailOtpCreateNestedManyWithoutUserInput
     requestedFriendships?: FriendshipCreateNestedManyWithoutRequesterInput
     receivedFriendships?: FriendshipCreateNestedManyWithoutAddresseeInput
     matchesAsPlayer1?: MatchCreateNestedManyWithoutPlayer1Input
@@ -14526,7 +12996,8 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutSessionsInput = {
     id?: string
-    email?: string | null
+    email: string
+    passwordHash: string
     name?: string | null
     displayName?: string | null
     image?: string | null
@@ -14535,7 +13006,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastOnlineAt?: Date | string | null
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    otpCodes?: EmailOtpUncheckedCreateNestedManyWithoutUserInput
     requestedFriendships?: FriendshipUncheckedCreateNestedManyWithoutRequesterInput
     receivedFriendships?: FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
     matchesAsPlayer1?: MatchUncheckedCreateNestedManyWithoutPlayer1Input
@@ -14564,7 +13035,8 @@ export namespace Prisma {
 
   export type UserUpdateWithoutSessionsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14573,7 +13045,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastOnlineAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    accounts?: AccountUpdateManyWithoutUserNestedInput
+    otpCodes?: EmailOtpUpdateManyWithoutUserNestedInput
     requestedFriendships?: FriendshipUpdateManyWithoutRequesterNestedInput
     receivedFriendships?: FriendshipUpdateManyWithoutAddresseeNestedInput
     matchesAsPlayer1?: MatchUpdateManyWithoutPlayer1NestedInput
@@ -14586,7 +13058,8 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14595,7 +13068,115 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastOnlineAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    otpCodes?: EmailOtpUncheckedUpdateManyWithoutUserNestedInput
+    requestedFriendships?: FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+    receivedFriendships?: FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+    matchesAsPlayer1?: MatchUncheckedUpdateManyWithoutPlayer1NestedInput
+    matchesAsPlayer2?: MatchUncheckedUpdateManyWithoutPlayer2NestedInput
+    matchesAsCurrentTurn?: MatchUncheckedUpdateManyWithoutCurrentTurnUserNestedInput
+    matchesWon?: MatchUncheckedUpdateManyWithoutWinnerUserNestedInput
+    boards?: BoardUncheckedUpdateManyWithoutUserNestedInput
+    moves?: MoveUncheckedUpdateManyWithoutChosenByNestedInput
+  }
+
+  export type UserCreateWithoutOtpCodesInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    name?: string | null
+    displayName?: string | null
+    image?: string | null
+    avatarUrl?: string | null
+    emailVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastOnlineAt?: Date | string | null
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    requestedFriendships?: FriendshipCreateNestedManyWithoutRequesterInput
+    receivedFriendships?: FriendshipCreateNestedManyWithoutAddresseeInput
+    matchesAsPlayer1?: MatchCreateNestedManyWithoutPlayer1Input
+    matchesAsPlayer2?: MatchCreateNestedManyWithoutPlayer2Input
+    matchesAsCurrentTurn?: MatchCreateNestedManyWithoutCurrentTurnUserInput
+    matchesWon?: MatchCreateNestedManyWithoutWinnerUserInput
+    boards?: BoardCreateNestedManyWithoutUserInput
+    moves?: MoveCreateNestedManyWithoutChosenByInput
+  }
+
+  export type UserUncheckedCreateWithoutOtpCodesInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    name?: string | null
+    displayName?: string | null
+    image?: string | null
+    avatarUrl?: string | null
+    emailVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastOnlineAt?: Date | string | null
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    requestedFriendships?: FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+    receivedFriendships?: FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+    matchesAsPlayer1?: MatchUncheckedCreateNestedManyWithoutPlayer1Input
+    matchesAsPlayer2?: MatchUncheckedCreateNestedManyWithoutPlayer2Input
+    matchesAsCurrentTurn?: MatchUncheckedCreateNestedManyWithoutCurrentTurnUserInput
+    matchesWon?: MatchUncheckedCreateNestedManyWithoutWinnerUserInput
+    boards?: BoardUncheckedCreateNestedManyWithoutUserInput
+    moves?: MoveUncheckedCreateNestedManyWithoutChosenByInput
+  }
+
+  export type UserCreateOrConnectWithoutOtpCodesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutOtpCodesInput, UserUncheckedCreateWithoutOtpCodesInput>
+  }
+
+  export type UserUpsertWithoutOtpCodesInput = {
+    update: XOR<UserUpdateWithoutOtpCodesInput, UserUncheckedUpdateWithoutOtpCodesInput>
+    create: XOR<UserCreateWithoutOtpCodesInput, UserUncheckedCreateWithoutOtpCodesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutOtpCodesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutOtpCodesInput, UserUncheckedUpdateWithoutOtpCodesInput>
+  }
+
+  export type UserUpdateWithoutOtpCodesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastOnlineAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    requestedFriendships?: FriendshipUpdateManyWithoutRequesterNestedInput
+    receivedFriendships?: FriendshipUpdateManyWithoutAddresseeNestedInput
+    matchesAsPlayer1?: MatchUpdateManyWithoutPlayer1NestedInput
+    matchesAsPlayer2?: MatchUpdateManyWithoutPlayer2NestedInput
+    matchesAsCurrentTurn?: MatchUpdateManyWithoutCurrentTurnUserNestedInput
+    matchesWon?: MatchUpdateManyWithoutWinnerUserNestedInput
+    boards?: BoardUpdateManyWithoutUserNestedInput
+    moves?: MoveUpdateManyWithoutChosenByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutOtpCodesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastOnlineAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     requestedFriendships?: FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
     receivedFriendships?: FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
     matchesAsPlayer1?: MatchUncheckedUpdateManyWithoutPlayer1NestedInput
@@ -14608,7 +13189,8 @@ export namespace Prisma {
 
   export type UserCreateWithoutRequestedFriendshipsInput = {
     id?: string
-    email?: string | null
+    email: string
+    passwordHash: string
     name?: string | null
     displayName?: string | null
     image?: string | null
@@ -14617,8 +13199,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastOnlineAt?: Date | string | null
-    accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    otpCodes?: EmailOtpCreateNestedManyWithoutUserInput
     receivedFriendships?: FriendshipCreateNestedManyWithoutAddresseeInput
     matchesAsPlayer1?: MatchCreateNestedManyWithoutPlayer1Input
     matchesAsPlayer2?: MatchCreateNestedManyWithoutPlayer2Input
@@ -14630,7 +13212,8 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutRequestedFriendshipsInput = {
     id?: string
-    email?: string | null
+    email: string
+    passwordHash: string
     name?: string | null
     displayName?: string | null
     image?: string | null
@@ -14639,8 +13222,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastOnlineAt?: Date | string | null
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    otpCodes?: EmailOtpUncheckedCreateNestedManyWithoutUserInput
     receivedFriendships?: FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
     matchesAsPlayer1?: MatchUncheckedCreateNestedManyWithoutPlayer1Input
     matchesAsPlayer2?: MatchUncheckedCreateNestedManyWithoutPlayer2Input
@@ -14657,7 +13240,8 @@ export namespace Prisma {
 
   export type UserCreateWithoutReceivedFriendshipsInput = {
     id?: string
-    email?: string | null
+    email: string
+    passwordHash: string
     name?: string | null
     displayName?: string | null
     image?: string | null
@@ -14666,8 +13250,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastOnlineAt?: Date | string | null
-    accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    otpCodes?: EmailOtpCreateNestedManyWithoutUserInput
     requestedFriendships?: FriendshipCreateNestedManyWithoutRequesterInput
     matchesAsPlayer1?: MatchCreateNestedManyWithoutPlayer1Input
     matchesAsPlayer2?: MatchCreateNestedManyWithoutPlayer2Input
@@ -14679,7 +13263,8 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutReceivedFriendshipsInput = {
     id?: string
-    email?: string | null
+    email: string
+    passwordHash: string
     name?: string | null
     displayName?: string | null
     image?: string | null
@@ -14688,8 +13273,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastOnlineAt?: Date | string | null
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    otpCodes?: EmailOtpUncheckedCreateNestedManyWithoutUserInput
     requestedFriendships?: FriendshipUncheckedCreateNestedManyWithoutRequesterInput
     matchesAsPlayer1?: MatchUncheckedCreateNestedManyWithoutPlayer1Input
     matchesAsPlayer2?: MatchUncheckedCreateNestedManyWithoutPlayer2Input
@@ -14717,7 +13302,8 @@ export namespace Prisma {
 
   export type UserUpdateWithoutRequestedFriendshipsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14726,8 +13312,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastOnlineAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    otpCodes?: EmailOtpUpdateManyWithoutUserNestedInput
     receivedFriendships?: FriendshipUpdateManyWithoutAddresseeNestedInput
     matchesAsPlayer1?: MatchUpdateManyWithoutPlayer1NestedInput
     matchesAsPlayer2?: MatchUpdateManyWithoutPlayer2NestedInput
@@ -14739,7 +13325,8 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutRequestedFriendshipsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14748,8 +13335,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastOnlineAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    otpCodes?: EmailOtpUncheckedUpdateManyWithoutUserNestedInput
     receivedFriendships?: FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
     matchesAsPlayer1?: MatchUncheckedUpdateManyWithoutPlayer1NestedInput
     matchesAsPlayer2?: MatchUncheckedUpdateManyWithoutPlayer2NestedInput
@@ -14772,7 +13359,8 @@ export namespace Prisma {
 
   export type UserUpdateWithoutReceivedFriendshipsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14781,8 +13369,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastOnlineAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    otpCodes?: EmailOtpUpdateManyWithoutUserNestedInput
     requestedFriendships?: FriendshipUpdateManyWithoutRequesterNestedInput
     matchesAsPlayer1?: MatchUpdateManyWithoutPlayer1NestedInput
     matchesAsPlayer2?: MatchUpdateManyWithoutPlayer2NestedInput
@@ -14794,7 +13382,8 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutReceivedFriendshipsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14803,8 +13392,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastOnlineAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    otpCodes?: EmailOtpUncheckedUpdateManyWithoutUserNestedInput
     requestedFriendships?: FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
     matchesAsPlayer1?: MatchUncheckedUpdateManyWithoutPlayer1NestedInput
     matchesAsPlayer2?: MatchUncheckedUpdateManyWithoutPlayer2NestedInput
@@ -14816,7 +13405,8 @@ export namespace Prisma {
 
   export type UserCreateWithoutMatchesAsPlayer1Input = {
     id?: string
-    email?: string | null
+    email: string
+    passwordHash: string
     name?: string | null
     displayName?: string | null
     image?: string | null
@@ -14825,8 +13415,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastOnlineAt?: Date | string | null
-    accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    otpCodes?: EmailOtpCreateNestedManyWithoutUserInput
     requestedFriendships?: FriendshipCreateNestedManyWithoutRequesterInput
     receivedFriendships?: FriendshipCreateNestedManyWithoutAddresseeInput
     matchesAsPlayer2?: MatchCreateNestedManyWithoutPlayer2Input
@@ -14838,7 +13428,8 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutMatchesAsPlayer1Input = {
     id?: string
-    email?: string | null
+    email: string
+    passwordHash: string
     name?: string | null
     displayName?: string | null
     image?: string | null
@@ -14847,8 +13438,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastOnlineAt?: Date | string | null
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    otpCodes?: EmailOtpUncheckedCreateNestedManyWithoutUserInput
     requestedFriendships?: FriendshipUncheckedCreateNestedManyWithoutRequesterInput
     receivedFriendships?: FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
     matchesAsPlayer2?: MatchUncheckedCreateNestedManyWithoutPlayer2Input
@@ -14865,7 +13456,8 @@ export namespace Prisma {
 
   export type UserCreateWithoutMatchesAsPlayer2Input = {
     id?: string
-    email?: string | null
+    email: string
+    passwordHash: string
     name?: string | null
     displayName?: string | null
     image?: string | null
@@ -14874,8 +13466,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastOnlineAt?: Date | string | null
-    accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    otpCodes?: EmailOtpCreateNestedManyWithoutUserInput
     requestedFriendships?: FriendshipCreateNestedManyWithoutRequesterInput
     receivedFriendships?: FriendshipCreateNestedManyWithoutAddresseeInput
     matchesAsPlayer1?: MatchCreateNestedManyWithoutPlayer1Input
@@ -14887,7 +13479,8 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutMatchesAsPlayer2Input = {
     id?: string
-    email?: string | null
+    email: string
+    passwordHash: string
     name?: string | null
     displayName?: string | null
     image?: string | null
@@ -14896,8 +13489,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastOnlineAt?: Date | string | null
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    otpCodes?: EmailOtpUncheckedCreateNestedManyWithoutUserInput
     requestedFriendships?: FriendshipUncheckedCreateNestedManyWithoutRequesterInput
     receivedFriendships?: FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
     matchesAsPlayer1?: MatchUncheckedCreateNestedManyWithoutPlayer1Input
@@ -14914,7 +13507,8 @@ export namespace Prisma {
 
   export type UserCreateWithoutMatchesAsCurrentTurnInput = {
     id?: string
-    email?: string | null
+    email: string
+    passwordHash: string
     name?: string | null
     displayName?: string | null
     image?: string | null
@@ -14923,8 +13517,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastOnlineAt?: Date | string | null
-    accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    otpCodes?: EmailOtpCreateNestedManyWithoutUserInput
     requestedFriendships?: FriendshipCreateNestedManyWithoutRequesterInput
     receivedFriendships?: FriendshipCreateNestedManyWithoutAddresseeInput
     matchesAsPlayer1?: MatchCreateNestedManyWithoutPlayer1Input
@@ -14936,7 +13530,8 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutMatchesAsCurrentTurnInput = {
     id?: string
-    email?: string | null
+    email: string
+    passwordHash: string
     name?: string | null
     displayName?: string | null
     image?: string | null
@@ -14945,8 +13540,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastOnlineAt?: Date | string | null
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    otpCodes?: EmailOtpUncheckedCreateNestedManyWithoutUserInput
     requestedFriendships?: FriendshipUncheckedCreateNestedManyWithoutRequesterInput
     receivedFriendships?: FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
     matchesAsPlayer1?: MatchUncheckedCreateNestedManyWithoutPlayer1Input
@@ -14963,7 +13558,8 @@ export namespace Prisma {
 
   export type UserCreateWithoutMatchesWonInput = {
     id?: string
-    email?: string | null
+    email: string
+    passwordHash: string
     name?: string | null
     displayName?: string | null
     image?: string | null
@@ -14972,8 +13568,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastOnlineAt?: Date | string | null
-    accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    otpCodes?: EmailOtpCreateNestedManyWithoutUserInput
     requestedFriendships?: FriendshipCreateNestedManyWithoutRequesterInput
     receivedFriendships?: FriendshipCreateNestedManyWithoutAddresseeInput
     matchesAsPlayer1?: MatchCreateNestedManyWithoutPlayer1Input
@@ -14985,7 +13581,8 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutMatchesWonInput = {
     id?: string
-    email?: string | null
+    email: string
+    passwordHash: string
     name?: string | null
     displayName?: string | null
     image?: string | null
@@ -14994,8 +13591,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastOnlineAt?: Date | string | null
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    otpCodes?: EmailOtpUncheckedCreateNestedManyWithoutUserInput
     requestedFriendships?: FriendshipUncheckedCreateNestedManyWithoutRequesterInput
     receivedFriendships?: FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
     matchesAsPlayer1?: MatchUncheckedCreateNestedManyWithoutPlayer1Input
@@ -15073,7 +13670,8 @@ export namespace Prisma {
 
   export type UserUpdateWithoutMatchesAsPlayer1Input = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15082,8 +13680,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastOnlineAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    otpCodes?: EmailOtpUpdateManyWithoutUserNestedInput
     requestedFriendships?: FriendshipUpdateManyWithoutRequesterNestedInput
     receivedFriendships?: FriendshipUpdateManyWithoutAddresseeNestedInput
     matchesAsPlayer2?: MatchUpdateManyWithoutPlayer2NestedInput
@@ -15095,7 +13693,8 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutMatchesAsPlayer1Input = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15104,8 +13703,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastOnlineAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    otpCodes?: EmailOtpUncheckedUpdateManyWithoutUserNestedInput
     requestedFriendships?: FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
     receivedFriendships?: FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
     matchesAsPlayer2?: MatchUncheckedUpdateManyWithoutPlayer2NestedInput
@@ -15128,7 +13727,8 @@ export namespace Prisma {
 
   export type UserUpdateWithoutMatchesAsPlayer2Input = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15137,8 +13737,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastOnlineAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    otpCodes?: EmailOtpUpdateManyWithoutUserNestedInput
     requestedFriendships?: FriendshipUpdateManyWithoutRequesterNestedInput
     receivedFriendships?: FriendshipUpdateManyWithoutAddresseeNestedInput
     matchesAsPlayer1?: MatchUpdateManyWithoutPlayer1NestedInput
@@ -15150,7 +13750,8 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutMatchesAsPlayer2Input = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15159,8 +13760,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastOnlineAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    otpCodes?: EmailOtpUncheckedUpdateManyWithoutUserNestedInput
     requestedFriendships?: FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
     receivedFriendships?: FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
     matchesAsPlayer1?: MatchUncheckedUpdateManyWithoutPlayer1NestedInput
@@ -15183,7 +13784,8 @@ export namespace Prisma {
 
   export type UserUpdateWithoutMatchesAsCurrentTurnInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15192,8 +13794,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastOnlineAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    otpCodes?: EmailOtpUpdateManyWithoutUserNestedInput
     requestedFriendships?: FriendshipUpdateManyWithoutRequesterNestedInput
     receivedFriendships?: FriendshipUpdateManyWithoutAddresseeNestedInput
     matchesAsPlayer1?: MatchUpdateManyWithoutPlayer1NestedInput
@@ -15205,7 +13807,8 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutMatchesAsCurrentTurnInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15214,8 +13817,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastOnlineAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    otpCodes?: EmailOtpUncheckedUpdateManyWithoutUserNestedInput
     requestedFriendships?: FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
     receivedFriendships?: FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
     matchesAsPlayer1?: MatchUncheckedUpdateManyWithoutPlayer1NestedInput
@@ -15238,7 +13841,8 @@ export namespace Prisma {
 
   export type UserUpdateWithoutMatchesWonInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15247,8 +13851,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastOnlineAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    otpCodes?: EmailOtpUpdateManyWithoutUserNestedInput
     requestedFriendships?: FriendshipUpdateManyWithoutRequesterNestedInput
     receivedFriendships?: FriendshipUpdateManyWithoutAddresseeNestedInput
     matchesAsPlayer1?: MatchUpdateManyWithoutPlayer1NestedInput
@@ -15260,7 +13864,8 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutMatchesWonInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15269,8 +13874,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastOnlineAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    otpCodes?: EmailOtpUncheckedUpdateManyWithoutUserNestedInput
     requestedFriendships?: FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
     receivedFriendships?: FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
     matchesAsPlayer1?: MatchUncheckedUpdateManyWithoutPlayer1NestedInput
@@ -15345,7 +13950,8 @@ export namespace Prisma {
 
   export type UserCreateWithoutBoardsInput = {
     id?: string
-    email?: string | null
+    email: string
+    passwordHash: string
     name?: string | null
     displayName?: string | null
     image?: string | null
@@ -15354,8 +13960,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastOnlineAt?: Date | string | null
-    accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    otpCodes?: EmailOtpCreateNestedManyWithoutUserInput
     requestedFriendships?: FriendshipCreateNestedManyWithoutRequesterInput
     receivedFriendships?: FriendshipCreateNestedManyWithoutAddresseeInput
     matchesAsPlayer1?: MatchCreateNestedManyWithoutPlayer1Input
@@ -15367,7 +13973,8 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutBoardsInput = {
     id?: string
-    email?: string | null
+    email: string
+    passwordHash: string
     name?: string | null
     displayName?: string | null
     image?: string | null
@@ -15376,8 +13983,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastOnlineAt?: Date | string | null
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    otpCodes?: EmailOtpUncheckedCreateNestedManyWithoutUserInput
     requestedFriendships?: FriendshipUncheckedCreateNestedManyWithoutRequesterInput
     receivedFriendships?: FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
     matchesAsPlayer1?: MatchUncheckedCreateNestedManyWithoutPlayer1Input
@@ -15442,7 +14049,8 @@ export namespace Prisma {
 
   export type UserUpdateWithoutBoardsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15451,8 +14059,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastOnlineAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    otpCodes?: EmailOtpUpdateManyWithoutUserNestedInput
     requestedFriendships?: FriendshipUpdateManyWithoutRequesterNestedInput
     receivedFriendships?: FriendshipUpdateManyWithoutAddresseeNestedInput
     matchesAsPlayer1?: MatchUpdateManyWithoutPlayer1NestedInput
@@ -15464,7 +14072,8 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutBoardsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15473,8 +14082,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastOnlineAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    otpCodes?: EmailOtpUncheckedUpdateManyWithoutUserNestedInput
     requestedFriendships?: FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
     receivedFriendships?: FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
     matchesAsPlayer1?: MatchUncheckedUpdateManyWithoutPlayer1NestedInput
@@ -15517,7 +14126,8 @@ export namespace Prisma {
 
   export type UserCreateWithoutMovesInput = {
     id?: string
-    email?: string | null
+    email: string
+    passwordHash: string
     name?: string | null
     displayName?: string | null
     image?: string | null
@@ -15526,8 +14136,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastOnlineAt?: Date | string | null
-    accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    otpCodes?: EmailOtpCreateNestedManyWithoutUserInput
     requestedFriendships?: FriendshipCreateNestedManyWithoutRequesterInput
     receivedFriendships?: FriendshipCreateNestedManyWithoutAddresseeInput
     matchesAsPlayer1?: MatchCreateNestedManyWithoutPlayer1Input
@@ -15539,7 +14149,8 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutMovesInput = {
     id?: string
-    email?: string | null
+    email: string
+    passwordHash: string
     name?: string | null
     displayName?: string | null
     image?: string | null
@@ -15548,8 +14159,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastOnlineAt?: Date | string | null
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    otpCodes?: EmailOtpUncheckedCreateNestedManyWithoutUserInput
     requestedFriendships?: FriendshipUncheckedCreateNestedManyWithoutRequesterInput
     receivedFriendships?: FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
     matchesAsPlayer1?: MatchUncheckedCreateNestedManyWithoutPlayer1Input
@@ -15614,7 +14225,8 @@ export namespace Prisma {
 
   export type UserUpdateWithoutMovesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15623,8 +14235,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastOnlineAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    otpCodes?: EmailOtpUpdateManyWithoutUserNestedInput
     requestedFriendships?: FriendshipUpdateManyWithoutRequesterNestedInput
     receivedFriendships?: FriendshipUpdateManyWithoutAddresseeNestedInput
     matchesAsPlayer1?: MatchUpdateManyWithoutPlayer1NestedInput
@@ -15636,7 +14248,8 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutMovesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     displayName?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15645,8 +14258,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastOnlineAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    otpCodes?: EmailOtpUncheckedUpdateManyWithoutUserNestedInput
     requestedFriendships?: FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
     receivedFriendships?: FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
     matchesAsPlayer1?: MatchUncheckedUpdateManyWithoutPlayer1NestedInput
@@ -15654,21 +14267,6 @@ export namespace Prisma {
     matchesAsCurrentTurn?: MatchUncheckedUpdateManyWithoutCurrentTurnUserNestedInput
     matchesWon?: MatchUncheckedUpdateManyWithoutWinnerUserNestedInput
     boards?: BoardUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type AccountCreateManyUserInput = {
-    id?: string
-    providerId: string
-    accountId: string
-    accessToken?: string | null
-    refreshToken?: string | null
-    idToken?: string | null
-    accessTokenExpiresAt?: Date | string | null
-    refreshTokenExpiresAt?: Date | string | null
-    scope?: string | null
-    password?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
   export type SessionCreateManyUserInput = {
@@ -15679,6 +14277,15 @@ export namespace Prisma {
     updatedAt?: Date | string
     ipAddress?: string | null
     userAgent?: string | null
+  }
+
+  export type EmailOtpCreateManyUserInput = {
+    id?: string
+    codeHash: string
+    purpose: string
+    expiresAt: Date | string
+    consumedAt?: Date | string | null
+    createdAt?: Date | string
   }
 
   export type FriendshipCreateManyRequesterInput = {
@@ -15754,51 +14361,6 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type AccountUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    providerId?: StringFieldUpdateOperationsInput | string
-    accountId?: StringFieldUpdateOperationsInput | string
-    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
-    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    idToken?: NullableStringFieldUpdateOperationsInput | string | null
-    accessTokenExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    refreshTokenExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    scope?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AccountUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    providerId?: StringFieldUpdateOperationsInput | string
-    accountId?: StringFieldUpdateOperationsInput | string
-    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
-    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    idToken?: NullableStringFieldUpdateOperationsInput | string | null
-    accessTokenExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    refreshTokenExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    scope?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AccountUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    providerId?: StringFieldUpdateOperationsInput | string
-    accountId?: StringFieldUpdateOperationsInput | string
-    accessToken?: NullableStringFieldUpdateOperationsInput | string | null
-    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
-    idToken?: NullableStringFieldUpdateOperationsInput | string | null
-    accessTokenExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    refreshTokenExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    scope?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type SessionUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
@@ -15827,6 +14389,33 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type EmailOtpUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codeHash?: StringFieldUpdateOperationsInput | string
+    purpose?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmailOtpUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codeHash?: StringFieldUpdateOperationsInput | string
+    purpose?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmailOtpUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    codeHash?: StringFieldUpdateOperationsInput | string
+    purpose?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FriendshipUpdateWithoutRequesterInput = {

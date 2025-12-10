@@ -1,9 +1,12 @@
 import express from "express";
-import { me } from "../controllers/auth.controller.js";
+import { register, login, verifyOtp, me } from "../controllers/auth.controllers.js";
+import { requireAuth } from "../middleware/requireAuth.js";
 
 const router = express.Router();
-console.log("authRoutes");
-router.get("/me", me);
+
+router.post("/register", register);
+router.post("/login", login);
+router.post("/verify-otp", verifyOtp);
+router.get("/me", requireAuth, me);
 
 export { router as authRoutes };
-
