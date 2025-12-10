@@ -1,16 +1,11 @@
-
-datasource db {
-  provider = "postgresql"
-}
-
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated"
 }
 
-// ─────────────────────────────────────────────
-// ENUMS
-// ─────────────────────────────────────────────
+datasource db {
+  provider = "postgresql"
+}
 
 enum FriendshipStatus {
   PENDING
@@ -26,162 +21,74 @@ enum MatchStatus {
   CANCELLED
 }
 
-// ─────────────────────────────────────────────
-// MODELS
-// ─────────────────────────────────────────────
+// ── AUTH MODELS (better-auth compatible) ───────────────────────────────
 
 model User {
-  id           String    @id @default(uuid()) @db.Uuid
-  email        String    @unique
-  displayName  String
-  avatarUrl    String?
-  createdAt    DateTime  @default(now())
-  lastOnlineAt DateTime?
+  id            String    @id @default(cuid())
+  email         String?   @unique
+  name          String?
+  displayName   String?
+  image         String?
+  avatarUrl     String?
+  emailVerified Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  lastOnlineAt  DateTime?
 
-  // Friendships
+  accounts            Account[]
+  sessions            Session[]
   requestedFriendships Friendship[] @relation("FriendshipRequester")
   receivedFriendships  Friendship[] @relation("FriendshipAddressee")
+  matchesAsPlayer1     Match[]      @relation("Player1Matches")
+  matchesAsPlayer2     Match[]      @relation("Player2Matches")
+  matchesAsCurrentTurn Match[]      @relation("CurrentTurnMatches")
+  matchesWon           Match[]      @relation("WonMatches")
+  boards               Board[]
+  moves                Move[]       @relation("UserMoves")
 
-  // Matches (as player1 / player2 / current turn / winner)
-  matchesAsPlayer1     Match[] @relation("Player1Matches")
-  matchesAsPlayer2     Match[] @relation("Player2Matches")
-  matchesAsCurrentTurn Match[] @relation("CurrentTurnMatches")
-  matchesWon           Match[] @relation("WonMatches")
-
-  // Boards + moves
-  boards        Board[]
-  moves         Move[]    @relation("UserMoves")
-  name          String
-  emailVerified Boolean   @default(false)
-  image         String?
-  updatedAt     DateTime  @updatedAt
-  sessions      Session[]
-  accounts      Account[]
-
-  @@map("user")
+  @@map("users")
 }
 
-model Friendship {
-  id          String           @id @default(uuid()) @db.Uuid
-  requester   User             @relation("FriendshipRequester", fields: [requesterId], references: [id])
-  requesterId String           @db.Uuid
-  addressee   User             @relation("FriendshipAddressee", fields: [addresseeId], references: [id])
-  addresseeId String           @db.Uuid
-  status      FriendshipStatus @default(PENDING)
-  createdAt   DateTime         @default(now())
+model Account {
+  id                    String  @id @default(cuid())
+  userId                String
+  providerId            String
+  accountId             String
+  accessToken           String? @db.Text
+  refreshToken          String? @db.Text
+  idToken               String? @db.Text
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String? @db.Text
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
 
-  @@unique([requesterId, addresseeId])
-  @@index([addresseeId, status])
-  @@index([requesterId, status])
-}
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-model Match {
-  id String @id @default(uuid()) @db.Uuid
-
-  // players
-  player1   User   @relation("Player1Matches", fields: [player1Id], references: [id])
-  player1Id String @db.Uuid
-
-  player2   User   @relation("Player2Matches", fields: [player2Id], references: [id])
-  player2Id String @db.Uuid
-
-  // status + winner/turn
-  status MatchStatus @default(INVITED)
-
-  currentTurnUser   User?   @relation("CurrentTurnMatches", fields: [currentTurnUserId], references: [id])
-  currentTurnUserId String? @db.Uuid
-
-  winnerUser   User?   @relation("WonMatches", fields: [winnerUserId], references: [id])
-  winnerUserId String? @db.Uuid
-
-  createdAt DateTime  @default(now())
-  startedAt DateTime?
-  endedAt   DateTime?
-
-  // relations
-  boards Board[]
-  moves  Move[]
-
-  @@index([player1Id])
-  @@index([player2Id])
-  @@index([status])
-}
-
-model Board {
-  id      String @id @default(uuid()) @db.Uuid
-  match   Match  @relation(fields: [matchId], references: [id])
-  matchId String @db.Uuid
-
-  user   User   @relation(fields: [userId], references: [id])
-  userId String @db.Uuid
-
-  // 5x5 board flattened into 1D
-  // must contain numbers 1–25 (validated in your service code)
-  numbers Int[]
-
-  createdAt DateTime @default(now())
-
-  @@unique([matchId, userId])
+  @@unique([providerId, accountId])
   @@index([userId])
-}
-
-model Move {
-  id      String @id @default(uuid()) @db.Uuid
-  match   Match  @relation(fields: [matchId], references: [id])
-  matchId String @db.Uuid
-
-  moveNumber Int
-
-  chosenBy       User   @relation("UserMoves", fields: [chosenByUserId], references: [id])
-  chosenByUserId String @db.Uuid
-
-  number    Int // 1–25
-  createdAt DateTime @default(now())
-
-  @@unique([matchId, moveNumber])
-  @@unique([matchId, number])
-  @@index([matchId])
-  @@index([chosenByUserId])
+  @@map("accounts")
 }
 
 model Session {
-  id        String   @id
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
   expiresAt DateTime
-  token     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   ipAddress String?
   userAgent String?
-  userId    String   @db.Uuid
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([token])
-  @@index([userId])
-  @@map("session")
-}
-
-model Account {
-  id                    String    @id
-  accountId             String
-  providerId            String
-  userId                String    @db.Uuid
-  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  accessToken           String?
-  refreshToken          String?
-  idToken               String?
-  accessTokenExpiresAt  DateTime?
-  refreshTokenExpiresAt DateTime?
-  scope                 String?
-  password              String?
-  createdAt             DateTime  @default(now())
-  updatedAt             DateTime  @updatedAt
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
-  @@map("account")
+  @@map("sessions")
 }
 
 model Verification {
-  id         String   @id
+  id         String   @id @default(cuid())
   identifier String
   value      String
   expiresAt  DateTime
@@ -189,5 +96,82 @@ model Verification {
   updatedAt  DateTime @updatedAt
 
   @@index([identifier])
+  @@index([expiresAt])
   @@map("verification")
+}
+
+// ── APP MODELS ─────────────────────────────────────────────────────────
+
+model Friendship {
+  id          String           @id @default(cuid())
+  requesterId String
+  addresseeId String
+  status      FriendshipStatus @default(PENDING)
+  createdAt   DateTime         @default(now())
+
+  requester User @relation("FriendshipRequester", fields: [requesterId], references: [id], onDelete: Cascade)
+  addressee User @relation("FriendshipAddressee", fields: [addresseeId], references: [id], onDelete: Cascade)
+
+  @@unique([requesterId, addresseeId])
+  @@index([addresseeId, status])
+  @@index([requesterId, status])
+  @@map("friendships")
+}
+
+model Match {
+  id                String       @id @default(cuid())
+  player1Id         String
+  player2Id         String
+  status            MatchStatus  @default(INVITED)
+  currentTurnUserId String?
+  winnerUserId      String?
+  createdAt         DateTime     @default(now())
+  startedAt         DateTime?
+  endedAt           DateTime?
+
+  player1        User @relation("Player1Matches", fields: [player1Id], references: [id], onDelete: Restrict)
+  player2        User @relation("Player2Matches", fields: [player2Id], references: [id], onDelete: Restrict)
+  currentTurnUser User? @relation("CurrentTurnMatches", fields: [currentTurnUserId], references: [id], onDelete: SetNull)
+  winnerUser     User? @relation("WonMatches", fields: [winnerUserId], references: [id], onDelete: SetNull)
+
+  boards Board[]
+  moves  Move[]
+
+  @@index([player1Id])
+  @@index([player2Id])
+  @@index([status])
+  @@map("matches")
+}
+
+model Board {
+  id      String @id @default(cuid())
+  matchId String
+  userId  String
+  numbers Int[]
+  createdAt DateTime @default(now())
+
+  match Match @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Restrict)
+
+  @@unique([matchId, userId])
+  @@index([userId])
+  @@map("boards")
+}
+
+model Move {
+  id             String  @id @default(cuid())
+  matchId        String
+  moveNumber     Int
+  chosenByUserId String
+  number         Int
+  createdAt      DateTime @default(now())
+
+  match    Match @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  chosenBy User  @relation("UserMoves", fields: [chosenByUserId], references: [id], onDelete: Restrict)
+
+  @@unique([matchId, moveNumber])
+  @@unique([matchId, number])
+  @@index([matchId])
+  @@index([chosenByUserId])
+  @@map("moves")
 }

@@ -8,10 +8,14 @@ export const me = asyncHandler(async (req, res) => {
   const session = await auth.api.getSession({
     headers: fromNodeHeaders(req.headers),
   });
-
+  
+  console.log("session", session);
+  
   if (!session) {
     throw new ApiError(401, "Unauthorized", [], "Unauthorized");
   }
+  
+  console.log("session.user", session.user);
 
   return new ApiResponse(
     200,
