@@ -11160,11 +11160,11 @@ export namespace Prisma {
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    googleId?: string
     email?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
+    googleId?: StringFilter<"User"> | string
     displayName?: StringFilter<"User"> | string
     avatarUrl?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
@@ -11183,7 +11183,7 @@ export namespace Prisma {
     moves?: MoveListRelationFilter
     sessions?: SessionListRelationFilter
     accounts?: AccountListRelationFilter
-  }, "id" | "googleId" | "email">
+  }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
