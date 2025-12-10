@@ -18,7 +18,7 @@ app.use(
 
 
 // mounting better auth routes for /api/auth/*
-app.all("/api/auth/{*any}", toNodeHandler(auth));
+app.all("/api/auth/*splat", toNodeHandler(auth));
 
 app.use(express.json());
 app.use("/api/auth", authRoutes);
