@@ -2,6 +2,7 @@ import prisma from "../prismaClient.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
+import { sendToUser } from "../websocket.js";
 
 export const sendFriendRequest = asyncHandler(async (req, res) => {
   const userId = req.user.id;
@@ -48,6 +49,10 @@ export const sendFriendRequest = asyncHandler(async (req, res) => {
       status: "PENDING",
     },
   });
+  sendToUser(addressee_id, "friend_request", {
+    requestId: friendship.id,
+    fromUserId: userId,
+  });
 
   return new ApiResponse(
     res,
@@ -56,6 +61,7 @@ export const sendFriendRequest = asyncHandler(async (req, res) => {
     true,
     "Friend request sent successfully",
   );
+
 });
 
 export const listFriendRequests = asyncHandler(async (req, res) => {

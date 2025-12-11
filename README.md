@@ -20,10 +20,12 @@ A RESTful API backend for a multiplayer Bingo game application built with Node.j
 - [Authentication](#authentication)
 - [Error Handling](#error-handling)
 - [Response Format](#response-format)
+- [WebSocket Events](#websocket-events)
 
 ## 🎯 Overview
 
 This backend API powers a multiplayer Bingo game platform where users can:
+
 - Register and authenticate with email/password and OTP verification
 - Search for and add friends
 - Create and manage Bingo matches
@@ -48,12 +50,14 @@ This backend API powers a multiplayer Bingo game platform where users can:
 ## 🚀 Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/thezohaibkhalid/bingo-back.git
 cd bingo-back
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
@@ -63,6 +67,7 @@ npm install
 4. Set up the database (see [Database Setup](#database-setup))
 
 5. Start the development server:
+
 ```bash
 npm run dev
 ```
@@ -93,16 +98,19 @@ CORS_ORIGINS=http://localhost:5173,http://localhost:3000
 ## 🗄 Database Setup
 
 1. Create a PostgreSQL database:
+
 ```sql
 CREATE DATABASE bingo_db;
 ```
 
 2. Run Prisma migrations:
+
 ```bash
 npx prisma migrate dev
 ```
 
 3. (Optional) Generate Prisma Client:
+
 ```bash
 npx prisma generate
 ```
@@ -110,12 +118,15 @@ npx prisma generate
 ## ▶️ Running the Application
 
 ### Development Mode
+
 ```bash
 npm run dev
 ```
+
 Uses nodemon for automatic server restarts on file changes.
 
 ### Production Mode
+
 ```bash
 node src/index.js
 ```
@@ -125,9 +136,54 @@ node src/index.js
 Base URL: `http://localhost:3000/api`
 
 All authenticated routes require a Bearer token in the Authorization header:
+
 ```
 Authorization: Bearer <session_token>
 ```
+
+### Quick Reference
+
+**Authentication:**
+
+- `POST /api/auth/register` - Register new user
+- `POST /api/auth/login` - Login (sends OTP to email)
+- `POST /api/auth/verify-otp` - Verify OTP and get session token
+- `GET /api/auth/me` - Get current user session (protected)
+
+**Users:**
+
+- `GET /api/users/search` - Search users by username (protected)
+- `GET /api/users/me` - Get current user profile (protected)
+- `GET /api/users/username-available` - Check username availability (public)
+
+**Friends:**
+
+- `POST /api/friends/requests` - Send friend request (protected)
+- `GET /api/friends/requests` - List friend requests (protected)
+- `POST /api/friends/requests/:id/accept` - Accept friend request (protected)
+- `POST /api/friends/requests/:id/reject` - Reject friend request (protected)
+- `GET /api/friends` - List all friends (protected)
+
+**Matches:**
+
+- `POST /api/matches/invite` - Invite friend to match (protected)
+- `GET /api/matches` - List all matches (protected)
+- `GET /api/matches/active-with/:friendId` - Check active match with a friend (protected)
+- `GET /api/matches/:matchId` - Get match details (protected)
+- `POST /api/matches/:matchId/accept` - Accept match invitation (protected)
+- `POST /api/matches/:matchId/board` - Set board for match (protected)
+- `GET /api/matches/:matchId/state` - Get match state (protected)
+- `POST /api/matches/:matchId/move` - Make a move (protected)
+- `POST /api/matches/:matchId/bingo` - Claim bingo (protected)
+
+### CORS Configuration
+
+The API is configured to accept requests from:
+
+- `http://localhost:5173` (default Vite dev server)
+- `http://localhost:3000`
+
+Credentials are enabled for CORS requests. Make sure to include credentials in your frontend requests if needed.
 
 ---
 
@@ -136,45 +192,61 @@ Authorization: Bearer <session_token>
 Base path: `/api/auth`
 
 #### Register User
+
 ```http
 POST /api/auth/register
 ```
 
 **Request Body:**
+
 ```json
 {
   "email": "user@example.com",
   "password": "securepassword123",
-  "name": "John Doe"
+  "username": "johndoe",
+  "displayName": "John Doe"
 }
 ```
 
-**Response (201):**
+**Field Requirements:**
+
+- `email` (string, required) - Valid email address
+- `password` (string, required) - User password
+- `username` (string, required) - 3-30 characters: lowercase letters, numbers, '.', '\_' with no spaces
+- `displayName` (string, optional) - Display name (defaults to username if not provided)
+
+**Success Response (201):**
+
 ```json
 {
-  "statusCode": 201,
   "success": true,
-  "message": "User registered successfully",
+  "message": "User registered",
   "data": {
-    "id": "user_id",
+    "id": "clx1234567890",
     "email": "user@example.com",
-    "name": "John Doe"
+    "username": "johndoe",
+    "display_name": "John Doe"
   }
 }
 ```
 
-**Errors:**
-- `400` - Email and password are required
-- `400` - Email already in use
+**Error Responses:**
+
+- `400` - "Email, password and username are required"
+- `400` - "Invalid username. Use 3-30 characters: lowercase letters, numbers, '.', '\_' with no spaces"
+- `400` - "Email already in use"
+- `400` - "Username already in use"
 
 ---
 
 #### Login
+
 ```http
 POST /api/auth/login
 ```
 
 **Request Body:**
+
 ```json
 {
   "email": "user@example.com",
@@ -182,48 +254,64 @@ POST /api/auth/login
 }
 ```
 
-**Response (200):**
+**Field Requirements:**
+
+- `email` (string, required) - User email
+- `password` (string, required) - User password
+
+**Success Response (200):**
+
 ```json
 {
-  "statusCode": 200,
   "success": true,
   "message": "OTP sent to email",
   "data": {
-    "otpId": "otp_code_id"
+    "otpId": "clx1234567890"
   }
 }
 ```
 
-**Errors:**
-- `400` - Email and password are required
-- `401` - Invalid email or password
+**Note:** An OTP code is sent to the user's email. The OTP expires in 5 minutes.
+
+**Error Responses:**
+
+- `400` - "Email and password are required"
+- `401` - "Invalid credentials"
 
 ---
 
 #### Verify OTP
+
 ```http
 POST /api/auth/verify-otp
 ```
 
 **Request Body:**
+
 ```json
 {
-  "otpId": "otp_code_id",
+  "otpId": "clx1234567890",
   "code": "123456"
 }
 ```
 
-**Response (200):**
+**Field Requirements:**
+
+- `otpId` (string, required) - OTP ID received from login endpoint
+- `code` (string, required) - 6-digit OTP code from email
+
+**Success Response (200):**
+
 ```json
 {
-  "statusCode": 200,
   "success": true,
   "message": "Login successful",
   "data": {
-    "token": "session_token_here",
+    "token": "session_token_here_abc123xyz",
     "user": {
-      "id": "user_id",
+      "id": "clx1234567890",
       "email": "user@example.com",
+      "username": "johndoe",
       "display_name": "John Doe",
       "avatar_url": null,
       "created_at": "2024-01-01T00:00:00.000Z"
@@ -232,31 +320,38 @@ POST /api/auth/verify-otp
 }
 ```
 
-**Errors:**
-- `400` - OTP ID and code are required
-- `401` - Invalid or expired OTP
+**Error Responses:**
+
+- `400` - "otpId and code are required"
+- `400` - "Invalid OTP"
+- `400` - "OTP already used"
+- `400` - "OTP expired"
+- `400` - "Invalid OTP code"
 
 ---
 
-#### Get Current User
+#### Get Current User (Session)
+
 ```http
 GET /api/auth/me
 ```
 
 **Headers:**
+
 ```
 Authorization: Bearer <session_token>
 ```
 
-**Response (200):**
+**Success Response (200):**
+
 ```json
 {
-  "statusCode": 200,
   "success": true,
   "message": "Session fetched successfully",
   "data": {
-    "id": "user_id",
+    "id": "clx1234567890",
     "email": "user@example.com",
+    "username": "johndoe",
     "display_name": "John Doe",
     "avatar_url": null,
     "created_at": "2024-01-01T00:00:00.000Z"
@@ -264,8 +359,9 @@ Authorization: Bearer <session_token>
 }
 ```
 
-**Errors:**
-- `401` - Unauthorized (invalid or missing token)
+**Error Responses:**
+
+- `401` - "Unauthorized" (invalid or missing token)
 
 ---
 
@@ -274,27 +370,31 @@ Authorization: Bearer <session_token>
 Base path: `/api/users`
 
 #### Search Users
+
 ```http
 GET /api/users/search?query=john
 ```
 
 **Headers:**
+
 ```
 Authorization: Bearer <session_token>
 ```
 
 **Query Parameters:**
-- `query` (string, optional) - Search term for name, displayName, or email
 
-**Response (200):**
+- `query` or `q` (string, optional) - Search term for username (case-insensitive prefix match)
+
+**Success Response (200):**
+
 ```json
 {
-  "statusCode": 200,
   "success": true,
   "message": "Users fetched successfully",
   "data": [
     {
-      "id": "user_id",
+      "id": "clx1234567890",
+      "username": "johndoe",
       "display_name": "John Doe",
       "avatar_url": null
     }
@@ -302,30 +402,36 @@ Authorization: Bearer <session_token>
 }
 ```
 
-**Errors:**
-- `401` - Unauthorized
+**Note:** Returns up to 25 users matching the query. Returns empty array if query is empty. Excludes current user from results.
+
+**Error Responses:**
+
+- `401` - "Unauthorized"
 
 ---
 
 #### Get My Profile
+
 ```http
 GET /api/users/me
 ```
 
 **Headers:**
+
 ```
 Authorization: Bearer <session_token>
 ```
 
-**Response (200):**
+**Success Response (200):**
+
 ```json
 {
-  "statusCode": 200,
   "success": true,
   "message": "Profile fetched successfully",
   "data": {
-    "id": "user_id",
+    "id": "clx1234567890",
     "email": "user@example.com",
+    "username": "johndoe",
     "display_name": "John Doe",
     "avatar_url": null,
     "created_at": "2024-01-01T00:00:00.000Z"
@@ -333,8 +439,39 @@ Authorization: Bearer <session_token>
 }
 ```
 
-**Errors:**
-- `401` - Unauthorized
+**Error Responses:**
+
+- `401` - "Unauthorized"
+
+---
+
+#### Check Username Availability
+
+```http
+GET /api/users/username-available?username=johndoe
+```
+
+**Query Parameters:**
+
+- `username` or `name` (string, required) - Username to check
+
+**Success Response (200):**
+
+```json
+{
+  "success": true,
+  "message": "Username availability checked",
+  "data": {
+    "username": "johndoe",
+    "available": true
+  }
+}
+```
+
+**Error Responses:**
+
+- `400` - "username is required"
+- `400` - "Invalid username. Use 3-30 characters: lowercase letters, numbers, '.', '\_' with no spaces"
 
 ---
 
@@ -343,85 +480,87 @@ Authorization: Bearer <session_token>
 Base path: `/api/friends`
 
 #### Send Friend Request
+
 ```http
 POST /api/friends/requests
 ```
 
 **Headers:**
+
 ```
 Authorization: Bearer <session_token>
 ```
 
 **Request Body:**
+
 ```json
 {
-  "addressee_id": "target_user_id"
+  "addressee_id": "clx9876543210"
 }
 ```
 
-**Response (201):**
+**Field Requirements:**
+
+- `addressee_id` (string, required) - ID of the user to send friend request to
+
+**Success Response (201):**
+
 ```json
 {
-  "statusCode": 201,
   "success": true,
-  "message": "Friend request sent",
+  "message": "Friend request sent successfully",
   "data": {
-    "id": "friendship_id",
-    "requester_id": "your_user_id",
-    "addressee_id": "target_user_id",
+    "id": "clx111222333",
+    "requesterId": "clx1234567890",
+    "addresseeId": "clx9876543210",
     "status": "PENDING",
-    "created_at": "2024-01-01T00:00:00.000Z"
+    "createdAt": "2024-01-01T00:00:00.000Z"
   }
 }
 ```
 
-**Errors:**
-- `400` - addressee_id is required
-- `400` - Cannot send friend request to yourself
-- `404` - User not found
-- `400` - Friendship or friend request already exists
-- `401` - Unauthorized
+**Error Responses:**
+
+- `400` - "addressee_id is required"
+- `400` - "Cannot send friend request to yourself"
+- `404` - "User not found"
+- `400` - "Friendship or friend request already exists"
+- `401` - "Unauthorized"
 
 ---
 
 #### List Friend Requests
+
 ```http
 GET /api/friends/requests
 ```
 
 **Headers:**
+
 ```
 Authorization: Bearer <session_token>
 ```
 
-**Response (200):**
+**Success Response (200):**
+
 ```json
 {
-  "statusCode": 200,
   "success": true,
-  "message": "Friend requests fetched successfully",
+  "message": "Friend requests fetched",
   "data": {
-    "sent": [
+    "incoming": [
       {
-        "id": "friendship_id",
-        "addressee": {
-          "id": "user_id",
-          "display_name": "John Doe",
-          "avatar_url": null
-        },
-        "status": "PENDING",
+        "id": "clx111222333",
+        "requester_id": "clx9876543210",
+        "requester_name": "Jane Doe",
         "created_at": "2024-01-01T00:00:00.000Z"
       }
     ],
-    "received": [
+    "outgoing": [
       {
-        "id": "friendship_id",
-        "requester": {
-          "id": "user_id",
-          "display_name": "Jane Doe",
-          "avatar_url": null
-        },
-        "status": "PENDING",
+        "id": "clx444555666",
+        "addressee_id": "clx999888777",
+        "addressee_name": "Bob Smith",
         "created_at": "2024-01-01T00:00:00.000Z"
       }
     ]
@@ -429,102 +568,120 @@ Authorization: Bearer <session_token>
 }
 ```
 
-**Errors:**
-- `401` - Unauthorized
+**Error Responses:**
+
+- `401` - "Unauthorized"
 
 ---
 
 #### Accept Friend Request
+
 ```http
 POST /api/friends/requests/:id/accept
 ```
 
 **Headers:**
+
 ```
 Authorization: Bearer <session_token>
 ```
 
-**Response (200):**
+**URL Parameters:**
+
+- `id` (string, required) - Friend request ID
+
+**Success Response (200):**
+
 ```json
 {
-  "statusCode": 200,
   "success": true,
   "message": "Friend request accepted",
   "data": {
-    "id": "friendship_id",
-    "status": "ACCEPTED",
-    "updated_at": "2024-01-01T00:00:00.000Z"
+    "success": true
   }
 }
 ```
 
-**Errors:**
-- `404` - Friend request not found
-- `403` - Not authorized to accept this request
-- `400` - Friend request is not pending
-- `401` - Unauthorized
+**Error Responses:**
+
+- `404` - "Friend request not found"
+- `403` - "You are not allowed to accept this request"
+- `400` - "Request is not pending"
+- `401` - "Unauthorized"
 
 ---
 
 #### Reject Friend Request
+
 ```http
 POST /api/friends/requests/:id/reject
 ```
 
 **Headers:**
+
 ```
 Authorization: Bearer <session_token>
 ```
 
-**Response (200):**
+**URL Parameters:**
+
+- `id` (string, required) - Friend request ID
+
+**Success Response (200):**
+
 ```json
 {
-  "statusCode": 200,
   "success": true,
   "message": "Friend request rejected",
   "data": {
-    "id": "friendship_id"
+    "success": true
   }
 }
 ```
 
-**Errors:**
-- `404` - Friend request not found
-- `403` - Not authorized to reject this request
-- `401` - Unauthorized
+**Note:** Rejecting a friend request deletes it from the database.
+
+**Error Responses:**
+
+- `404` - "Friend request not found"
+- `403` - "You are not allowed to reject this request"
+- `400` - "Request is not pending"
+- `401` - "Unauthorized"
 
 ---
 
 #### List Friends
+
 ```http
 GET /api/friends
 ```
 
 **Headers:**
+
 ```
 Authorization: Bearer <session_token>
 ```
 
-**Response (200):**
+**Success Response (200):**
+
 ```json
 {
-  "statusCode": 200,
   "success": true,
   "message": "Friends fetched successfully",
   "data": [
     {
-      "id": "user_id",
-      "display_name": "John Doe",
+      "id": "clx9876543210",
+      "display_name": "Jane Doe",
       "avatar_url": null,
-      "friendship_id": "friendship_id",
-      "friendship_created_at": "2024-01-01T00:00:00.000Z"
+      "last_online_at": "2024-01-01T12:00:00.000Z"
     }
   ]
 }
 ```
 
-**Errors:**
-- `401` - Unauthorized
+**Error Responses:**
+
+- `401` - "Unauthorized"
 
 ---
 
@@ -532,328 +689,540 @@ Authorization: Bearer <session_token>
 
 Base path: `/api/matches`
 
-#### Invite to Match
+#### Invite Friend to Match
+
 ```http
 POST /api/matches/invite
 ```
 
 **Headers:**
+
 ```
 Authorization: Bearer <session_token>
 ```
 
 **Request Body:**
+
 ```json
 {
-  "player2_id": "opponent_user_id"
+  "friend_id": "clx9876543210"
 }
 ```
 
-**Response (201):**
+**Field Requirements:**
+
+- `friend_id` (string, required) - ID of the friend to invite (must be an accepted friend)
+
+**Success Response (201):**
+
 ```json
 {
-  "statusCode": 201,
   "success": true,
-  "message": "Match invitation sent",
+  "message": "Match invitation created",
   "data": {
-    "id": "match_id",
-    "player1_id": "your_user_id",
-    "player2_id": "opponent_user_id",
+    "id": "clx555666777",
+    "player1Id": "clx1234567890",
+    "player2Id": "clx9876543210",
     "status": "INVITED",
-    "created_at": "2024-01-01T00:00:00.000Z"
+    "currentTurnUserId": null,
+    "winnerUserId": null,
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "startedAt": null,
+    "endedAt": null
   }
 }
 ```
 
-**Errors:**
-- `400` - player2_id is required
-- `400` - Cannot invite yourself
-- `404` - User not found
-- `400` - Match already exists
-- `401` - Unauthorized
+**Error Responses:**
+
+- `400` - "friend_id is required"
+- `400` - "Cannot invite yourself"
+- `400` - "You can only invite accepted friends"
+- `401` - "Unauthorized"
 
 ---
 
 #### List Matches
+
 ```http
 GET /api/matches
 ```
 
 **Headers:**
+
 ```
 Authorization: Bearer <session_token>
 ```
 
-**Response (200):**
+**Success Response (200):**
+
 ```json
 {
-  "statusCode": 200,
   "success": true,
   "message": "Matches fetched successfully",
   "data": [
     {
-      "id": "match_id",
-      "player1": {
-        "id": "user_id",
-        "display_name": "John Doe"
-      },
-      "player2": {
-        "id": "user_id",
-        "display_name": "Jane Doe"
-      },
+      "id": "clx555666777",
+      "player1Id": "clx1234567890",
+      "player2Id": "clx9876543210",
       "status": "IN_PROGRESS",
-      "current_turn": "user_id",
-      "winner_id": null,
-      "created_at": "2024-01-01T00:00:00.000Z"
+      "currentTurnUserId": "clx1234567890",
+      "winnerUserId": null,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "startedAt": "2024-01-01T00:05:00.000Z",
+      "endedAt": null
     }
   ]
 }
 ```
 
-**Errors:**
-- `401` - Unauthorized
+**Note:** Returns all matches where the user is either player1 or player2, ordered by creation date (newest first).
+
+**Error Responses:**
+
+- `401` - "Unauthorized"
+
+---
+
+#### Get Active Match with Friend
+
+```http
+GET /api/matches/active-with/:friendId
+```
+
+**Headers:**
+
+```
+Authorization: Bearer <session_token>
+```
+
+**URL Parameters:**
+
+- `friendId` (string, required) - ID of the friend to check against
+
+**Success Responses (200):**
+
+- When an active match exists:
+
+```json
+{
+  "success": true,
+  "message": "Active match found",
+  "data": {
+    "hasActiveMatch": true,
+    "matchId": "clx555666777"
+  }
+}
+```
+
+- When no active match exists:
+
+```json
+{
+  "success": true,
+  "message": "No active match",
+  "data": {
+    "hasActiveMatch": false
+  }
+}
+```
+
+**Notes:**
+
+- A match is considered active if its status is `INVITED`, `BOARD_SETUP`, or `IN_PROGRESS`.
+
+**Error Responses:**
+
+- `401` - "Unauthorized"
 
 ---
 
 #### Get Match by ID
+
 ```http
 GET /api/matches/:matchId
 ```
 
 **Headers:**
+
 ```
 Authorization: Bearer <session_token>
 ```
 
-**Response (200):**
+**URL Parameters:**
+
+- `matchId` (string, required) - Match ID
+
+**Success Response (200):**
+
 ```json
 {
-  "statusCode": 200,
   "success": true,
-  "message": "Match fetched successfully",
+  "message": "Match fetched",
   "data": {
-    "id": "match_id",
+    "id": "clx555666777",
+    "status": "IN_PROGRESS",
+    "current_turn_user_id": "clx1234567890",
+    "winner_user_id": null,
     "player1": {
-      "id": "user_id",
+      "id": "clx1234567890",
       "display_name": "John Doe"
     },
     "player2": {
-      "id": "user_id",
+      "id": "clx9876543210",
       "display_name": "Jane Doe"
     },
-    "status": "IN_PROGRESS",
-    "current_turn": "user_id",
-    "winner_id": null,
-    "created_at": "2024-01-01T00:00:00.000Z"
+    "created_at": "2024-01-01T00:00:00.000Z",
+    "started_at": "2024-01-01T00:05:00.000Z",
+    "ended_at": null
   }
 }
 ```
 
-**Errors:**
-- `404` - Match not found
-- `403` - Not authorized to view this match
-- `401` - Unauthorized
+**Match Status Values:**
+
+- `INVITED` - Match invitation sent, waiting for acceptance
+- `BOARD_SETUP` - Match accepted, players setting up boards
+- `IN_PROGRESS` - Game in progress
+- `FINISHED` - Game completed
+- `CANCELLED` - Match cancelled
+
+**Error Responses:**
+
+- `404` - "Match not found"
+- `403` - "You are not part of this match"
+- `401` - "Unauthorized"
 
 ---
 
 #### Accept Match Invitation
+
 ```http
 POST /api/matches/:matchId/accept
 ```
 
 **Headers:**
+
 ```
 Authorization: Bearer <session_token>
 ```
 
-**Response (200):**
+**URL Parameters:**
+
+- `matchId` (string, required) - Match ID
+
+**Success Response (200):**
+
 ```json
 {
-  "statusCode": 200,
   "success": true,
   "message": "Match invitation accepted",
   "data": {
-    "id": "match_id",
+    "id": "clx555666777",
+    "player1Id": "clx1234567890",
+    "player2Id": "clx9876543210",
     "status": "BOARD_SETUP",
-    "updated_at": "2024-01-01T00:00:00.000Z"
+    "currentTurnUserId": null,
+    "winnerUserId": null,
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "startedAt": null,
+    "endedAt": null
   }
 }
 ```
 
-**Errors:**
-- `404` - Match not found
-- `403` - Not authorized to accept this match
-- `400` - Match is not in INVITED status
-- `401` - Unauthorized
+**Error Responses:**
+
+- `404` - "Match not found"
+- `403` - "Only invitee can accept the match"
+- `400` - "Match is not in invited state"
+- `401` - "Unauthorized"
 
 ---
 
 #### Set Board
+
 ```http
 POST /api/matches/:matchId/board
 ```
 
 **Headers:**
+
 ```
 Authorization: Bearer <session_token>
 ```
 
+**URL Parameters:**
+
+- `matchId` (string, required) - Match ID
+
 **Request Body:**
+
 ```json
 {
-  "numbers": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+  "mode": "straight",
+  "numbers": [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+    22, 23, 24, 25
+  ]
 }
 ```
 
-**Note:** The `numbers` array must contain exactly 25 unique integers between 1 and 25.
+**Field Requirements:**
 
-**Response (200):**
+- `mode` (string, optional) - If set to `"straight"`, generates a board with numbers 1-25 in order. Otherwise, use `numbers` array.
+- `numbers` (array, required if mode is not "straight") - Array of exactly 25 unique integers between 1 and 25
+
+**Success Response (201):**
+
 ```json
 {
-  "statusCode": 200,
   "success": true,
   "message": "Board set successfully",
   "data": {
-    "id": "board_id",
-    "match_id": "match_id",
-    "player_id": "user_id",
-    "numbers": [1, 2, 3, ...],
-    "created_at": "2024-01-01T00:00:00.000Z"
+    "board": {
+      "id": "clx888999000",
+      "matchId": "clx555666777",
+      "userId": "clx1234567890",
+      "numbers": [
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25
+      ],
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    "match": {
+      "id": "clx555666777",
+      "status": "IN_PROGRESS",
+      "currentTurnUserId": "clx1234567890",
+      "startedAt": "2024-01-01T00:05:00.000Z"
+    }
   }
 }
 ```
 
-**Errors:**
-- `404` - Match not found
-- `403` - Not authorized to set board for this match
-- `400` - Match is not in BOARD_SETUP status
-- `400` - Board already set for this player
-- `400` - Board validation errors
-- `401` - Unauthorized
+**Note:** When both players have set their boards, the match automatically transitions to `IN_PROGRESS` status and a random player is chosen to start.
+
+**Error Responses:**
+
+- `404` - "Match not found"
+- `403` - "You are not part of this match"
+- `400` - "Cannot set board in current match state"
+- `400` - "numbers array is required (or use mode='straight')"
+- `400` - "Board must have exactly 25 numbers"
+- `400` - "Board numbers must be integers between 1 and 25"
+- `400` - "Board numbers must be unique"
+- `401` - "Unauthorized"
 
 ---
 
 #### Get Match State
+
 ```http
 GET /api/matches/:matchId/state
 ```
 
 **Headers:**
+
 ```
 Authorization: Bearer <session_token>
 ```
 
-**Response (200):**
+**URL Parameters:**
+
+- `matchId` (string, required) - Match ID
+
+**Success Response (200):**
+
 ```json
 {
-  "statusCode": 200,
   "success": true,
-  "message": "Match state fetched successfully",
+  "message": "Match state fetched",
   "data": {
     "match": {
-      "id": "match_id",
+      "id": "clx555666777",
       "status": "IN_PROGRESS",
-      "current_turn": "user_id",
-      "winner_id": null
+      "current_turn_user_id": "clx1234567890",
+      "winner_user_id": null
     },
+    "players": [
+      {
+        "id": "clx1234567890",
+        "display_name": "John Doe"
+      },
+      {
+        "id": "clx9876543210",
+        "display_name": "Jane Doe"
+      }
+    ],
     "your_board": {
-      "id": "board_id",
-      "numbers": [1, 2, 3, ...],
-      "lines": 2
+      "numbers": [
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25
+      ],
+      "size": 5
     },
-    "opponent_board": {
-      "id": "board_id",
-      "numbers": [1, 2, 3, ...],
-      "lines": 1
-    },
-    "moves": [5, 10, 15, 20],
-    "is_your_turn": true
+    "moves": [
+      {
+        "move_number": 1,
+        "number": 5,
+        "chosen_by_user_id": "clx1234567890"
+      },
+      {
+        "move_number": 2,
+        "number": 10,
+        "chosen_by_user_id": "clx9876543210"
+      }
+    ],
+    "your_lines": 2,
+    "opponent_lines": 1
   }
 }
 ```
 
-**Errors:**
-- `404` - Match not found
-- `403` - Not authorized to view this match
-- `401` - Unauthorized
+**Note:**
+
+- `your_board` will be `null` if you haven't set a board yet
+- `your_lines` and `opponent_lines` are automatically calculated based on completed rows, columns, and diagonals
+- Lines are calculated for: 5 rows, 5 columns, 2 diagonals (total 12 possible lines)
+
+**Error Responses:**
+
+- `404` - "Match not found"
+- `403` - "You are not part of this match"
+- `401` - "Unauthorized"
 
 ---
 
 #### Make Move
+
 ```http
 POST /api/matches/:matchId/move
 ```
 
 **Headers:**
+
 ```
 Authorization: Bearer <session_token>
 ```
 
+**URL Parameters:**
+
+- `matchId` (string, required) - Match ID
+
 **Request Body:**
+
 ```json
 {
   "number": 5
 }
 ```
 
-**Response (200):**
+**Field Requirements:**
+
+- `number` (number, required) - Integer between 1 and 25
+
+**Success Response (200):**
+
 ```json
 {
-  "statusCode": 200,
   "success": true,
-  "message": "Move made successfully",
+  "message": "Move recorded",
   "data": {
-    "id": "move_id",
-    "match_id": "match_id",
-    "number": 5,
-    "player_id": "user_id",
-    "created_at": "2024-01-01T00:00:00.000Z"
+    "success": true,
+    "move": {
+      "move_number": 1,
+      "number": 5,
+      "chosen_by_user_id": "clx1234567890"
+    },
+    "your_lines": 2,
+    "opponent_lines": 1,
+    "next_turn_user_id": "clx9876543210"
   }
 }
 ```
 
-**Errors:**
-- `404` - Match not found
-- `403` - Not authorized to make move in this match
-- `400` - Match is not in IN_PROGRESS status
-- `400` - Not your turn
-- `400` - Number is required and must be between 1 and 25
-- `400` - Number already selected
-- `401` - Unauthorized
+**Error Responses:**
+
+- `400` - "number is required and must be numeric"
+- `400` - "number must be between 1 and 25"
+- `404` - "Match not found"
+- `403` - "You are not part of this match"
+- `400` - "Match is not in progress"
+- `400` - "It is not your turn"
+- `400` - "Number already selected in this match"
+- `401` - "Unauthorized"
 
 ---
 
 #### Claim Bingo
+
 ```http
 POST /api/matches/:matchId/bingo
 ```
 
 **Headers:**
+
 ```
 Authorization: Bearer <session_token>
 ```
 
-**Response (200):**
+**URL Parameters:**
+
+- `matchId` (string, required) - Match ID
+
+**Success Response (200) - Valid Bingo:**
+
 ```json
 {
-  "statusCode": 200,
   "success": true,
-  "message": "Bingo claimed successfully",
+  "message": "Bingo! You won the match",
   "data": {
-    "match_id": "match_id",
-    "winner_id": "user_id",
-    "status": "FINISHED",
-    "updated_at": "2024-01-01T00:00:00.000Z"
+    "success": true,
+    "lines": 5,
+    "is_winner": true
   }
 }
 ```
 
-**Errors:**
-- `404` - Match not found
-- `403` - Not authorized to claim bingo in this match
-- `400` - Match is not in IN_PROGRESS status
-- `400` - You don't have a valid bingo (5 lines)
-- `401` - Unauthorized
+**Success Response (200) - Invalid Claim:**
+
+```json
+{
+  "success": true,
+  "message": "Bingo claim rejected",
+  "data": {
+    "success": false,
+    "lines": 3,
+    "is_winner": false,
+    "reason": "Not enough lines"
+  }
+}
+```
+
+**Success Response (200) - Match Already Finished:**
+
+```json
+{
+  "success": true,
+  "message": "Bingo claim checked",
+  "data": {
+    "success": false,
+    "lines": null,
+    "is_winner": false,
+    "reason": "Match already has a winner"
+  }
+}
+```
+
+**Note:** A player needs 5 or more completed lines (rows, columns, or diagonals) to win. The match status changes to `FINISHED` and `winnerUserId` is set when a valid bingo is claimed.
+
+**Error Responses:**
+
+- `404` - "Match not found"
+- `403` - "You are not part of this match"
+- `400` - "Match is not in progress"
+- `400` - "You do not have a board set up"
+- `401` - "Unauthorized"
 
 ---
 
@@ -891,23 +1260,87 @@ bingo-back/
 
 ## 🔒 Authentication
 
-The API uses a custom session-based authentication system:
+The API uses a custom session-based authentication system with OTP (One-Time Password) verification:
 
-1. **Registration/Login Flow:**
-   - User registers with email and password
-   - User logs in with email and password
-   - System sends OTP code to user's email
-   - User verifies OTP code
-   - System returns a session token
+### Authentication Flow
 
-2. **Session Token:**
-   - Tokens are stored in the database (`Session` model)
-   - Tokens have an expiration date
-   - Include token in Authorization header: `Bearer <token>`
+1. **Registration:**
 
-3. **Protected Routes:**
-   - All routes except `/api/auth/register`, `/api/auth/login`, and `/api/auth/verify-otp` require authentication
-   - Use the `requireAuth` middleware to protect routes
+   - User provides email, password, and username
+   - Username is validated and normalized (lowercase, 3-30 chars)
+   - User is created in the database
+   - No authentication token is returned (user must login)
+
+2. **Login Flow:**
+
+   - User provides email and password
+   - If credentials are valid, an OTP code is generated and sent to user's email
+   - OTP expires in 5 minutes
+   - Response includes `otpId` which must be used in the next step
+
+3. **OTP Verification:**
+
+   - User provides `otpId` and the OTP code from email
+   - If valid, a session token is generated and returned
+   - Session token expires in 7 days
+   - User data is included in the response
+
+4. **Using Session Token:**
+   - Include token in `Authorization` header: `Bearer <token>`
+   - Token is validated on each authenticated request
+   - Use `/api/auth/me` to verify token and get current user
+
+### Session Token Details
+
+- **Format:** Random string token stored in database
+- **Expiration:** 7 days from creation
+- **Storage:** Tokens are stored in the `sessions` table
+- **Validation:** Token is checked against database on each request
+
+### Protected Routes
+
+**Public Routes (No Authentication Required):**
+
+- `POST /api/auth/register`
+- `POST /api/auth/login`
+- `POST /api/auth/verify-otp`
+- `GET /api/users/username-available`
+
+**Protected Routes (Authentication Required):**
+
+- All other routes require `Authorization: Bearer <token>` header
+- Invalid or missing token returns `401 Unauthorized`
+
+## 👤 Username Validation
+
+Usernames must follow these rules:
+
+- **Length:** 3-30 characters
+- **Characters:** Lowercase letters (a-z), numbers (0-9), dots (.), underscores (\_)
+- **No spaces:** Spaces are not allowed
+- **Case:** Automatically converted to lowercase
+- **Uniqueness:** Each username must be unique across all users
+
+**Valid Examples:**
+
+- `johndoe`
+- `john_doe`
+- `john.doe`
+- `john123`
+- `j.doe_123`
+
+**Invalid Examples:**
+
+- `John Doe` (contains space and uppercase)
+- `ab` (too short, less than 3 characters)
+- `john@doe` (contains invalid character @)
+- `john-doe` (contains invalid character -)
+
+**Username Normalization:**
+
+- All usernames are automatically converted to lowercase
+- Leading/trailing whitespace is trimmed
+- Use the `/api/users/username-available` endpoint to check availability before registration
 
 ## ⚠️ Error Handling
 
@@ -915,22 +1348,44 @@ All errors follow a consistent format:
 
 ```json
 {
-  "statusCode": 400,
   "success": false,
   "message": "Error message here",
   "errors": [],
-  "data": null
+  "data": null,
+  "statusCode": 400
 }
 ```
 
-Common HTTP status codes:
+**Error Response Fields:**
+
+- `success` (boolean) - Always `false` for errors
+- `message` (string) - Human-readable error message
+- `errors` (array) - Array of detailed error objects (usually empty)
+- `data` (null) - Always `null` for errors
+- `statusCode` (number) - HTTP status code
+- `stack` (string, optional) - Stack trace (only in development mode)
+
+**Common HTTP Status Codes:**
+
 - `200` - Success
 - `201` - Created
-- `400` - Bad Request
-- `401` - Unauthorized
-- `403` - Forbidden
-- `404` - Not Found
+- `400` - Bad Request (validation errors, invalid input)
+- `401` - Unauthorized (missing or invalid authentication token)
+- `403` - Forbidden (authenticated but not authorized for this action)
+- `404` - Not Found (resource doesn't exist)
 - `500` - Internal Server Error
+
+**Example Error Response:**
+
+```json
+{
+  "success": false,
+  "message": "Email already in use",
+  "errors": [],
+  "data": null,
+  "statusCode": 400
+}
+```
 
 ## 📤 Response Format
 
@@ -938,20 +1393,80 @@ All successful responses follow this format:
 
 ```json
 {
-  "statusCode": 200,
   "success": true,
   "message": "Success message",
   "data": { ... }
 }
 ```
 
+**Success Response Fields:**
+
+- `success` (boolean) - Always `true` for successful responses
+- `message` (string) - Human-readable success message
+- `data` (object | array | null) - Response payload
+
+**Note:** The `statusCode` is not included in the JSON response body, but is set in the HTTP response headers.
+
+## 🔌 WebSocket Events
+
+- **Endpoint:** `ws://localhost:3000/ws?token=<session_token>`
+- **Auth:** `token` query param must be a valid, unexpired session token (from `/api/auth/verify-otp`); the connection is closed if missing/invalid.
+- **Format:** Messages are server-to-client JSON objects shaped as `{ "event": "<event_name>", "payload": { ... } }`.
+- **Connections:** Multiple sockets per user are supported; a message is fanned out to all active sockets for that user.
+- **Client messages:** The server currently only emits events; no client-side messages are required.
+
+**Events & Payloads**
+
+- `friend_request` — when you receive a friend request.
+  - Payload: `{ "requestId": "<id>", "fromUserId": "<user_id>" }`
+- `match_invite` — when a friend invites you to a match.
+  - Payload: `{ "matchId": "<id>", "fromUserId": "<user_id>" }`
+- `match_accepted` — when the invitee accepts your match.
+  - Payload: `{ "matchId": "<id>", "byUserId": "<user_id>" }`
+- `board_setup_complete` — when both boards are present and the match is in progress.
+  - Payload: `{ "matchId": "<id>", "startingUserId": "<user_id>" }`
+- `opponent_move` — when your opponent selects a number.
+  - Payload: `{ "matchId": "<id>", "move_number": <int>, "number": <int>, "fromUserId": "<user_id>" }`
+- `your_turn` — when it is your turn to play.
+  - Payload: `{ "matchId": "<id>" }`
+- `match_finished` — when a match concludes.
+  - Payload: `{ "matchId": "<id>", "winnerUserId": "<user_id>" }`
+
 ## 🎮 Game Rules
+
+### Board Setup
 
 - Bingo boards are 5x5 grids (25 numbers total)
 - Numbers range from 1 to 25
-- Players take turns selecting numbers
-- A player wins by completing 5 lines (rows, columns, or diagonals)
+- Each number must be unique on a board
+- Boards can be set manually (custom arrangement) or automatically (straight 1-25)
+
+### Gameplay
+
+- Players take turns selecting numbers (1-25)
+- Each number can only be selected once per match
+- The turn alternates between players after each move
+- A random player is chosen to start when both boards are set
+
+### Winning
+
+- A player wins by completing **5 or more lines**
+- Lines can be:
+  - **Rows:** 5 horizontal lines (top to bottom)
+  - **Columns:** 5 vertical lines (left to right)
+  - **Diagonals:** 2 diagonal lines (top-left to bottom-right, top-right to bottom-left)
+- Total possible lines: 12 (5 rows + 5 columns + 2 diagonals)
 - Lines are automatically calculated based on selected numbers
+- Player must claim bingo by calling the `/api/matches/:matchId/bingo` endpoint
+- Match status changes to `FINISHED` when a valid bingo is claimed
+
+### Match States
+
+1. **INVITED** - Match invitation sent, waiting for player2 to accept
+2. **BOARD_SETUP** - Match accepted, both players setting up their boards
+3. **IN_PROGRESS** - Both boards set, game in progress
+4. **FINISHED** - Game completed, winner determined
+5. **CANCELLED** - Match cancelled (not currently implemented)
 
 ## 📝 License
 
@@ -967,4 +1482,4 @@ For issues and questions, please open an issue on the GitHub repository.
 
 ---
 
-**Last Updated:** 2024
+**Last Updated:** 2025 Dec 11
