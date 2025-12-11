@@ -2,19 +2,24 @@ import prisma from "../prismaClient.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
+import { normalizeUsername, validateUsername } from "../utils/usernameUtils.js";
 
 export const searchUsers = asyncHandler(async (req, res) => {
   const rawQuery = req.query.query ?? req.query.q;
   const query = (rawQuery || "").toString().trim();
+  const currentUserId = req.user.id;
 
   if (!query) {
     return new ApiResponse(res, 200, [], true, "Empty query, no users returned");
   }
 
+  const normalizedQuery = normalizeUsername(query);
+
   const users = await prisma.user.findMany({
     where: {
+      id: {not : currentUserId},
       name: {
-        startsWith: query,
+        startsWith: normalizedQuery,
         mode: "insensitive",
       },
     },
@@ -62,14 +67,22 @@ export const getMeProfile = asyncHandler(async (req, res) => {
 
 export const checkUsernameAvailability = asyncHandler(async (req, res) => {
   const rawUsername = req.query.username ?? req.query.name;
-  const username = (rawUsername || "").toString().trim();
+  const input = (rawUsername || "").toString().trim();
 
-  if (!username) {
+  if (!input) {
     throw new ApiError(400, "username is required");
   }
 
+  const normalized = validateUsername(input);
+  if (!normalized) {
+    throw new ApiError(
+      400,
+      "Invalid username. Use 3-30 characters: lowercase letters, numbers, '.', '_' with no spaces"
+    );
+  }
+
   const existing = await prisma.user.findUnique({
-    where: { name: username },
+    where: { name: normalized },
     select: { id: true },
   });
 
@@ -79,7 +92,7 @@ export const checkUsernameAvailability = asyncHandler(async (req, res) => {
     res,
     200,
     {
-      username,
+      username: normalized,
       available,
     },
     true,

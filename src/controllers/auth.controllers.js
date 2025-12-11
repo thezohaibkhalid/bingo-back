@@ -9,6 +9,7 @@ import {
   hashOtpCode,
   generateSessionToken,
 } from "../utils/authUtils.js";
+import { validateUsername } from "../utils/usernameUtils.js";
 import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
@@ -21,12 +22,19 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// POST /api/auth/register
 export const register = asyncHandler(async (req, res) => {
-  const { email, password, name, displayName } = req.body;
+  const { email, password, username, displayName } = req.body;
 
-  if (!email || !password || !name) {
+  if (!email || !password || !username) {
     throw new ApiError(400, "Email, password and username are required");
+  }
+
+  const normalizedUsername = validateUsername(username);
+  if (!normalizedUsername) {
+    throw new ApiError(
+      400,
+      "Invalid username. Use 3-30 characters: lowercase letters, numbers, '.', '_' with no spaces"
+    );
   }
 
   const existingByEmail = await prisma.user.findUnique({ where: { email } });
@@ -34,7 +42,9 @@ export const register = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Email already in use");
   }
 
-  const existingByUsername = await prisma.user.findUnique({ where: { name } });
+  const existingByUsername = await prisma.user.findUnique({
+    where: { name: normalizedUsername },
+  });
   if (existingByUsername) {
     throw new ApiError(400, "Username already in use");
   }
@@ -45,8 +55,8 @@ export const register = asyncHandler(async (req, res) => {
     data: {
       email,
       passwordHash,
-      name,
-      displayName: displayName || name,
+      name: normalizedUsername,
+      displayName: displayName || normalizedUsername,
     },
   });
 
@@ -64,8 +74,6 @@ export const register = asyncHandler(async (req, res) => {
   );
 });
 
-// POST /api/auth/login
-// Step 1: check email+password, send OTP, return otpId
 export const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
@@ -84,10 +92,9 @@ export const login = asyncHandler(async (req, res) => {
     throw new ApiError(401, "Invalid credentials");
   }
 
-  // generate OTP
   const code = generateOtpCode();
   const codeHash = hashOtpCode(code);
-  const expiresAt = new Date(Date.now() + 5 * 60 * 1000); // 5 min
+  const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
 
   const otp = await prisma.emailOtp.create({
     data: {
@@ -98,7 +105,6 @@ export const login = asyncHandler(async (req, res) => {
     },
   });
 
-  // send email
   await transporter.sendMail({
     from: process.env.SMTP_FROM || "no-reply@bingo-game.com",
     to: user.email,
@@ -115,8 +121,6 @@ export const login = asyncHandler(async (req, res) => {
   );
 });
 
-// POST /api/auth/verify-otp
-// Step 2: user sends { otpId, code } → we create session
 export const verifyOtp = asyncHandler(async (req, res) => {
   const { otpId, code } = req.body;
 
@@ -146,15 +150,13 @@ export const verifyOtp = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Invalid OTP code");
   }
 
-  // mark OTP consumed
   await prisma.emailOtp.update({
     where: { id: otp.id },
     data: { consumedAt: new Date() },
   });
 
-  // create session
   const token = generateSessionToken();
-  const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
+  const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
   await prisma.session.create({
     data: {
@@ -185,9 +187,7 @@ export const verifyOtp = asyncHandler(async (req, res) => {
   );
 });
 
-// GET /api/auth/me
 export const me = asyncHandler(async (req, res) => {
-  // requireAuth must run before this
   const user = req.user;
 
   if (!user) {
@@ -196,10 +196,11 @@ export const me = asyncHandler(async (req, res) => {
 
   return new ApiResponse(
     res,
-      200,
+    200,
     {
       id: user.id,
       email: user.email,
+      username: user.name,
       display_name: user.displayName ?? user.name,
       avatar_url: user.avatarUrl ?? user.image,
       created_at: user.createdAt,
