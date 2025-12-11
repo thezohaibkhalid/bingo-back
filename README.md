@@ -1000,7 +1000,7 @@ Authorization: Bearer <session_token>
 }
 ```
 
-**Note:** When both players have set their boards, the match automatically transitions to `IN_PROGRESS` status and a random player is chosen to start.
+**Note:** When both players have set their boards, the server moves the match to `IN_PROGRESS`, sets `currentTurnUserId` to `player1Id` (the inviter), records `startedAt`, and emits `board_setup_complete` to both players.
 
 **Error Responses:**
 
@@ -1446,7 +1446,7 @@ All successful responses follow this format:
 - Players take turns selecting numbers (1-25)
 - Each number can only be selected once per match
 - The turn alternates between players after each move
-- A random player is chosen to start when both boards are set
+- When both boards are set, the match enters `IN_PROGRESS` and player 1 (inviter) takes the first turn
 
 ### Winning
 
