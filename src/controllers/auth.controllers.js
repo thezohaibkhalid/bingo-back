@@ -23,15 +23,20 @@ const transporter = nodemailer.createTransport({
 
 // POST /api/auth/register
 export const register = asyncHandler(async (req, res) => {
-  const { email, password, name } = req.body;
+  const { email, password, name, displayName } = req.body;
 
-  if (!email || !password) {
-    throw new ApiError(400, "Email and password are required");
+  if (!email || !password || !name) {
+    throw new ApiError(400, "Email, password and username are required");
   }
 
-  const existing = await prisma.user.findUnique({ where: { email } });
-  if (existing) {
+  const existingByEmail = await prisma.user.findUnique({ where: { email } });
+  if (existingByEmail) {
     throw new ApiError(400, "Email already in use");
+  }
+
+  const existingByUsername = await prisma.user.findUnique({ where: { name } });
+  if (existingByUsername) {
+    throw new ApiError(400, "Username already in use");
   }
 
   const passwordHash = await hashPassword(password);
@@ -41,15 +46,17 @@ export const register = asyncHandler(async (req, res) => {
       email,
       passwordHash,
       name,
-      displayName: name,
+      displayName: displayName || name,
     },
   });
 
   return new ApiResponse(
+    res,
     201,
     {
       id: user.id,
       email: user.email,
+      username: user.name,
       display_name: user.displayName ?? user.name,
     },
     true,
@@ -100,6 +107,7 @@ export const login = asyncHandler(async (req, res) => {
   });
 
   return new ApiResponse(
+    res,
     200,
     { otpId: otp.id },
     true,
@@ -159,12 +167,14 @@ export const verifyOtp = asyncHandler(async (req, res) => {
   const user = otp.user;
 
   return new ApiResponse(
+    res,
     200,
     {
       token,
       user: {
         id: user.id,
         email: user.email,
+        username: user.name,
         display_name: user.displayName ?? user.name,
         avatar_url: user.avatarUrl ?? user.image,
         created_at: user.createdAt,
@@ -185,7 +195,8 @@ export const me = asyncHandler(async (req, res) => {
   }
 
   return new ApiResponse(
-    200,
+    res,
+      200,
     {
       id: user.id,
       email: user.email,

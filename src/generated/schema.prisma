@@ -26,8 +26,8 @@ enum MatchStatus {
 model User {
   id            String    @id @default(cuid())
   email         String    @unique
-  passwordHash  String // hashed password (bcrypt)
-  name          String?
+  passwordHash  String
+  name          String    @unique
   displayName   String?
   image         String?
   avatarUrl     String?
@@ -36,11 +36,9 @@ model User {
   updatedAt     DateTime  @updatedAt
   lastOnlineAt  DateTime?
 
-  // Auth relations
   sessions Session[]
   otpCodes EmailOtp[]
 
-  // App relations
   requestedFriendships Friendship[] @relation("FriendshipRequester")
   receivedFriendships  Friendship[] @relation("FriendshipAddressee")
   matchesAsPlayer1     Match[]      @relation("Player1Matches")

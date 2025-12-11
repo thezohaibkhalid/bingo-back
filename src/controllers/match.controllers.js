@@ -125,7 +125,7 @@ export const inviteMatch = asyncHandler(async (req, res) => {
     },
   });
 
-  return new ApiResponse(201, match, true, "Match invitation created");
+  return new ApiResponse(res, 201, match, true, "Match invitation created");
 });
 
 // GET /api/matches
@@ -139,7 +139,7 @@ export const listMatches = asyncHandler(async (req, res) => {
     orderBy: { createdAt: "desc" },
   });
 
-  return new ApiResponse(200, matches, true, "Matches fetched successfully");
+  return new ApiResponse(res, 200, matches, true, "Matches fetched successfully");
 });
 
 // GET /api/matches/:matchId
@@ -181,7 +181,7 @@ export const getMatchById = asyncHandler(async (req, res) => {
     ended_at: match.endedAt,
   };
 
-  return new ApiResponse(200, result, true, "Match fetched");
+  return new ApiResponse(res, 200, result, true, "Match fetched");
 });
 
 // POST /api/matches/:matchId/accept
@@ -212,7 +212,7 @@ export const acceptMatchInvite = asyncHandler(async (req, res) => {
     },
   });
 
-  return new ApiResponse(200, updated, true, "Match invitation accepted");
+  return new ApiResponse(res, 200, updated, true, "Match invitation accepted");
 });
 
 // POST /api/matches/:matchId/board
@@ -289,6 +289,7 @@ export const setBoard = asyncHandler(async (req, res) => {
   }
 
   return new ApiResponse(
+    res,
     201,
     {
       board,
@@ -368,7 +369,7 @@ export const getMatchState = asyncHandler(async (req, res) => {
     opponent_lines: opponentLines,
   };
 
-  return new ApiResponse(200, response, true, "Match state fetched");
+  return new ApiResponse(res, 200, response, true, "Match state fetched");
 });
 
 // POST /api/matches/:matchId/move
@@ -450,6 +451,7 @@ export const makeMove = asyncHandler(async (req, res) => {
   });
 
   return new ApiResponse(
+    res,
     200,
     {
       success: true,
@@ -496,6 +498,7 @@ export const claimBingo = asyncHandler(async (req, res) => {
     // someone already won
     const alreadyWinner = match.winnerUserId === userId;
     return new ApiResponse(
+      res,
       200,
       {
         success: alreadyWinner,
@@ -528,6 +531,7 @@ export const claimBingo = asyncHandler(async (req, res) => {
     });
 
     return new ApiResponse(
+      res,
       200,
       {
         success: true,
@@ -539,6 +543,7 @@ export const claimBingo = asyncHandler(async (req, res) => {
     );
   } else {
     return new ApiResponse(
+      res,
       200,
       {
         success: false,

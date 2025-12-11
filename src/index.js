@@ -5,7 +5,7 @@ import { authRoutes } from "./routes/auth.routes.js";
 import { userRoutes } from "./routes/user.routes.js";
 import { friendRoutes } from "./routes/friends.routes.js";
 import { matchRoutes } from "./routes/match.routes.js";
-
+import { errorHandler } from "./middleware/errorHandlers.js";
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -25,6 +25,8 @@ app.use("/api/matches", matchRoutes);
 app.get("/", (_req, res) => {
   res.send("Bingo API is running");
 });
+
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

@@ -6,24 +6,20 @@ class ApiError extends Error {
     this.success = false;
     this.errors = errors;
 
-    if (stack) {
-      this.stack = stack;
-    } else {
-      Error.captureStackTrace(this, this.constructor);
-    }
+    if (stack) this.stack = stack;
+    else Error.captureStackTrace(this, this.constructor);
   }
 
   toJSON() {
     return {
-      statusCode: this.statusCode,
-      message: this.message,
       success: this.success,
+      message: this.message,
       errors: this.errors,
       data: this.data,
+      statusCode: this.statusCode,
       stack: process.env.NODE_ENV === "development" ? this.stack : undefined,
     };
   }
 }
 
 export { ApiError };
-

@@ -50,6 +50,7 @@ export const sendFriendRequest = asyncHandler(async (req, res) => {
   });
 
   return new ApiResponse(
+    res,
     201,
     friendship,
     true,
@@ -95,7 +96,7 @@ export const listFriendRequests = asyncHandler(async (req, res) => {
     })),
   };
 
-  return new ApiResponse(200, data, true, "Friend requests fetched");
+  return new ApiResponse(res, 200, data, true, "Friend requests fetched");
 });
 
 export const acceptFriendRequest = asyncHandler(async (req, res) => {
@@ -123,7 +124,7 @@ export const acceptFriendRequest = asyncHandler(async (req, res) => {
     data: { status: "ACCEPTED" },
   });
 
-  return new ApiResponse(200, { success: true }, true, "Friend request accepted");
+  return new ApiResponse(res, 200, { success: true }, true, "Friend request accepted");
 });
 
 export const rejectFriendRequest = asyncHandler(async (req, res) => {
@@ -151,7 +152,7 @@ export const rejectFriendRequest = asyncHandler(async (req, res) => {
     where: { id },
   });
 
-  return new ApiResponse(200, { success: true }, true, "Friend request rejected");
+  return new ApiResponse(res, 200, { success: true }, true, "Friend request rejected");
 });
 
 export const listFriends = asyncHandler(async (req, res) => {
@@ -179,5 +180,5 @@ export const listFriends = asyncHandler(async (req, res) => {
     };
   });
 
-  return new ApiResponse(200, friends, true, "Friends fetched successfully");
+  return new ApiResponse(res, 200, friends, true, "Friends fetched successfully");
 });
