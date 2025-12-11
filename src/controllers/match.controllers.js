@@ -3,7 +3,7 @@ import { asyncHandler } from "../utils/asyncHandler.js"
 import { ApiResponse } from "../utils/ApiResponse.js"
 import { ApiError } from "../utils/ApiError.js"
 import { sendToUser, broadcastToUsers } from "../websocket.js"
-
+import { applyMatchResultToStats } from "../lib/userStatsService.js"
 // Helper: validate a board numbers array (1-25, unique, length 25)
 function validateBoardNumbers(numbers) {
   if (!Array.isArray(numbers) || numbers.length !== 25) {
@@ -560,6 +560,8 @@ export const claimBingo = asyncHandler(async (req, res) => {
         winnerUserId: userId,
       },
     )
+
+    await applyMatchResultToStats(updatedMatch.id)
 
     return new ApiResponse(
       res,
