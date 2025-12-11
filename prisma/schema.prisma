@@ -47,6 +47,7 @@ model User {
   matchesWon           Match[]      @relation("WonMatches")
   boards               Board[]
   moves                Move[]       @relation("UserMoves")
+  userStats            UserStats?
 
   @@map("users")
 }
@@ -157,4 +158,23 @@ model Move {
   @@index([matchId])
   @@index([chosenByUserId])
   @@map("moves")
+}
+
+
+// ── STATS / LEADERBOARD MODELS ─────────────────────────────────────────────
+
+model UserStats {
+  userId          String   @id
+  totalMatches    Int      @default(0)
+  wins            Int      @default(0)
+  losses          Int      @default(0)
+  draws           Int      @default(0)
+  winStreak       Int      @default(0)   
+  bestWinStreak   Int      @default(0) 
+  lastMatchAt     DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@map("user_stats")
+  @@index([wins, totalMatches])
+  @@index([lastMatchAt])
 }

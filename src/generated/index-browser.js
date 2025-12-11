@@ -192,6 +192,17 @@ exports.Prisma.MoveScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.UserStatsScalarFieldEnum = {
+  userId: 'userId',
+  totalMatches: 'totalMatches',
+  wins: 'wins',
+  losses: 'losses',
+  draws: 'draws',
+  winStreak: 'winStreak',
+  bestWinStreak: 'bestWinStreak',
+  lastMatchAt: 'lastMatchAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -227,7 +238,8 @@ exports.Prisma.ModelName = {
   Friendship: 'Friendship',
   Match: 'Match',
   Board: 'Board',
-  Move: 'Move'
+  Move: 'Move',
+  UserStats: 'UserStats'
 };
 
 /**

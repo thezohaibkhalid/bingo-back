@@ -48,6 +48,11 @@ export type Board = $Result.DefaultSelection<Prisma.$BoardPayload>
  * 
  */
 export type Move = $Result.DefaultSelection<Prisma.$MovePayload>
+/**
+ * Model UserStats
+ * 
+ */
+export type UserStats = $Result.DefaultSelection<Prisma.$UserStatsPayload>
 
 /**
  * Enums
@@ -268,6 +273,16 @@ export class PrismaClient<
     * ```
     */
   get move(): Prisma.MoveDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userStats`: Exposes CRUD operations for the **UserStats** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserStats
+    * const userStats = await prisma.userStats.findMany()
+    * ```
+    */
+  get userStats(): Prisma.UserStatsDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -708,7 +723,8 @@ export namespace Prisma {
     Friendship: 'Friendship',
     Match: 'Match',
     Board: 'Board',
-    Move: 'Move'
+    Move: 'Move',
+    UserStats: 'UserStats'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -724,7 +740,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "session" | "emailOtp" | "friendship" | "match" | "board" | "move"
+      modelProps: "user" | "session" | "emailOtp" | "friendship" | "match" | "board" | "move" | "userStats"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1246,6 +1262,80 @@ export namespace Prisma {
           }
         }
       }
+      UserStats: {
+        payload: Prisma.$UserStatsPayload<ExtArgs>
+        fields: Prisma.UserStatsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserStatsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStatsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserStatsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStatsPayload>
+          }
+          findFirst: {
+            args: Prisma.UserStatsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStatsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserStatsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStatsPayload>
+          }
+          findMany: {
+            args: Prisma.UserStatsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStatsPayload>[]
+          }
+          create: {
+            args: Prisma.UserStatsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStatsPayload>
+          }
+          createMany: {
+            args: Prisma.UserStatsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserStatsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStatsPayload>[]
+          }
+          delete: {
+            args: Prisma.UserStatsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStatsPayload>
+          }
+          update: {
+            args: Prisma.UserStatsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStatsPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserStatsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserStatsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserStatsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStatsPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserStatsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserStatsPayload>
+          }
+          aggregate: {
+            args: Prisma.UserStatsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserStats>
+          }
+          groupBy: {
+            args: Prisma.UserStatsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserStatsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserStatsCountArgs<ExtArgs>
+            result: $Utils.Optional<UserStatsCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1361,6 +1451,7 @@ export namespace Prisma {
     match?: MatchOmit
     board?: BoardOmit
     move?: MoveOmit
+    userStats?: UserStatsOmit
   }
 
   /* Types for Logging */
@@ -1814,6 +1905,7 @@ export namespace Prisma {
     matchesWon?: boolean | User$matchesWonArgs<ExtArgs>
     boards?: boolean | User$boardsArgs<ExtArgs>
     moves?: boolean | User$movesArgs<ExtArgs>
+    userStats?: boolean | User$userStatsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1871,6 +1963,7 @@ export namespace Prisma {
     matchesWon?: boolean | User$matchesWonArgs<ExtArgs>
     boards?: boolean | User$boardsArgs<ExtArgs>
     moves?: boolean | User$movesArgs<ExtArgs>
+    userStats?: boolean | User$userStatsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1889,6 +1982,7 @@ export namespace Prisma {
       matchesWon: Prisma.$MatchPayload<ExtArgs>[]
       boards: Prisma.$BoardPayload<ExtArgs>[]
       moves: Prisma.$MovePayload<ExtArgs>[]
+      userStats: Prisma.$UserStatsPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2306,6 +2400,7 @@ export namespace Prisma {
     matchesWon<T extends User$matchesWonArgs<ExtArgs> = {}>(args?: Subset<T, User$matchesWonArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MatchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     boards<T extends User$boardsArgs<ExtArgs> = {}>(args?: Subset<T, User$boardsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BoardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     moves<T extends User$movesArgs<ExtArgs> = {}>(args?: Subset<T, User$movesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MovePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    userStats<T extends User$userStatsArgs<ExtArgs> = {}>(args?: Subset<T, User$userStatsArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2971,6 +3066,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MoveScalarFieldEnum | MoveScalarFieldEnum[]
+  }
+
+  /**
+   * User.userStats
+   */
+  export type User$userStatsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStats
+     */
+    select?: UserStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStats
+     */
+    omit?: UserStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStatsInclude<ExtArgs> | null
+    where?: UserStatsWhereInput
   }
 
   /**
@@ -9683,6 +9797,1157 @@ export namespace Prisma {
 
 
   /**
+   * Model UserStats
+   */
+
+  export type AggregateUserStats = {
+    _count: UserStatsCountAggregateOutputType | null
+    _avg: UserStatsAvgAggregateOutputType | null
+    _sum: UserStatsSumAggregateOutputType | null
+    _min: UserStatsMinAggregateOutputType | null
+    _max: UserStatsMaxAggregateOutputType | null
+  }
+
+  export type UserStatsAvgAggregateOutputType = {
+    totalMatches: number | null
+    wins: number | null
+    losses: number | null
+    draws: number | null
+    winStreak: number | null
+    bestWinStreak: number | null
+  }
+
+  export type UserStatsSumAggregateOutputType = {
+    totalMatches: number | null
+    wins: number | null
+    losses: number | null
+    draws: number | null
+    winStreak: number | null
+    bestWinStreak: number | null
+  }
+
+  export type UserStatsMinAggregateOutputType = {
+    userId: string | null
+    totalMatches: number | null
+    wins: number | null
+    losses: number | null
+    draws: number | null
+    winStreak: number | null
+    bestWinStreak: number | null
+    lastMatchAt: Date | null
+  }
+
+  export type UserStatsMaxAggregateOutputType = {
+    userId: string | null
+    totalMatches: number | null
+    wins: number | null
+    losses: number | null
+    draws: number | null
+    winStreak: number | null
+    bestWinStreak: number | null
+    lastMatchAt: Date | null
+  }
+
+  export type UserStatsCountAggregateOutputType = {
+    userId: number
+    totalMatches: number
+    wins: number
+    losses: number
+    draws: number
+    winStreak: number
+    bestWinStreak: number
+    lastMatchAt: number
+    _all: number
+  }
+
+
+  export type UserStatsAvgAggregateInputType = {
+    totalMatches?: true
+    wins?: true
+    losses?: true
+    draws?: true
+    winStreak?: true
+    bestWinStreak?: true
+  }
+
+  export type UserStatsSumAggregateInputType = {
+    totalMatches?: true
+    wins?: true
+    losses?: true
+    draws?: true
+    winStreak?: true
+    bestWinStreak?: true
+  }
+
+  export type UserStatsMinAggregateInputType = {
+    userId?: true
+    totalMatches?: true
+    wins?: true
+    losses?: true
+    draws?: true
+    winStreak?: true
+    bestWinStreak?: true
+    lastMatchAt?: true
+  }
+
+  export type UserStatsMaxAggregateInputType = {
+    userId?: true
+    totalMatches?: true
+    wins?: true
+    losses?: true
+    draws?: true
+    winStreak?: true
+    bestWinStreak?: true
+    lastMatchAt?: true
+  }
+
+  export type UserStatsCountAggregateInputType = {
+    userId?: true
+    totalMatches?: true
+    wins?: true
+    losses?: true
+    draws?: true
+    winStreak?: true
+    bestWinStreak?: true
+    lastMatchAt?: true
+    _all?: true
+  }
+
+  export type UserStatsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserStats to aggregate.
+     */
+    where?: UserStatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserStats to fetch.
+     */
+    orderBy?: UserStatsOrderByWithRelationInput | UserStatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserStatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserStats.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserStats
+    **/
+    _count?: true | UserStatsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UserStatsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserStatsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserStatsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserStatsMaxAggregateInputType
+  }
+
+  export type GetUserStatsAggregateType<T extends UserStatsAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserStats]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserStats[P]>
+      : GetScalarType<T[P], AggregateUserStats[P]>
+  }
+
+
+
+
+  export type UserStatsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserStatsWhereInput
+    orderBy?: UserStatsOrderByWithAggregationInput | UserStatsOrderByWithAggregationInput[]
+    by: UserStatsScalarFieldEnum[] | UserStatsScalarFieldEnum
+    having?: UserStatsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserStatsCountAggregateInputType | true
+    _avg?: UserStatsAvgAggregateInputType
+    _sum?: UserStatsSumAggregateInputType
+    _min?: UserStatsMinAggregateInputType
+    _max?: UserStatsMaxAggregateInputType
+  }
+
+  export type UserStatsGroupByOutputType = {
+    userId: string
+    totalMatches: number
+    wins: number
+    losses: number
+    draws: number
+    winStreak: number
+    bestWinStreak: number
+    lastMatchAt: Date | null
+    _count: UserStatsCountAggregateOutputType | null
+    _avg: UserStatsAvgAggregateOutputType | null
+    _sum: UserStatsSumAggregateOutputType | null
+    _min: UserStatsMinAggregateOutputType | null
+    _max: UserStatsMaxAggregateOutputType | null
+  }
+
+  type GetUserStatsGroupByPayload<T extends UserStatsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserStatsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserStatsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserStatsGroupByOutputType[P]>
+            : GetScalarType<T[P], UserStatsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserStatsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    totalMatches?: boolean
+    wins?: boolean
+    losses?: boolean
+    draws?: boolean
+    winStreak?: boolean
+    bestWinStreak?: boolean
+    lastMatchAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userStats"]>
+
+  export type UserStatsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    totalMatches?: boolean
+    wins?: boolean
+    losses?: boolean
+    draws?: boolean
+    winStreak?: boolean
+    bestWinStreak?: boolean
+    lastMatchAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userStats"]>
+
+  export type UserStatsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    totalMatches?: boolean
+    wins?: boolean
+    losses?: boolean
+    draws?: boolean
+    winStreak?: boolean
+    bestWinStreak?: boolean
+    lastMatchAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userStats"]>
+
+  export type UserStatsSelectScalar = {
+    userId?: boolean
+    totalMatches?: boolean
+    wins?: boolean
+    losses?: boolean
+    draws?: boolean
+    winStreak?: boolean
+    bestWinStreak?: boolean
+    lastMatchAt?: boolean
+  }
+
+  export type UserStatsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "totalMatches" | "wins" | "losses" | "draws" | "winStreak" | "bestWinStreak" | "lastMatchAt", ExtArgs["result"]["userStats"]>
+  export type UserStatsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserStatsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserStatsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $UserStatsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserStats"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      userId: string
+      totalMatches: number
+      wins: number
+      losses: number
+      draws: number
+      winStreak: number
+      bestWinStreak: number
+      lastMatchAt: Date | null
+    }, ExtArgs["result"]["userStats"]>
+    composites: {}
+  }
+
+  type UserStatsGetPayload<S extends boolean | null | undefined | UserStatsDefaultArgs> = $Result.GetResult<Prisma.$UserStatsPayload, S>
+
+  type UserStatsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserStatsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserStatsCountAggregateInputType | true
+    }
+
+  export interface UserStatsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserStats'], meta: { name: 'UserStats' } }
+    /**
+     * Find zero or one UserStats that matches the filter.
+     * @param {UserStatsFindUniqueArgs} args - Arguments to find a UserStats
+     * @example
+     * // Get one UserStats
+     * const userStats = await prisma.userStats.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserStatsFindUniqueArgs>(args: SelectSubset<T, UserStatsFindUniqueArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserStats that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserStatsFindUniqueOrThrowArgs} args - Arguments to find a UserStats
+     * @example
+     * // Get one UserStats
+     * const userStats = await prisma.userStats.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserStatsFindUniqueOrThrowArgs>(args: SelectSubset<T, UserStatsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserStats that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserStatsFindFirstArgs} args - Arguments to find a UserStats
+     * @example
+     * // Get one UserStats
+     * const userStats = await prisma.userStats.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserStatsFindFirstArgs>(args?: SelectSubset<T, UserStatsFindFirstArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserStats that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserStatsFindFirstOrThrowArgs} args - Arguments to find a UserStats
+     * @example
+     * // Get one UserStats
+     * const userStats = await prisma.userStats.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserStatsFindFirstOrThrowArgs>(args?: SelectSubset<T, UserStatsFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserStats that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserStatsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserStats
+     * const userStats = await prisma.userStats.findMany()
+     * 
+     * // Get first 10 UserStats
+     * const userStats = await prisma.userStats.findMany({ take: 10 })
+     * 
+     * // Only select the `userId`
+     * const userStatsWithUserIdOnly = await prisma.userStats.findMany({ select: { userId: true } })
+     * 
+     */
+    findMany<T extends UserStatsFindManyArgs>(args?: SelectSubset<T, UserStatsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserStats.
+     * @param {UserStatsCreateArgs} args - Arguments to create a UserStats.
+     * @example
+     * // Create one UserStats
+     * const UserStats = await prisma.userStats.create({
+     *   data: {
+     *     // ... data to create a UserStats
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserStatsCreateArgs>(args: SelectSubset<T, UserStatsCreateArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserStats.
+     * @param {UserStatsCreateManyArgs} args - Arguments to create many UserStats.
+     * @example
+     * // Create many UserStats
+     * const userStats = await prisma.userStats.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserStatsCreateManyArgs>(args?: SelectSubset<T, UserStatsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserStats and returns the data saved in the database.
+     * @param {UserStatsCreateManyAndReturnArgs} args - Arguments to create many UserStats.
+     * @example
+     * // Create many UserStats
+     * const userStats = await prisma.userStats.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserStats and only return the `userId`
+     * const userStatsWithUserIdOnly = await prisma.userStats.createManyAndReturn({
+     *   select: { userId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserStatsCreateManyAndReturnArgs>(args?: SelectSubset<T, UserStatsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserStats.
+     * @param {UserStatsDeleteArgs} args - Arguments to delete one UserStats.
+     * @example
+     * // Delete one UserStats
+     * const UserStats = await prisma.userStats.delete({
+     *   where: {
+     *     // ... filter to delete one UserStats
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserStatsDeleteArgs>(args: SelectSubset<T, UserStatsDeleteArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserStats.
+     * @param {UserStatsUpdateArgs} args - Arguments to update one UserStats.
+     * @example
+     * // Update one UserStats
+     * const userStats = await prisma.userStats.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserStatsUpdateArgs>(args: SelectSubset<T, UserStatsUpdateArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserStats.
+     * @param {UserStatsDeleteManyArgs} args - Arguments to filter UserStats to delete.
+     * @example
+     * // Delete a few UserStats
+     * const { count } = await prisma.userStats.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserStatsDeleteManyArgs>(args?: SelectSubset<T, UserStatsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserStatsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserStats
+     * const userStats = await prisma.userStats.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserStatsUpdateManyArgs>(args: SelectSubset<T, UserStatsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserStats and returns the data updated in the database.
+     * @param {UserStatsUpdateManyAndReturnArgs} args - Arguments to update many UserStats.
+     * @example
+     * // Update many UserStats
+     * const userStats = await prisma.userStats.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserStats and only return the `userId`
+     * const userStatsWithUserIdOnly = await prisma.userStats.updateManyAndReturn({
+     *   select: { userId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserStatsUpdateManyAndReturnArgs>(args: SelectSubset<T, UserStatsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserStats.
+     * @param {UserStatsUpsertArgs} args - Arguments to update or create a UserStats.
+     * @example
+     * // Update or create a UserStats
+     * const userStats = await prisma.userStats.upsert({
+     *   create: {
+     *     // ... data to create a UserStats
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserStats we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserStatsUpsertArgs>(args: SelectSubset<T, UserStatsUpsertArgs<ExtArgs>>): Prisma__UserStatsClient<$Result.GetResult<Prisma.$UserStatsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserStatsCountArgs} args - Arguments to filter UserStats to count.
+     * @example
+     * // Count the number of UserStats
+     * const count = await prisma.userStats.count({
+     *   where: {
+     *     // ... the filter for the UserStats we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserStatsCountArgs>(
+      args?: Subset<T, UserStatsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserStatsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserStatsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserStatsAggregateArgs>(args: Subset<T, UserStatsAggregateArgs>): Prisma.PrismaPromise<GetUserStatsAggregateType<T>>
+
+    /**
+     * Group by UserStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserStatsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserStatsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserStatsGroupByArgs['orderBy'] }
+        : { orderBy?: UserStatsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserStatsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserStatsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserStats model
+   */
+  readonly fields: UserStatsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserStats.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserStatsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserStats model
+   */
+  interface UserStatsFieldRefs {
+    readonly userId: FieldRef<"UserStats", 'String'>
+    readonly totalMatches: FieldRef<"UserStats", 'Int'>
+    readonly wins: FieldRef<"UserStats", 'Int'>
+    readonly losses: FieldRef<"UserStats", 'Int'>
+    readonly draws: FieldRef<"UserStats", 'Int'>
+    readonly winStreak: FieldRef<"UserStats", 'Int'>
+    readonly bestWinStreak: FieldRef<"UserStats", 'Int'>
+    readonly lastMatchAt: FieldRef<"UserStats", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserStats findUnique
+   */
+  export type UserStatsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStats
+     */
+    select?: UserStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStats
+     */
+    omit?: UserStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStatsInclude<ExtArgs> | null
+    /**
+     * Filter, which UserStats to fetch.
+     */
+    where: UserStatsWhereUniqueInput
+  }
+
+  /**
+   * UserStats findUniqueOrThrow
+   */
+  export type UserStatsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStats
+     */
+    select?: UserStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStats
+     */
+    omit?: UserStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStatsInclude<ExtArgs> | null
+    /**
+     * Filter, which UserStats to fetch.
+     */
+    where: UserStatsWhereUniqueInput
+  }
+
+  /**
+   * UserStats findFirst
+   */
+  export type UserStatsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStats
+     */
+    select?: UserStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStats
+     */
+    omit?: UserStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStatsInclude<ExtArgs> | null
+    /**
+     * Filter, which UserStats to fetch.
+     */
+    where?: UserStatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserStats to fetch.
+     */
+    orderBy?: UserStatsOrderByWithRelationInput | UserStatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserStats.
+     */
+    cursor?: UserStatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserStats.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserStats.
+     */
+    distinct?: UserStatsScalarFieldEnum | UserStatsScalarFieldEnum[]
+  }
+
+  /**
+   * UserStats findFirstOrThrow
+   */
+  export type UserStatsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStats
+     */
+    select?: UserStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStats
+     */
+    omit?: UserStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStatsInclude<ExtArgs> | null
+    /**
+     * Filter, which UserStats to fetch.
+     */
+    where?: UserStatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserStats to fetch.
+     */
+    orderBy?: UserStatsOrderByWithRelationInput | UserStatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserStats.
+     */
+    cursor?: UserStatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserStats.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserStats.
+     */
+    distinct?: UserStatsScalarFieldEnum | UserStatsScalarFieldEnum[]
+  }
+
+  /**
+   * UserStats findMany
+   */
+  export type UserStatsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStats
+     */
+    select?: UserStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStats
+     */
+    omit?: UserStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStatsInclude<ExtArgs> | null
+    /**
+     * Filter, which UserStats to fetch.
+     */
+    where?: UserStatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserStats to fetch.
+     */
+    orderBy?: UserStatsOrderByWithRelationInput | UserStatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserStats.
+     */
+    cursor?: UserStatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserStats.
+     */
+    skip?: number
+    distinct?: UserStatsScalarFieldEnum | UserStatsScalarFieldEnum[]
+  }
+
+  /**
+   * UserStats create
+   */
+  export type UserStatsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStats
+     */
+    select?: UserStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStats
+     */
+    omit?: UserStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStatsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserStats.
+     */
+    data: XOR<UserStatsCreateInput, UserStatsUncheckedCreateInput>
+  }
+
+  /**
+   * UserStats createMany
+   */
+  export type UserStatsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserStats.
+     */
+    data: UserStatsCreateManyInput | UserStatsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserStats createManyAndReturn
+   */
+  export type UserStatsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStats
+     */
+    select?: UserStatsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStats
+     */
+    omit?: UserStatsOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserStats.
+     */
+    data: UserStatsCreateManyInput | UserStatsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStatsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserStats update
+   */
+  export type UserStatsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStats
+     */
+    select?: UserStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStats
+     */
+    omit?: UserStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStatsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserStats.
+     */
+    data: XOR<UserStatsUpdateInput, UserStatsUncheckedUpdateInput>
+    /**
+     * Choose, which UserStats to update.
+     */
+    where: UserStatsWhereUniqueInput
+  }
+
+  /**
+   * UserStats updateMany
+   */
+  export type UserStatsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserStats.
+     */
+    data: XOR<UserStatsUpdateManyMutationInput, UserStatsUncheckedUpdateManyInput>
+    /**
+     * Filter which UserStats to update
+     */
+    where?: UserStatsWhereInput
+    /**
+     * Limit how many UserStats to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserStats updateManyAndReturn
+   */
+  export type UserStatsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStats
+     */
+    select?: UserStatsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStats
+     */
+    omit?: UserStatsOmit<ExtArgs> | null
+    /**
+     * The data used to update UserStats.
+     */
+    data: XOR<UserStatsUpdateManyMutationInput, UserStatsUncheckedUpdateManyInput>
+    /**
+     * Filter which UserStats to update
+     */
+    where?: UserStatsWhereInput
+    /**
+     * Limit how many UserStats to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStatsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserStats upsert
+   */
+  export type UserStatsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStats
+     */
+    select?: UserStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStats
+     */
+    omit?: UserStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStatsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserStats to update in case it exists.
+     */
+    where: UserStatsWhereUniqueInput
+    /**
+     * In case the UserStats found by the `where` argument doesn't exist, create a new UserStats with this data.
+     */
+    create: XOR<UserStatsCreateInput, UserStatsUncheckedCreateInput>
+    /**
+     * In case the UserStats was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserStatsUpdateInput, UserStatsUncheckedUpdateInput>
+  }
+
+  /**
+   * UserStats delete
+   */
+  export type UserStatsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStats
+     */
+    select?: UserStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStats
+     */
+    omit?: UserStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStatsInclude<ExtArgs> | null
+    /**
+     * Filter which UserStats to delete.
+     */
+    where: UserStatsWhereUniqueInput
+  }
+
+  /**
+   * UserStats deleteMany
+   */
+  export type UserStatsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserStats to delete
+     */
+    where?: UserStatsWhereInput
+    /**
+     * Limit how many UserStats to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserStats without action
+   */
+  export type UserStatsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserStats
+     */
+    select?: UserStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserStats
+     */
+    omit?: UserStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserStatsInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -9787,6 +11052,20 @@ export namespace Prisma {
   };
 
   export type MoveScalarFieldEnum = (typeof MoveScalarFieldEnum)[keyof typeof MoveScalarFieldEnum]
+
+
+  export const UserStatsScalarFieldEnum: {
+    userId: 'userId',
+    totalMatches: 'totalMatches',
+    wins: 'wins',
+    losses: 'losses',
+    draws: 'draws',
+    winStreak: 'winStreak',
+    bestWinStreak: 'bestWinStreak',
+    lastMatchAt: 'lastMatchAt'
+  };
+
+  export type UserStatsScalarFieldEnum = (typeof UserStatsScalarFieldEnum)[keyof typeof UserStatsScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -9937,6 +11216,7 @@ export namespace Prisma {
     matchesWon?: MatchListRelationFilter
     boards?: BoardListRelationFilter
     moves?: MoveListRelationFilter
+    userStats?: XOR<UserStatsNullableScalarRelationFilter, UserStatsWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -9961,6 +11241,7 @@ export namespace Prisma {
     matchesWon?: MatchOrderByRelationAggregateInput
     boards?: BoardOrderByRelationAggregateInput
     moves?: MoveOrderByRelationAggregateInput
+    userStats?: UserStatsOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -9988,6 +11269,7 @@ export namespace Prisma {
     matchesWon?: MatchListRelationFilter
     boards?: BoardListRelationFilter
     moves?: MoveListRelationFilter
+    userStats?: XOR<UserStatsNullableScalarRelationFilter, UserStatsWhereInput> | null
   }, "id" | "email" | "name">
 
   export type UserOrderByWithAggregationInput = {
@@ -10436,6 +11718,78 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Move"> | Date | string
   }
 
+  export type UserStatsWhereInput = {
+    AND?: UserStatsWhereInput | UserStatsWhereInput[]
+    OR?: UserStatsWhereInput[]
+    NOT?: UserStatsWhereInput | UserStatsWhereInput[]
+    userId?: StringFilter<"UserStats"> | string
+    totalMatches?: IntFilter<"UserStats"> | number
+    wins?: IntFilter<"UserStats"> | number
+    losses?: IntFilter<"UserStats"> | number
+    draws?: IntFilter<"UserStats"> | number
+    winStreak?: IntFilter<"UserStats"> | number
+    bestWinStreak?: IntFilter<"UserStats"> | number
+    lastMatchAt?: DateTimeNullableFilter<"UserStats"> | Date | string | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type UserStatsOrderByWithRelationInput = {
+    userId?: SortOrder
+    totalMatches?: SortOrder
+    wins?: SortOrder
+    losses?: SortOrder
+    draws?: SortOrder
+    winStreak?: SortOrder
+    bestWinStreak?: SortOrder
+    lastMatchAt?: SortOrderInput | SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type UserStatsWhereUniqueInput = Prisma.AtLeast<{
+    userId?: string
+    AND?: UserStatsWhereInput | UserStatsWhereInput[]
+    OR?: UserStatsWhereInput[]
+    NOT?: UserStatsWhereInput | UserStatsWhereInput[]
+    totalMatches?: IntFilter<"UserStats"> | number
+    wins?: IntFilter<"UserStats"> | number
+    losses?: IntFilter<"UserStats"> | number
+    draws?: IntFilter<"UserStats"> | number
+    winStreak?: IntFilter<"UserStats"> | number
+    bestWinStreak?: IntFilter<"UserStats"> | number
+    lastMatchAt?: DateTimeNullableFilter<"UserStats"> | Date | string | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "userId">
+
+  export type UserStatsOrderByWithAggregationInput = {
+    userId?: SortOrder
+    totalMatches?: SortOrder
+    wins?: SortOrder
+    losses?: SortOrder
+    draws?: SortOrder
+    winStreak?: SortOrder
+    bestWinStreak?: SortOrder
+    lastMatchAt?: SortOrderInput | SortOrder
+    _count?: UserStatsCountOrderByAggregateInput
+    _avg?: UserStatsAvgOrderByAggregateInput
+    _max?: UserStatsMaxOrderByAggregateInput
+    _min?: UserStatsMinOrderByAggregateInput
+    _sum?: UserStatsSumOrderByAggregateInput
+  }
+
+  export type UserStatsScalarWhereWithAggregatesInput = {
+    AND?: UserStatsScalarWhereWithAggregatesInput | UserStatsScalarWhereWithAggregatesInput[]
+    OR?: UserStatsScalarWhereWithAggregatesInput[]
+    NOT?: UserStatsScalarWhereWithAggregatesInput | UserStatsScalarWhereWithAggregatesInput[]
+    userId?: StringWithAggregatesFilter<"UserStats"> | string
+    totalMatches?: IntWithAggregatesFilter<"UserStats"> | number
+    wins?: IntWithAggregatesFilter<"UserStats"> | number
+    losses?: IntWithAggregatesFilter<"UserStats"> | number
+    draws?: IntWithAggregatesFilter<"UserStats"> | number
+    winStreak?: IntWithAggregatesFilter<"UserStats"> | number
+    bestWinStreak?: IntWithAggregatesFilter<"UserStats"> | number
+    lastMatchAt?: DateTimeNullableWithAggregatesFilter<"UserStats"> | Date | string | null
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -10458,6 +11812,7 @@ export namespace Prisma {
     matchesWon?: MatchCreateNestedManyWithoutWinnerUserInput
     boards?: BoardCreateNestedManyWithoutUserInput
     moves?: MoveCreateNestedManyWithoutChosenByInput
+    userStats?: UserStatsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -10482,6 +11837,7 @@ export namespace Prisma {
     matchesWon?: MatchUncheckedCreateNestedManyWithoutWinnerUserInput
     boards?: BoardUncheckedCreateNestedManyWithoutUserInput
     moves?: MoveUncheckedCreateNestedManyWithoutChosenByInput
+    userStats?: UserStatsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -10506,6 +11862,7 @@ export namespace Prisma {
     matchesWon?: MatchUpdateManyWithoutWinnerUserNestedInput
     boards?: BoardUpdateManyWithoutUserNestedInput
     moves?: MoveUpdateManyWithoutChosenByNestedInput
+    userStats?: UserStatsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -10530,6 +11887,7 @@ export namespace Prisma {
     matchesWon?: MatchUncheckedUpdateManyWithoutWinnerUserNestedInput
     boards?: BoardUncheckedUpdateManyWithoutUserNestedInput
     moves?: MoveUncheckedUpdateManyWithoutChosenByNestedInput
+    userStats?: UserStatsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -10976,6 +12334,82 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserStatsCreateInput = {
+    totalMatches?: number
+    wins?: number
+    losses?: number
+    draws?: number
+    winStreak?: number
+    bestWinStreak?: number
+    lastMatchAt?: Date | string | null
+    user: UserCreateNestedOneWithoutUserStatsInput
+  }
+
+  export type UserStatsUncheckedCreateInput = {
+    userId: string
+    totalMatches?: number
+    wins?: number
+    losses?: number
+    draws?: number
+    winStreak?: number
+    bestWinStreak?: number
+    lastMatchAt?: Date | string | null
+  }
+
+  export type UserStatsUpdateInput = {
+    totalMatches?: IntFieldUpdateOperationsInput | number
+    wins?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    draws?: IntFieldUpdateOperationsInput | number
+    winStreak?: IntFieldUpdateOperationsInput | number
+    bestWinStreak?: IntFieldUpdateOperationsInput | number
+    lastMatchAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    user?: UserUpdateOneRequiredWithoutUserStatsNestedInput
+  }
+
+  export type UserStatsUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    totalMatches?: IntFieldUpdateOperationsInput | number
+    wins?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    draws?: IntFieldUpdateOperationsInput | number
+    winStreak?: IntFieldUpdateOperationsInput | number
+    bestWinStreak?: IntFieldUpdateOperationsInput | number
+    lastMatchAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type UserStatsCreateManyInput = {
+    userId: string
+    totalMatches?: number
+    wins?: number
+    losses?: number
+    draws?: number
+    winStreak?: number
+    bestWinStreak?: number
+    lastMatchAt?: Date | string | null
+  }
+
+  export type UserStatsUpdateManyMutationInput = {
+    totalMatches?: IntFieldUpdateOperationsInput | number
+    wins?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    draws?: IntFieldUpdateOperationsInput | number
+    winStreak?: IntFieldUpdateOperationsInput | number
+    bestWinStreak?: IntFieldUpdateOperationsInput | number
+    lastMatchAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type UserStatsUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    totalMatches?: IntFieldUpdateOperationsInput | number
+    wins?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    draws?: IntFieldUpdateOperationsInput | number
+    winStreak?: IntFieldUpdateOperationsInput | number
+    bestWinStreak?: IntFieldUpdateOperationsInput | number
+    lastMatchAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -11067,6 +12501,11 @@ export namespace Prisma {
     every?: MoveWhereInput
     some?: MoveWhereInput
     none?: MoveWhereInput
+  }
+
+  export type UserStatsNullableScalarRelationFilter = {
+    is?: UserStatsWhereInput | null
+    isNot?: UserStatsWhereInput | null
   }
 
   export type SortOrderInput = {
@@ -11506,6 +12945,57 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type UserStatsCountOrderByAggregateInput = {
+    userId?: SortOrder
+    totalMatches?: SortOrder
+    wins?: SortOrder
+    losses?: SortOrder
+    draws?: SortOrder
+    winStreak?: SortOrder
+    bestWinStreak?: SortOrder
+    lastMatchAt?: SortOrder
+  }
+
+  export type UserStatsAvgOrderByAggregateInput = {
+    totalMatches?: SortOrder
+    wins?: SortOrder
+    losses?: SortOrder
+    draws?: SortOrder
+    winStreak?: SortOrder
+    bestWinStreak?: SortOrder
+  }
+
+  export type UserStatsMaxOrderByAggregateInput = {
+    userId?: SortOrder
+    totalMatches?: SortOrder
+    wins?: SortOrder
+    losses?: SortOrder
+    draws?: SortOrder
+    winStreak?: SortOrder
+    bestWinStreak?: SortOrder
+    lastMatchAt?: SortOrder
+  }
+
+  export type UserStatsMinOrderByAggregateInput = {
+    userId?: SortOrder
+    totalMatches?: SortOrder
+    wins?: SortOrder
+    losses?: SortOrder
+    draws?: SortOrder
+    winStreak?: SortOrder
+    bestWinStreak?: SortOrder
+    lastMatchAt?: SortOrder
+  }
+
+  export type UserStatsSumOrderByAggregateInput = {
+    totalMatches?: SortOrder
+    wins?: SortOrder
+    losses?: SortOrder
+    draws?: SortOrder
+    winStreak?: SortOrder
+    bestWinStreak?: SortOrder
+  }
+
   export type SessionCreateNestedManyWithoutUserInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
@@ -11576,6 +13066,12 @@ export namespace Prisma {
     connect?: MoveWhereUniqueInput | MoveWhereUniqueInput[]
   }
 
+  export type UserStatsCreateNestedOneWithoutUserInput = {
+    create?: XOR<UserStatsCreateWithoutUserInput, UserStatsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserStatsCreateOrConnectWithoutUserInput
+    connect?: UserStatsWhereUniqueInput
+  }
+
   export type SessionUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
@@ -11644,6 +13140,12 @@ export namespace Prisma {
     connectOrCreate?: MoveCreateOrConnectWithoutChosenByInput | MoveCreateOrConnectWithoutChosenByInput[]
     createMany?: MoveCreateManyChosenByInputEnvelope
     connect?: MoveWhereUniqueInput | MoveWhereUniqueInput[]
+  }
+
+  export type UserStatsUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<UserStatsCreateWithoutUserInput, UserStatsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserStatsCreateOrConnectWithoutUserInput
+    connect?: UserStatsWhereUniqueInput
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -11806,6 +13308,16 @@ export namespace Prisma {
     deleteMany?: MoveScalarWhereInput | MoveScalarWhereInput[]
   }
 
+  export type UserStatsUpdateOneWithoutUserNestedInput = {
+    create?: XOR<UserStatsCreateWithoutUserInput, UserStatsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserStatsCreateOrConnectWithoutUserInput
+    upsert?: UserStatsUpsertWithoutUserInput
+    disconnect?: UserStatsWhereInput | boolean
+    delete?: UserStatsWhereInput | boolean
+    connect?: UserStatsWhereUniqueInput
+    update?: XOR<XOR<UserStatsUpdateToOneWithWhereWithoutUserInput, UserStatsUpdateWithoutUserInput>, UserStatsUncheckedUpdateWithoutUserInput>
+  }
+
   export type SessionUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
@@ -11944,6 +13456,16 @@ export namespace Prisma {
     update?: MoveUpdateWithWhereUniqueWithoutChosenByInput | MoveUpdateWithWhereUniqueWithoutChosenByInput[]
     updateMany?: MoveUpdateManyWithWhereWithoutChosenByInput | MoveUpdateManyWithWhereWithoutChosenByInput[]
     deleteMany?: MoveScalarWhereInput | MoveScalarWhereInput[]
+  }
+
+  export type UserStatsUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<UserStatsCreateWithoutUserInput, UserStatsUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserStatsCreateOrConnectWithoutUserInput
+    upsert?: UserStatsUpsertWithoutUserInput
+    disconnect?: UserStatsWhereInput | boolean
+    delete?: UserStatsWhereInput | boolean
+    connect?: UserStatsWhereUniqueInput
+    update?: XOR<XOR<UserStatsUpdateToOneWithWhereWithoutUserInput, UserStatsUpdateWithoutUserInput>, UserStatsUncheckedUpdateWithoutUserInput>
   }
 
   export type UserCreateNestedOneWithoutSessionsInput = {
@@ -12225,6 +13747,20 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutMovesInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMovesInput, UserUpdateWithoutMovesInput>, UserUncheckedUpdateWithoutMovesInput>
+  }
+
+  export type UserCreateNestedOneWithoutUserStatsInput = {
+    create?: XOR<UserCreateWithoutUserStatsInput, UserUncheckedCreateWithoutUserStatsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserStatsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutUserStatsNestedInput = {
+    create?: XOR<UserCreateWithoutUserStatsInput, UserUncheckedCreateWithoutUserStatsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserStatsInput
+    upsert?: UserUpsertWithoutUserStatsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUserStatsInput, UserUpdateWithoutUserStatsInput>, UserUncheckedUpdateWithoutUserStatsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -12735,6 +14271,31 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type UserStatsCreateWithoutUserInput = {
+    totalMatches?: number
+    wins?: number
+    losses?: number
+    draws?: number
+    winStreak?: number
+    bestWinStreak?: number
+    lastMatchAt?: Date | string | null
+  }
+
+  export type UserStatsUncheckedCreateWithoutUserInput = {
+    totalMatches?: number
+    wins?: number
+    losses?: number
+    draws?: number
+    winStreak?: number
+    bestWinStreak?: number
+    lastMatchAt?: Date | string | null
+  }
+
+  export type UserStatsCreateOrConnectWithoutUserInput = {
+    where: UserStatsWhereUniqueInput
+    create: XOR<UserStatsCreateWithoutUserInput, UserStatsUncheckedCreateWithoutUserInput>
+  }
+
   export type SessionUpsertWithWhereUniqueWithoutUserInput = {
     where: SessionWhereUniqueInput
     update: XOR<SessionUpdateWithoutUserInput, SessionUncheckedUpdateWithoutUserInput>
@@ -12971,6 +14532,37 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Move"> | Date | string
   }
 
+  export type UserStatsUpsertWithoutUserInput = {
+    update: XOR<UserStatsUpdateWithoutUserInput, UserStatsUncheckedUpdateWithoutUserInput>
+    create: XOR<UserStatsCreateWithoutUserInput, UserStatsUncheckedCreateWithoutUserInput>
+    where?: UserStatsWhereInput
+  }
+
+  export type UserStatsUpdateToOneWithWhereWithoutUserInput = {
+    where?: UserStatsWhereInput
+    data: XOR<UserStatsUpdateWithoutUserInput, UserStatsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserStatsUpdateWithoutUserInput = {
+    totalMatches?: IntFieldUpdateOperationsInput | number
+    wins?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    draws?: IntFieldUpdateOperationsInput | number
+    winStreak?: IntFieldUpdateOperationsInput | number
+    bestWinStreak?: IntFieldUpdateOperationsInput | number
+    lastMatchAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type UserStatsUncheckedUpdateWithoutUserInput = {
+    totalMatches?: IntFieldUpdateOperationsInput | number
+    wins?: IntFieldUpdateOperationsInput | number
+    losses?: IntFieldUpdateOperationsInput | number
+    draws?: IntFieldUpdateOperationsInput | number
+    winStreak?: IntFieldUpdateOperationsInput | number
+    bestWinStreak?: IntFieldUpdateOperationsInput | number
+    lastMatchAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type UserCreateWithoutSessionsInput = {
     id?: string
     email: string
@@ -12992,6 +14584,7 @@ export namespace Prisma {
     matchesWon?: MatchCreateNestedManyWithoutWinnerUserInput
     boards?: BoardCreateNestedManyWithoutUserInput
     moves?: MoveCreateNestedManyWithoutChosenByInput
+    userStats?: UserStatsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -13015,6 +14608,7 @@ export namespace Prisma {
     matchesWon?: MatchUncheckedCreateNestedManyWithoutWinnerUserInput
     boards?: BoardUncheckedCreateNestedManyWithoutUserInput
     moves?: MoveUncheckedCreateNestedManyWithoutChosenByInput
+    userStats?: UserStatsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -13054,6 +14648,7 @@ export namespace Prisma {
     matchesWon?: MatchUpdateManyWithoutWinnerUserNestedInput
     boards?: BoardUpdateManyWithoutUserNestedInput
     moves?: MoveUpdateManyWithoutChosenByNestedInput
+    userStats?: UserStatsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -13077,6 +14672,7 @@ export namespace Prisma {
     matchesWon?: MatchUncheckedUpdateManyWithoutWinnerUserNestedInput
     boards?: BoardUncheckedUpdateManyWithoutUserNestedInput
     moves?: MoveUncheckedUpdateManyWithoutChosenByNestedInput
+    userStats?: UserStatsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutOtpCodesInput = {
@@ -13100,6 +14696,7 @@ export namespace Prisma {
     matchesWon?: MatchCreateNestedManyWithoutWinnerUserInput
     boards?: BoardCreateNestedManyWithoutUserInput
     moves?: MoveCreateNestedManyWithoutChosenByInput
+    userStats?: UserStatsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOtpCodesInput = {
@@ -13123,6 +14720,7 @@ export namespace Prisma {
     matchesWon?: MatchUncheckedCreateNestedManyWithoutWinnerUserInput
     boards?: BoardUncheckedCreateNestedManyWithoutUserInput
     moves?: MoveUncheckedCreateNestedManyWithoutChosenByInput
+    userStats?: UserStatsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOtpCodesInput = {
@@ -13162,6 +14760,7 @@ export namespace Prisma {
     matchesWon?: MatchUpdateManyWithoutWinnerUserNestedInput
     boards?: BoardUpdateManyWithoutUserNestedInput
     moves?: MoveUpdateManyWithoutChosenByNestedInput
+    userStats?: UserStatsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOtpCodesInput = {
@@ -13185,6 +14784,7 @@ export namespace Prisma {
     matchesWon?: MatchUncheckedUpdateManyWithoutWinnerUserNestedInput
     boards?: BoardUncheckedUpdateManyWithoutUserNestedInput
     moves?: MoveUncheckedUpdateManyWithoutChosenByNestedInput
+    userStats?: UserStatsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutRequestedFriendshipsInput = {
@@ -13208,6 +14808,7 @@ export namespace Prisma {
     matchesWon?: MatchCreateNestedManyWithoutWinnerUserInput
     boards?: BoardCreateNestedManyWithoutUserInput
     moves?: MoveCreateNestedManyWithoutChosenByInput
+    userStats?: UserStatsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRequestedFriendshipsInput = {
@@ -13231,6 +14832,7 @@ export namespace Prisma {
     matchesWon?: MatchUncheckedCreateNestedManyWithoutWinnerUserInput
     boards?: BoardUncheckedCreateNestedManyWithoutUserInput
     moves?: MoveUncheckedCreateNestedManyWithoutChosenByInput
+    userStats?: UserStatsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRequestedFriendshipsInput = {
@@ -13259,6 +14861,7 @@ export namespace Prisma {
     matchesWon?: MatchCreateNestedManyWithoutWinnerUserInput
     boards?: BoardCreateNestedManyWithoutUserInput
     moves?: MoveCreateNestedManyWithoutChosenByInput
+    userStats?: UserStatsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReceivedFriendshipsInput = {
@@ -13282,6 +14885,7 @@ export namespace Prisma {
     matchesWon?: MatchUncheckedCreateNestedManyWithoutWinnerUserInput
     boards?: BoardUncheckedCreateNestedManyWithoutUserInput
     moves?: MoveUncheckedCreateNestedManyWithoutChosenByInput
+    userStats?: UserStatsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReceivedFriendshipsInput = {
@@ -13321,6 +14925,7 @@ export namespace Prisma {
     matchesWon?: MatchUpdateManyWithoutWinnerUserNestedInput
     boards?: BoardUpdateManyWithoutUserNestedInput
     moves?: MoveUpdateManyWithoutChosenByNestedInput
+    userStats?: UserStatsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRequestedFriendshipsInput = {
@@ -13344,6 +14949,7 @@ export namespace Prisma {
     matchesWon?: MatchUncheckedUpdateManyWithoutWinnerUserNestedInput
     boards?: BoardUncheckedUpdateManyWithoutUserNestedInput
     moves?: MoveUncheckedUpdateManyWithoutChosenByNestedInput
+    userStats?: UserStatsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutReceivedFriendshipsInput = {
@@ -13378,6 +14984,7 @@ export namespace Prisma {
     matchesWon?: MatchUpdateManyWithoutWinnerUserNestedInput
     boards?: BoardUpdateManyWithoutUserNestedInput
     moves?: MoveUpdateManyWithoutChosenByNestedInput
+    userStats?: UserStatsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReceivedFriendshipsInput = {
@@ -13401,6 +15008,7 @@ export namespace Prisma {
     matchesWon?: MatchUncheckedUpdateManyWithoutWinnerUserNestedInput
     boards?: BoardUncheckedUpdateManyWithoutUserNestedInput
     moves?: MoveUncheckedUpdateManyWithoutChosenByNestedInput
+    userStats?: UserStatsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutMatchesAsPlayer1Input = {
@@ -13424,6 +15032,7 @@ export namespace Prisma {
     matchesWon?: MatchCreateNestedManyWithoutWinnerUserInput
     boards?: BoardCreateNestedManyWithoutUserInput
     moves?: MoveCreateNestedManyWithoutChosenByInput
+    userStats?: UserStatsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMatchesAsPlayer1Input = {
@@ -13447,6 +15056,7 @@ export namespace Prisma {
     matchesWon?: MatchUncheckedCreateNestedManyWithoutWinnerUserInput
     boards?: BoardUncheckedCreateNestedManyWithoutUserInput
     moves?: MoveUncheckedCreateNestedManyWithoutChosenByInput
+    userStats?: UserStatsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMatchesAsPlayer1Input = {
@@ -13475,6 +15085,7 @@ export namespace Prisma {
     matchesWon?: MatchCreateNestedManyWithoutWinnerUserInput
     boards?: BoardCreateNestedManyWithoutUserInput
     moves?: MoveCreateNestedManyWithoutChosenByInput
+    userStats?: UserStatsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMatchesAsPlayer2Input = {
@@ -13498,6 +15109,7 @@ export namespace Prisma {
     matchesWon?: MatchUncheckedCreateNestedManyWithoutWinnerUserInput
     boards?: BoardUncheckedCreateNestedManyWithoutUserInput
     moves?: MoveUncheckedCreateNestedManyWithoutChosenByInput
+    userStats?: UserStatsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMatchesAsPlayer2Input = {
@@ -13526,6 +15138,7 @@ export namespace Prisma {
     matchesWon?: MatchCreateNestedManyWithoutWinnerUserInput
     boards?: BoardCreateNestedManyWithoutUserInput
     moves?: MoveCreateNestedManyWithoutChosenByInput
+    userStats?: UserStatsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMatchesAsCurrentTurnInput = {
@@ -13549,6 +15162,7 @@ export namespace Prisma {
     matchesWon?: MatchUncheckedCreateNestedManyWithoutWinnerUserInput
     boards?: BoardUncheckedCreateNestedManyWithoutUserInput
     moves?: MoveUncheckedCreateNestedManyWithoutChosenByInput
+    userStats?: UserStatsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMatchesAsCurrentTurnInput = {
@@ -13577,6 +15191,7 @@ export namespace Prisma {
     matchesAsCurrentTurn?: MatchCreateNestedManyWithoutCurrentTurnUserInput
     boards?: BoardCreateNestedManyWithoutUserInput
     moves?: MoveCreateNestedManyWithoutChosenByInput
+    userStats?: UserStatsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMatchesWonInput = {
@@ -13600,6 +15215,7 @@ export namespace Prisma {
     matchesAsCurrentTurn?: MatchUncheckedCreateNestedManyWithoutCurrentTurnUserInput
     boards?: BoardUncheckedCreateNestedManyWithoutUserInput
     moves?: MoveUncheckedCreateNestedManyWithoutChosenByInput
+    userStats?: UserStatsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMatchesWonInput = {
@@ -13689,6 +15305,7 @@ export namespace Prisma {
     matchesWon?: MatchUpdateManyWithoutWinnerUserNestedInput
     boards?: BoardUpdateManyWithoutUserNestedInput
     moves?: MoveUpdateManyWithoutChosenByNestedInput
+    userStats?: UserStatsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMatchesAsPlayer1Input = {
@@ -13712,6 +15329,7 @@ export namespace Prisma {
     matchesWon?: MatchUncheckedUpdateManyWithoutWinnerUserNestedInput
     boards?: BoardUncheckedUpdateManyWithoutUserNestedInput
     moves?: MoveUncheckedUpdateManyWithoutChosenByNestedInput
+    userStats?: UserStatsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutMatchesAsPlayer2Input = {
@@ -13746,6 +15364,7 @@ export namespace Prisma {
     matchesWon?: MatchUpdateManyWithoutWinnerUserNestedInput
     boards?: BoardUpdateManyWithoutUserNestedInput
     moves?: MoveUpdateManyWithoutChosenByNestedInput
+    userStats?: UserStatsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMatchesAsPlayer2Input = {
@@ -13769,6 +15388,7 @@ export namespace Prisma {
     matchesWon?: MatchUncheckedUpdateManyWithoutWinnerUserNestedInput
     boards?: BoardUncheckedUpdateManyWithoutUserNestedInput
     moves?: MoveUncheckedUpdateManyWithoutChosenByNestedInput
+    userStats?: UserStatsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutMatchesAsCurrentTurnInput = {
@@ -13803,6 +15423,7 @@ export namespace Prisma {
     matchesWon?: MatchUpdateManyWithoutWinnerUserNestedInput
     boards?: BoardUpdateManyWithoutUserNestedInput
     moves?: MoveUpdateManyWithoutChosenByNestedInput
+    userStats?: UserStatsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMatchesAsCurrentTurnInput = {
@@ -13826,6 +15447,7 @@ export namespace Prisma {
     matchesWon?: MatchUncheckedUpdateManyWithoutWinnerUserNestedInput
     boards?: BoardUncheckedUpdateManyWithoutUserNestedInput
     moves?: MoveUncheckedUpdateManyWithoutChosenByNestedInput
+    userStats?: UserStatsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutMatchesWonInput = {
@@ -13860,6 +15482,7 @@ export namespace Prisma {
     matchesAsCurrentTurn?: MatchUpdateManyWithoutCurrentTurnUserNestedInput
     boards?: BoardUpdateManyWithoutUserNestedInput
     moves?: MoveUpdateManyWithoutChosenByNestedInput
+    userStats?: UserStatsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMatchesWonInput = {
@@ -13883,6 +15506,7 @@ export namespace Prisma {
     matchesAsCurrentTurn?: MatchUncheckedUpdateManyWithoutCurrentTurnUserNestedInput
     boards?: BoardUncheckedUpdateManyWithoutUserNestedInput
     moves?: MoveUncheckedUpdateManyWithoutChosenByNestedInput
+    userStats?: UserStatsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type BoardUpsertWithWhereUniqueWithoutMatchInput = {
@@ -13969,6 +15593,7 @@ export namespace Prisma {
     matchesAsCurrentTurn?: MatchCreateNestedManyWithoutCurrentTurnUserInput
     matchesWon?: MatchCreateNestedManyWithoutWinnerUserInput
     moves?: MoveCreateNestedManyWithoutChosenByInput
+    userStats?: UserStatsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBoardsInput = {
@@ -13992,6 +15617,7 @@ export namespace Prisma {
     matchesAsCurrentTurn?: MatchUncheckedCreateNestedManyWithoutCurrentTurnUserInput
     matchesWon?: MatchUncheckedCreateNestedManyWithoutWinnerUserInput
     moves?: MoveUncheckedCreateNestedManyWithoutChosenByInput
+    userStats?: UserStatsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBoardsInput = {
@@ -14068,6 +15694,7 @@ export namespace Prisma {
     matchesAsCurrentTurn?: MatchUpdateManyWithoutCurrentTurnUserNestedInput
     matchesWon?: MatchUpdateManyWithoutWinnerUserNestedInput
     moves?: MoveUpdateManyWithoutChosenByNestedInput
+    userStats?: UserStatsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBoardsInput = {
@@ -14091,6 +15718,7 @@ export namespace Prisma {
     matchesAsCurrentTurn?: MatchUncheckedUpdateManyWithoutCurrentTurnUserNestedInput
     matchesWon?: MatchUncheckedUpdateManyWithoutWinnerUserNestedInput
     moves?: MoveUncheckedUpdateManyWithoutChosenByNestedInput
+    userStats?: UserStatsUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type MatchCreateWithoutMovesInput = {
@@ -14145,6 +15773,7 @@ export namespace Prisma {
     matchesAsCurrentTurn?: MatchCreateNestedManyWithoutCurrentTurnUserInput
     matchesWon?: MatchCreateNestedManyWithoutWinnerUserInput
     boards?: BoardCreateNestedManyWithoutUserInput
+    userStats?: UserStatsCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMovesInput = {
@@ -14168,6 +15797,7 @@ export namespace Prisma {
     matchesAsCurrentTurn?: MatchUncheckedCreateNestedManyWithoutCurrentTurnUserInput
     matchesWon?: MatchUncheckedCreateNestedManyWithoutWinnerUserInput
     boards?: BoardUncheckedCreateNestedManyWithoutUserInput
+    userStats?: UserStatsUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMovesInput = {
@@ -14244,6 +15874,7 @@ export namespace Prisma {
     matchesAsCurrentTurn?: MatchUpdateManyWithoutCurrentTurnUserNestedInput
     matchesWon?: MatchUpdateManyWithoutWinnerUserNestedInput
     boards?: BoardUpdateManyWithoutUserNestedInput
+    userStats?: UserStatsUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMovesInput = {
@@ -14267,6 +15898,119 @@ export namespace Prisma {
     matchesAsCurrentTurn?: MatchUncheckedUpdateManyWithoutCurrentTurnUserNestedInput
     matchesWon?: MatchUncheckedUpdateManyWithoutWinnerUserNestedInput
     boards?: BoardUncheckedUpdateManyWithoutUserNestedInput
+    userStats?: UserStatsUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutUserStatsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    name: string
+    displayName?: string | null
+    image?: string | null
+    avatarUrl?: string | null
+    emailVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastOnlineAt?: Date | string | null
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    otpCodes?: EmailOtpCreateNestedManyWithoutUserInput
+    requestedFriendships?: FriendshipCreateNestedManyWithoutRequesterInput
+    receivedFriendships?: FriendshipCreateNestedManyWithoutAddresseeInput
+    matchesAsPlayer1?: MatchCreateNestedManyWithoutPlayer1Input
+    matchesAsPlayer2?: MatchCreateNestedManyWithoutPlayer2Input
+    matchesAsCurrentTurn?: MatchCreateNestedManyWithoutCurrentTurnUserInput
+    matchesWon?: MatchCreateNestedManyWithoutWinnerUserInput
+    boards?: BoardCreateNestedManyWithoutUserInput
+    moves?: MoveCreateNestedManyWithoutChosenByInput
+  }
+
+  export type UserUncheckedCreateWithoutUserStatsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    name: string
+    displayName?: string | null
+    image?: string | null
+    avatarUrl?: string | null
+    emailVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastOnlineAt?: Date | string | null
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    otpCodes?: EmailOtpUncheckedCreateNestedManyWithoutUserInput
+    requestedFriendships?: FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+    receivedFriendships?: FriendshipUncheckedCreateNestedManyWithoutAddresseeInput
+    matchesAsPlayer1?: MatchUncheckedCreateNestedManyWithoutPlayer1Input
+    matchesAsPlayer2?: MatchUncheckedCreateNestedManyWithoutPlayer2Input
+    matchesAsCurrentTurn?: MatchUncheckedCreateNestedManyWithoutCurrentTurnUserInput
+    matchesWon?: MatchUncheckedCreateNestedManyWithoutWinnerUserInput
+    boards?: BoardUncheckedCreateNestedManyWithoutUserInput
+    moves?: MoveUncheckedCreateNestedManyWithoutChosenByInput
+  }
+
+  export type UserCreateOrConnectWithoutUserStatsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutUserStatsInput, UserUncheckedCreateWithoutUserStatsInput>
+  }
+
+  export type UserUpsertWithoutUserStatsInput = {
+    update: XOR<UserUpdateWithoutUserStatsInput, UserUncheckedUpdateWithoutUserStatsInput>
+    create: XOR<UserCreateWithoutUserStatsInput, UserUncheckedCreateWithoutUserStatsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutUserStatsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutUserStatsInput, UserUncheckedUpdateWithoutUserStatsInput>
+  }
+
+  export type UserUpdateWithoutUserStatsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastOnlineAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    otpCodes?: EmailOtpUpdateManyWithoutUserNestedInput
+    requestedFriendships?: FriendshipUpdateManyWithoutRequesterNestedInput
+    receivedFriendships?: FriendshipUpdateManyWithoutAddresseeNestedInput
+    matchesAsPlayer1?: MatchUpdateManyWithoutPlayer1NestedInput
+    matchesAsPlayer2?: MatchUpdateManyWithoutPlayer2NestedInput
+    matchesAsCurrentTurn?: MatchUpdateManyWithoutCurrentTurnUserNestedInput
+    matchesWon?: MatchUpdateManyWithoutWinnerUserNestedInput
+    boards?: BoardUpdateManyWithoutUserNestedInput
+    moves?: MoveUpdateManyWithoutChosenByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutUserStatsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastOnlineAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    otpCodes?: EmailOtpUncheckedUpdateManyWithoutUserNestedInput
+    requestedFriendships?: FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+    receivedFriendships?: FriendshipUncheckedUpdateManyWithoutAddresseeNestedInput
+    matchesAsPlayer1?: MatchUncheckedUpdateManyWithoutPlayer1NestedInput
+    matchesAsPlayer2?: MatchUncheckedUpdateManyWithoutPlayer2NestedInput
+    matchesAsCurrentTurn?: MatchUncheckedUpdateManyWithoutCurrentTurnUserNestedInput
+    matchesWon?: MatchUncheckedUpdateManyWithoutWinnerUserNestedInput
+    boards?: BoardUncheckedUpdateManyWithoutUserNestedInput
+    moves?: MoveUncheckedUpdateManyWithoutChosenByNestedInput
   }
 
   export type SessionCreateManyUserInput = {

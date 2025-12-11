@@ -6,6 +6,7 @@ import { authRoutes } from "./routes/auth.routes.js";
 import { userRoutes } from "./routes/user.routes.js";
 import { friendRoutes } from "./routes/friends.routes.js";
 import { matchRoutes } from "./routes/match.routes.js";
+import { leaderboardRoutes } from "./routes/leaderboard.routes.js";
 import { setupWebSocket } from "./websocket.js";
 import { ApiError } from "./utils/ApiError.js";
 
@@ -24,7 +25,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/friends", friendRoutes);
 app.use("/api/matches", matchRoutes);
-
+app.use("/api/leaderboard", leaderboardRoutes);
 app.get("/", (_req, res) => {
   res.send("Bingo API is running");
 });
